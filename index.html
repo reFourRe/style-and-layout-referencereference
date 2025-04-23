@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hard Money Fix and Flip Analyzer</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    h1, h2, h3 { text-align: center; margin-top: 20px; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input, select { padding: 8px; width: 100%; margin-top: 5px; }
+    small { display: block; color: #555; margin-bottom: 10px; }
+    .section, .form-container { background: #fff; padding: 20px; margin-top: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .summary, .combined-report-section { background: #e8f4ea; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 6px solid #4CAF50; }
+    .highlighted { color: red; font-size: 1.3em; font-weight: bold; margin-top: 20px; display: block; }
+    @media screen and (max-width: 600px) {
+      body { padding: 10px; }
+      input, select { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>reFour's Hard Money, Fix & Flip Analyzer</h1>
+  <h2 style="margin-top: 0; color: rgb(0, 0, 0);">Our Hard Money Fix & Flip Analyzer form ensures that both borrowers and lenders can maximize their investments. For borrowers, it helps outline precise costs and timelines to keep projects on track. For lenders, it provides a clear picture of expected returns and the financial health of each project, enabling informed decisions that benefit both parties.</h2>
+
+  
+  <div class="section">
+    <label for="financeType">Finance Type</label>
+    <select id="financeType" onchange="toggleFinance()">
+    
+      <option value="hardmoney">Hard Money Loan</option>
+    </select>
+    <small>Hard money loan terms and conditions can vary significantly depending on the lender. Each lender may have different requirements for interest rates, loan-to-value (LTV) ratios, repayment schedules, fees, and borrower qualifications. It's important for investors to carefully review each lender's specific terms to ensure the loan aligns with their investment strategy and project timeline.</small>
+  </div>
+
+  <div class="section" id="flipSection" style="display: none;">
+    <h2>Your Cost For The Money</h2>
+    <label for="loanAmount">Loan Amount</label>
+    <input type="number" id="loanAmount" oninput="updateCalculations()" />
+    <small>Purchase price of the property.</small>
+
+    <label for="rehabCosts">Rehab Costs</label>
+    <input type="number" id="rehabCosts" oninput="updateCalculations()" />
+    <small>Estimated renovation budget.</small>
+
+    <label for="closingCosts">Closing Costs</label>
+    <select id="closingCosts" onchange="updateCalculations()">
+      <option value="0.04">4% of Purchase Price</option>
+      <option value="0.05">5% of Purchase Price</option>
+      <option value="0.06">6% of Purchase Price</option>
+      <option value="0.07">7% of Purchase Price</option>
+    </select>
+    <small>Choose the percentage based on your purchase price.</small>
+
+    <label for="totalLoanAmount">Total Loan Amount</label>
+    <input type="number" id="totalLoanAmount" readonly />
+    <small>Loan + Rehab + Closing Costs (interest calculated on this amount).</small>
+
+    <label for="interestRate">Interest Rate (%)</label>
+    <select id="interestRate" onchange="updateCalculations()">
+      <option value="8">8%</option>
+      <option value="9">9%</option>
+      <option value="10">10%</option>
+      <option value="11">11%</option>
+      <option value="12">12%</option>
+      <option value="13">13%</option>
+      <option value="14">14%</option>
+      <option value="15">15%</option>
+      <option value="16">16%</option>
+      <option value="17">17%</option>
+      <option value="18">18%</option>
+    </select>
+
+    <label for="loanTerm">Loan Term (Months)</label>
+    <select id="loanTerm" onchange="updateCalculations()">
+      <option value="3">3 Months</option>
+      <option value="6">6 Months</option>
+      <option value="12">12 Months</option>
+      <option value="18">18 Months</option>
+      <option value="24">24 Months</option>
+    </select>
+
+    <label for="monthlyInterestOnlyPayment">Monthly Interest-Only Payment</label>
+    <input type="number" id="monthlyInterestOnlyPayment" readonly />
+
+    <label for="totalLoanCost">Total Loan Interest Over Term</label>
+    <input type="number" id="totalLoanCost" readonly />
+  </div>
+
+  <div class="combined-report-section" id="combinedReportSection" style="display: none;">
+    <h2>Hard Money Loan - Breakdown Report</h2>
+    <ul>
+      <li><strong>Loan Amount:</strong> $<span id="reportLoanAmount"></span></li>
+      <li><strong>Rehab Costs:</strong> $<span id="reportRehabCosts"></span></li>
+      <li><strong>Closing Costs:</strong> $<span id="reportClosingCosts"></span></li>
+      <li><strong>Total Loan Amount:</strong> $<span id="reportTotalLoanAmount"></span></li>
+      <li><strong>Interest Rate:</strong> <span id="reportInterestRate"></span>%</li>
+      <li><strong>Loan Term:</strong> <span id="reportLoanTerm"></span> months</li>
+      <li><strong>Monthly Interest:</strong> $<span id="reportMonthlyInterestOnlyPayment"></span></li>
+      <li><strong>Total Interest:</strong> $<span id="reportTotalLoanCost"></span></li>
+    </ul>
+    <div class="highlighted">Total Paid Back: $<span id="reportTotalAmountPaidBack"></span></div>
+  </div>
+
+  <div class="section" id="fixAndFlipSection" style="display: none;">
+    <h2>Fix & Flip Key Metrics</h2>
+    <label for="arv">After Repair Value (ARV)</label>
+    <input type="number" id="arv" oninput="updateFixFlipCalculations()" />
+    <small>Estimated value after renovations.</small>
+
+    <label for="ltv">Loan-to-Value (LTV)</label>
+    <select id="ltv" onchange="updateFixFlipCalculations()">
+      <option value="65">65%</option>
+      <option value="70">70%</option>
+      <option value="75">75%</option>
+      <option value="80">80%</option>
+      <option value="85">85%</option>
+      <option value="90">90%</option>
+      <option value="95">95%</option>
+    </select>
+    <small>Used to estimate max allowable loan based on ARV.</small>
+
+    <label for="maxLoanAllowed">Max Loan Allowed Based on LTV</label>
+    <input type="number" id="maxLoanAllowed" readonly />
+
+    <label for="downPayment">Down Payment (30% of Total Loan Amount)</label>
+    <input type="number" id="downPayment" readonly />
+
+    <label for="loanAmountBelowMax">Loan Amount Below Max Loan Allowed</label>
+    <input type="number" id="loanAmountBelowMax" readonly />
+    <small>How much you saved on your offer to the seller below Max Allowable Offer (MAO) in dollar amount.</small>
+
+    <label for="maximumAllowableOffer">Maximum Allowable Offer (MAO)</label>
+    <input type="number" id="maximumAllowableOffer" readonly />
+  </div>
+
+  <div class="combined-report-section" id="combinedReportSection2" style="display: none;">
+    <h2>Fix & Flip - Breakdown Report</h2>
+    <ul>
+      <li><strong>Max Loan Allowed:</strong> $<span id="reportMaxLoanAllowed"></span></li>
+      <li><strong>Down Payment:</strong> $<span id="reportDownPayment"></span></li>
+      <li><strong>Loan Amount Below Max:</strong> $<span id="reportLoanAmountBelowMax"></span></li>
+      <li><strong>Maximum Allowable Offer (MAO):</strong> $<span id="reportMaximumAllowableOffer"></span></li>
+    </ul>
+  </div>
+
+  <script>
+    function updateCalculations() {
+      var loanAmount = parseFloat(document.getElementById('loanAmount').value) || 0;
+      var rehabCosts = parseFloat(document.getElementById('rehabCosts').value) || 0;
+      var closingCostsPercentage = parseFloat(document.getElementById('closingCosts').value);
+      var closingCosts = loanAmount * closingCostsPercentage;
+      var totalLoanAmount = loanAmount + rehabCosts + closingCosts;
+
+      var interestRate = parseFloat(document.getElementById('interestRate').value) / 100 || 0;
+      var loanTerm = parseInt(document.getElementById('loanTerm').value) || 12;
+
+      var monthlyInterestOnlyPayment = totalLoanAmount * (interestRate / 12);
+      var totalLoanCost = monthlyInterestOnlyPayment * loanTerm;
+
+      document.getElementById('totalLoanAmount').value = totalLoanAmount.toFixed(2);
+      document.getElementById('monthlyInterestOnlyPayment').value = monthlyInterestOnlyPayment.toFixed(2);
+      document.getElementById('totalLoanCost').value = totalLoanCost.toFixed(2);
+
+      // Breakdown report
+      document.getElementById('reportLoanAmount').textContent = loanAmount.toFixed(2);
+      document.getElementById('reportRehabCosts').textContent = rehabCosts.toFixed(2);
+      document.getElementById('reportClosingCosts').textContent = closingCosts.toFixed(2);
+      document.getElementById('reportTotalLoanAmount').textContent = totalLoanAmount.toFixed(2);
+      document.getElementById('reportInterestRate').textContent = (interestRate * 100).toFixed(2);
+      document.getElementById('reportLoanTerm').textContent = loanTerm;
+      document.getElementById('reportMonthlyInterestOnlyPayment').textContent = monthlyInterestOnlyPayment.toFixed(2);
+      document.getElementById('reportTotalLoanCost').textContent = totalLoanCost.toFixed(2);
+
+      var totalAmountPaidBack = totalLoanAmount + totalLoanCost;
+      document.getElementById('reportTotalAmountPaidBack').textContent = totalAmountPaidBack.toFixed(2);
+    }
+
+    function updateFixFlipCalculations() {
+      var arv = parseFloat(document.getElementById('arv').value) || 0;
+      var ltv = parseFloat(document.getElementById('ltv').value) || 0;
+
+      var maxLoanAllowed = arv * (ltv / 100);
+      var totalLoanAmount = parseFloat(document.getElementById('totalLoanAmount').value) || 0;
+      var loanAmountBelowMax = maxLoanAllowed - totalLoanAmount;
+      var downPayment = totalLoanAmount * 0.30;
+
+      // Update MAO formula: 70% of ARV - rehab costs
+      var rehabCosts = parseFloat(document.getElementById('rehabCosts').value) || 0;
+      var maximumAllowableOffer = (arv * 0.70) - rehabCosts;
+
+      document.getElementById('maxLoanAllowed').value = maxLoanAllowed.toFixed(2);
+      document.getElementById('downPayment').value = downPayment.toFixed(2);
+      document.getElementById('loanAmountBelowMax').value = loanAmountBelowMax.toFixed(2);
+      document.getElementById('maximumAllowableOffer').value = maximumAllowableOffer.toFixed(2);
+
+      // Fix and flip report
+      document.getElementById('reportMaxLoanAllowed').textContent = maxLoanAllowed.toFixed(2);
+      document.getElementById('reportDownPayment').textContent = downPayment.toFixed(2);
+      document.getElementById('reportLoanAmountBelowMax').textContent = loanAmountBelowMax.toFixed(2);
+      document.getElementById('reportMaximumAllowableOffer').textContent = maximumAllowableOffer.toFixed(2);
+    }
+
+    function toggleFinance() {
+      var financeType = document.getElementById('financeType').value;
+      if (financeType === 'hardmoney') {
+        document.getElementById('flipSection').style.display = 'block';
+        document.getElementById('fixAndFlipSection').style.display = 'block';
+        document.getElementById('combinedReportSection').style.display = 'block';
+        document.getElementById('combinedReportSection2').style.display = 'block';
+      } else {
+        document.getElementById('flipSection').style.display = 'none';
+        document.getElementById('fixAndFlipSection').style.display = 'none';
+        document.getElementById('combinedReportSection').style.display = 'none';
+        document.getElementById('combinedReportSection2').style.display = 'none';
+      }
+    }
+
+    toggleFinance(); // Default to hide hard money options on page load
+  </script>
+</body>
+</html>
