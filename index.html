@@ -182,6 +182,16 @@
 
         <label for="roi">Projected ROI</label>
         <input type="number" id="roi" placeholder="Enter Projected ROI (%)" />
+
+        <!-- Additional Key Metrics -->
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" />
+
+        <label for="totalInvestment">Total Investment</label>
+        <input type="number" id="totalInvestment" placeholder="Enter Total Investment" />
+
+        <label for="totalLoanAmount">Total Loan Amount</label>
+        <input type="number" id="totalLoanAmount" placeholder="Enter Total Loan Amount" />
     </div>
 
     <!-- Fix & Flip Breakdown Report Section -->
@@ -215,6 +225,9 @@
     const propertyPurchasePriceInput = document.getElementById('propertyPurchasePrice');
     const renovationBudgetInput = document.getElementById('renovationBudget');
     const holdingCostsInput = document.getElementById('holdingCosts');
+    const purchasePriceInput = document.getElementById('purchasePrice');
+    const totalInvestmentInput = document.getElementById('totalInvestment');
+    const totalLoanAmountInput = document.getElementById('totalLoanAmount');
 
     const displayLoanAmount = document.getElementById('displayLoanAmount');
     const monthlyInterestPayment = document.getElementById('monthlyInterestPayment');
@@ -246,15 +259,27 @@
         monthlyInterestPaymentBreakdown.textContent = formatCurrency(monthlyInterest);
         totalLoanInterestBreakdown.textContent = formatCurrency(totalInterest);
 
-        // Calculate and update total investment (simple example: sum of loan and renovation)
-        const totalInvestment = loanAmount + (parseFloat(renovationBudgetInput.value) || 0);
+        // Update Total Investment Report
+        const purchasePrice = parseFloat(purchasePriceInput.value) || 0;
+        const renovationBudget = parseFloat(renovationBudgetInput.value) || 0;
+        const holdingCosts = parseFloat(holdingCostsInput.value) || 0;
+        const totalInvestment = purchasePrice + renovationBudget + holdingCosts;
+
         totalInvestmentReport.textContent = formatCurrency(totalInvestment);
     }
 
     loanAmountInput.addEventListener('input', updateLoanBreakdown);
     interestRateInput.addEventListener('change', updateLoanBreakdown);
     loanTermInput.addEventListener('change', updateLoanBreakdown);
+    arvInput.addEventListener('input', updateLoanBreakdown);
+    propertyPurchasePriceInput.addEventListener('input', updateLoanBreakdown);
     renovationBudgetInput.addEventListener('input', updateLoanBreakdown);
+    holdingCostsInput.addEventListener('input', updateLoanBreakdown);
+    purchasePriceInput.addEventListener('input', updateLoanBreakdown);
+    totalInvestmentInput.addEventListener('input', updateLoanBreakdown);
+    totalLoanAmountInput.addEventListener('input', updateLoanBreakdown);
+
+    updateLoanBreakdown(); // Initial calculation
 </script>
 </body>
 </html>
