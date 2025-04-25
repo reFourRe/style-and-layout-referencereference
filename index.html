@@ -165,6 +165,25 @@
         </div>
     </div>
 
+    <!-- Monthly Property Expenses Section -->
+    <div class="section">
+        <h3>Monthly Property Expenses</h3>
+        <label for="propertyTaxes">Property Taxes</label>
+        <input type="number" id="propertyTaxes" placeholder="Enter Property Taxes" />
+        
+        <label for="insurance">Insurance</label>
+        <input type="number" id="insurance" placeholder="Enter Insurance" />
+        
+        <label for="utilities">Utilities</label>
+        <input type="number" id="utilities" placeholder="Enter Utilities" />
+        
+        <label for="maintenance">Maintenance / Misc. Holding Costs</label>
+        <input type="number" id="maintenance" placeholder="Enter Maintenance Costs" />
+        
+        <label for="monthlyPropertyExpenseTotal">Monthly Property Expense Total</label>
+        <input type="number" id="monthlyPropertyExpenseTotal" readonly />
+    </div>
+
     <!-- Fix & Flip Key Metrics Section -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
@@ -184,18 +203,35 @@
         <input type="number" id="roi" placeholder="Enter Projected ROI (%)" />
     </div>
 
-    <!-- Fix & Flip Breakdown Report Section -->
-    <div class="report-section">
-        <h3>Fix & Flip Breakdown Report:</h3>
-        <div class="report">
-            <label>Loan Amount: <span id="displayLoanAmountBreakdown" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Monthly Interest Payment: <span id="monthlyInterestPaymentBreakdown" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Loan Interest: <span id="totalLoanInterestBreakdown" class="green-text">$0</span></label>
-        </div>
+    <!-- Fix & Flip Key Metrics Breakdown Section -->
+    <div class="section">
+        <h3>Fix & Flip Key Metrics Breakdown</h3>
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" />
+        
+        <label for="rehabCosts">Rehab Costs</label>
+        <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" />
+        
+        <label for="closingCostsBreakdown">Closing Costs</label>
+        <input type="number" id="closingCostsBreakdown" placeholder="Enter Closing Costs" />
+        
+        <label for="sellingCosts">Selling Costs</label>
+        <input type="number" id="sellingCosts" placeholder="Enter Selling Costs" />
+        
+        <label for="loanCosts">Loan Costs</label>
+        <input type="number" id="loanCosts" placeholder="Enter Loan Costs" />
+        
+        <label for="holdingCostsBreakdown">Holding Costs</label>
+        <input type="number" id="holdingCostsBreakdown" placeholder="Enter Holding Costs" />
+        
+        <label for="totalCostBreakdown">Total Cost Breakdown</label>
+        <input type="number" id="totalCostBreakdown" readonly />
+
+        <label for="netProfit">Net Profit (post-sale)</label>
+        <input type="number" id="netProfit" readonly />
+        
+        <label for="breakevenPrice">Breakeven Price</label>
+        <input type="number" id="breakevenPrice" readonly />
     </div>
 
     <!-- Total Investment Breakdown Report Section -->
@@ -208,53 +244,12 @@
 </div>
 
 <script>
-    const loanAmountInput = document.getElementById('loanAmount');
-    const interestRateInput = document.getElementById('interestRate');
-    const loanTermInput = document.getElementById('loanTerm');
-    const arvInput = document.getElementById('arv');
-    const propertyPurchasePriceInput = document.getElementById('propertyPurchasePrice');
-    const renovationBudgetInput = document.getElementById('renovationBudget');
-    const holdingCostsInput = document.getElementById('holdingCosts');
+    // JavaScript logic here (add logic for calculating the fields above)
+</script>
 
-    const displayLoanAmount = document.getElementById('displayLoanAmount');
-    const monthlyInterestPayment = document.getElementById('monthlyInterestPayment');
-    const totalLoanInterest = document.getElementById('totalLoanInterest');
+</body>
+</html>
 
-    const displayLoanAmountBreakdown = document.getElementById('displayLoanAmountBreakdown');
-    const monthlyInterestPaymentBreakdown = document.getElementById('monthlyInterestPaymentBreakdown');
-    const totalLoanInterestBreakdown = document.getElementById('totalLoanInterestBreakdown');
-
-    const totalInvestmentReport = document.getElementById('totalInvestmentReport');
-
-    function formatCurrency(amount) {
-        return `$${parseFloat(amount).toFixed(2).toLocaleString()}`;
-    }
-
-    function updateLoanBreakdown() {
-        const loanAmount = parseFloat(loanAmountInput.value) || 0;
-        const interestRate = parseFloat(interestRateInput.value) || 0;
-        const loanTerm = parseInt(loanTermInput.value) || 0;
-
-        const monthlyInterest = (loanAmount * (interestRate / 100)) / 12;
-        const totalInterest = monthlyInterest * loanTerm;
-
-        displayLoanAmount.textContent = formatCurrency(loanAmount);
-        monthlyInterestPayment.textContent = formatCurrency(monthlyInterest);
-        totalLoanInterest.textContent = formatCurrency(totalInterest);
-
-        displayLoanAmountBreakdown.textContent = formatCurrency(loanAmount);
-        monthlyInterestPaymentBreakdown.textContent = formatCurrency(monthlyInterest);
-        totalLoanInterestBreakdown.textContent = formatCurrency(totalInterest);
-
-        // Calculate and update total investment (simple example: sum of loan and renovation)
-        const totalInvestment = loanAmount + (parseFloat(renovationBudgetInput.value) || 0);
-        totalInvestmentReport.textContent = formatCurrency(totalInvestment);
-    }
-
-    loanAmountInput.addEventListener('input', updateLoanBreakdown);
-    interestRateInput.addEventListener('change', updateLoanBreakdown);
-    loanTermInput.addEventListener('change', updateLoanBreakdown);
-    renovationBudgetInput.addEventListener('input', updateLoanBreakdown);
 
     // Initial calculation
     updateLoanBreakdown();
