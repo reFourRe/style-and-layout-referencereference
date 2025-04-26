@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -71,13 +71,9 @@
             margin-bottom: 10px;
         }
 
-        .green {
-            color: green;
-            font-weight: bold;
-        }
-
         .green-text {
-            color: green;
+            color: limegreen;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -109,9 +105,8 @@
     <!-- Loan Terms and Conditions Section -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
-        <label for="loanAmount">Loan Amount</label>
-        <input type="number" id="loanAmount" placeholder="Enter Loan Amount" oninput="calculateLoanDetails()" />
-
+        <label for="purchasePrice" class="block text-sm font-bold mb-2">Purchase Price</label>
+  <input type="number" id="purchasePrice" name="purchasePrice" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600" placeholder="Enter Purchase Price">
         <label for="interestRate">Interest Rate (%)</label>
         <select id="interestRate" onchange="calculateLoanDetails()">
             <option value="5">5%</option>
@@ -150,13 +145,18 @@
             <option value="5">5%</option>
         </select>
 
-        <!-- Points and Loan Fees Section -->
-        <label for="loanPoints">Loan Points (%)</label>
-        <input type="number" id="loanPoints" placeholder="Enter Loan Points" oninput="calculateLoanDetails()" />
+         <label for="loanPoints" class="block text-sm font-bold mb-2">Loan Points (%)</label>
+    <select id="loanPoints" name="loanPoints" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600">
+      <option value="1">1% = Equals Loan Fees</option>
+      <option value="2">2% = Equals Loan Fees</option>
+      <option value="3">3% = Equals Loan Fees</option>
+      <option value="4">4% = Equals Loan Fees</option>
+      <option value="5">5% = Equals Loan Fees</option>
+    </select>
 
-        <label for="loanFees">Loan Fees ($)</label>
-        <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
-    </div>
+        <label for="loanFees" class="block text-sm font-bold mb-2">Loan Fees ($)</label>
+    <input type="text" id="loanFees" name="loanFees" readonly class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600" placeholder="Auto-calculated">
+  </div>
 
     <!-- Hard Money / Loan Summary Report Section -->
     <div class="report-section">
@@ -211,35 +211,32 @@
         const interestRate = parseFloat(document.getElementById("interestRate").value) / 100 || 0;
         const loanTerm = parseInt(document.getElementById("loanTerm").value) || 0;
         const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
-        const ltv = parseFloat(document.getElementById("ltv").value) / 100 || 0;
-        const closingCosts = parseFloat(document.getElementById("closingCosts").value) / 100 || 0;
-
         const loanFees = loanAmount * loanPoints / 100;
         const monthlyInterestPayment = (loanAmount * interestRate) / 12;
         const totalLoanInterest = monthlyInterestPayment * loanTerm;
 
-        // Updating loan fees field
         document.getElementById("loanFees").value = loanFees.toFixed(2);
-
-        // Displaying the calculations
         document.getElementById("displayLoanAmount").textContent = "$" + loanAmount.toFixed(2);
         document.getElementById("monthlyInterestPayment").textContent = "$" + monthlyInterestPayment.toFixed(2);
         document.getElementById("totalLoanInterest").textContent = "$" + totalLoanInterest.toFixed(2);
         document.getElementById("displayLoanFees").textContent = "$" + loanFees.toFixed(2);
 
-        // Fix & Flip Metrics Calculations
-        const rehabBudget = parseFloat(document.getElementById("rehabBudget").value) || 0;
-        const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
-        const afterRepairValue = parseFloat(document.getElementById("afterRepairValue").value) || 0;
+        const rehab = parseFloat(document.getElementById("rehabBudget").value) || 0;
+        const purchase = parseFloat(document.getElementById("purchasePrice").value) || 0;
+        const arv = parseFloat(document.getElementById("afterRepairValue").value) || 0;
+        const hold = parseFloat(document.getElementById("holdingCosts").value) || 0;
 
-        const estimatedProfit = afterRepairValue - (purchasePrice + rehabBudget);
-        const netProfit = estimatedProfit - (loanAmount + loanFees + rehabBudget);
+        const holdingPeriod = loanTerm; // using loan term as proxy for hold period
+        const totalHolding = hold * holdingPeriod;
+        const totalRehabCost = rehab + totalHolding;
+        const estimatedProfit = arv - (purchase + totalRehabCost + loanFees + totalLoanInterest);
+        const netProfit = estimatedProfit > 0 ? estimatedProfit : 0;
 
-        // Displaying fix & flip metrics
+        document.getElementById("displayRehabCost").textContent = "$" + totalRehabCost.toFixed(2);
         document.getElementById("displayEstimatedProfit").textContent = "$" + estimatedProfit.toFixed(2);
-        document.getElementById("displayRehabCost").textContent = "$" + rehabBudget.toFixed(2);
         document.getElementById("displayNetProfit").textContent = "$" + netProfit.toFixed(2);
     }
 </script>
 </body>
 </html>
+
