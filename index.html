@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,23 +12,19 @@
             margin: 0;
             padding: 0;
         }
-
         .container {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
         }
-
         h1, h2 {
             text-align: center;
             color: white;
         }
-
         h2 {
             margin-top: 10px;
             font-size: 1.2em;
         }
-
         .section {
             background-color: #111;
             padding: 20px;
@@ -36,14 +32,12 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
-
         .section label {
             font-weight: bold;
             display: block;
             margin-bottom: 8px;
             color: white;
         }
-
         .section input, .section select {
             width: 100%;
             padding: 10px;
@@ -53,7 +47,6 @@
             background-color: #333;
             color: white;
         }
-
         .report-section {
             background-color: #111;
             padding: 20px;
@@ -61,19 +54,19 @@
             border-radius: 8px;
             border: 1px solid #555;
         }
-
         .report-section h3 {
             margin-top: 0;
             color: white;
         }
-
         .report {
             margin-bottom: 10px;
         }
-
-        .green-text {
-            color: limegreen;
+        .green {
+            color: green;
             font-weight: bold;
+        }
+        .green-text {
+            color: green;
         }
     </style>
 </head>
@@ -82,17 +75,17 @@
     <h1>reFour's Hard Money, Fix & Flip Analyzer</h1>
     <h2>Our Hard Money Fix & Flip Analyzer form ensures that both borrowers and lenders can maximize their investments.</h2>
 
-    <!-- Loan Type Section -->
+    <!-- Finance Type -->
     <div class="section">
-        <label for="financeType">Loan Type</label>
+        <label for="financeType">Finance Type</label>
         <select id="financeType">
             <option value="hardMoney">Hard Money Only</option>
         </select>
     </div>
 
-    <!-- Project Address Section -->
+    <!-- Property Address Section -->
     <div class="section">
-        <label for="propertyAddress">Project Address</label>
+        <label for="propertyAddress">Property Address</label>
         <input type="text" id="propertyAddress" placeholder="Enter Property Address" />
         <label for="city">City</label>
         <input type="text" id="city" placeholder="Enter City" />
@@ -102,42 +95,42 @@
         <input type="text" id="zipCode" placeholder="Enter Zip Code" />
     </div>
 
-    <!-- Loan Terms and Conditions Section -->
+    <!-- Loan Terms and Conditions -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
-        <label for="purchasePrice" class="block text-sm font-bold mb-2">Purchase Price</label>
-  <input type="number" id="purchasePrice" name="purchasePrice" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600" placeholder="Enter Purchase Price">
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" />
+
         <label for="interestRate">Interest Rate (%)</label>
-        <select id="interestRate" onchange="calculateLoanDetails()">
-            <option value="5">5%</option>
-            <option value="6">6%</option>
-            <option value="7">7%</option>
+        <select id="interestRate">
             <option value="8">8%</option>
             <option value="9">9%</option>
             <option value="10">10%</option>
+            <option value="11">11%</option>
+            <option value="12">12%</option>
+            <option value="13">13%</option>
+            <option value="14">14%</option>
+            <option value="15">15%</option>
         </select>
 
         <label for="loanTerm">Loan Term (Months)</label>
-        <select id="loanTerm" onchange="calculateLoanDetails()">
+        <select id="loanTerm">
             <option value="3">3 months</option>
             <option value="6">6 months</option>
+            <option value="9">9 months</option>
             <option value="12">12 months</option>
-            <option value="24">24 months</option>
-            <option value="36">36 months</option>
-            <option value="60">60 months</option>
         </select>
 
-        <label for="ltv">Loan-to-Value Ratio (LTV)</label>
-        <select id="ltv" onchange="calculateLoanDetails()">
+        <label for="loanToValue">Loan-to-Value Ratio (LTV)</label>
+        <select id="loanToValue">
             <option value="65">65% Loan - 35% Down Payment</option>
-            <option value="70">70% Loan - 30% Down Payment</option>
-            <option value="80">80% Loan - 20% Down Payment</option>
-            <option value="90">90% Loan - 10% Down Payment</option>
-            <option value="100">100% Financed (No Down Payment)</option>
         </select>
 
         <label for="closingCosts">Closing Costs (%)</label>
-        <select id="closingCosts" onchange="calculateLoanDetails()">
+        <input type="number" id="closingCosts" placeholder="Enter Closing Costs %" />
+
+        <label for="loanPoints">Loan Points (%)</label>
+        <select id="loanPoints">
             <option value="1">1%</option>
             <option value="2">2%</option>
             <option value="3">3%</option>
@@ -145,24 +138,27 @@
             <option value="5">5%</option>
         </select>
 
-         <label for="loanPoints" class="block text-sm font-bold mb-2">Loan Points (%)</label>
-    <select id="loanPoints" name="loanPoints" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600">
-      <option value="1">1% = Equals Loan Fees</option>
-      <option value="2">2% = Equals Loan Fees</option>
-      <option value="3">3% = Equals Loan Fees</option>
-      <option value="4">4% = Equals Loan Fees</option>
-      <option value="5">5% = Equals Loan Fees</option>
-    </select>
+        <label for="loanFees">Loan Fees ($)</label>
+        <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
+    </div>
 
-        <label for="loanFees" class="block text-sm font-bold mb-2">Loan Fees ($)</label>
-    <input type="text" id="loanFees" name="loanFees" readonly class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600" placeholder="Auto-calculated">
-  </div>
-
-    <!-- Hard Money / Loan Summary Report Section -->
+    <!-- Hard Money / Loan Summary -->
     <div class="report-section">
         <h3>Hard Money / Loan Summary</h3>
         <div class="report">
             <label>Loan Amount: <span id="displayLoanAmount" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Interest Rate: <span id="displayInterestRate" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Loan Term: <span id="displayLoanTerm" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Loan Points: <span id="displayLoanPoints" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Loan Fees: <span id="displayLoanFees" class="green-text">$0</span></label>
         </div>
         <div class="report">
             <label>Monthly Interest Payment: <span id="monthlyInterestPayment" class="green-text">$0</span></label>
@@ -170,27 +166,25 @@
         <div class="report">
             <label>Total Loan Interest: <span id="totalLoanInterest" class="green-text">$0</span></label>
         </div>
-        <div class="report">
-            <label>Loan Fees: <span id="displayLoanFees" class="green-text">$0</span></label>
-        </div>
     </div>
 
-    <!-- Fix & Flip Metrics Section -->
+    <!-- Fix & Flip Key Metrics -->
     <div class="section">
-        <label for="rehabBudget">Rehab Budget</label>
-        <input type="number" id="rehabBudget" placeholder="Enter Rehab Budget" />
-
+        <h3>Fix & Flip Key Metrics</h3>
         <label for="purchasePrice">Purchase Price</label>
         <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" />
 
         <label for="afterRepairValue">After Repair Value (ARV)</label>
         <input type="number" id="afterRepairValue" placeholder="Enter ARV" />
 
-        <label for="holdingCosts">Monthly Holding Costs</label>
-        <input type="number" id="holdingCosts" placeholder="Enter Monthly Holding Costs" />
+        <label for="rehabBudget">Rehab Budget</label>
+        <input type="number" id="rehabBudget" placeholder="Enter Rehab Budget" />
+
+        <label for="holdingCosts">Monthly Property Expenses</label>
+        <input type="number" id="holdingCosts" placeholder="Enter Monthly Property Expenses" />
     </div>
 
-    <!-- Fix & Flip Report Section -->
+    <!-- Fix & Flip Report -->
     <div class="report-section">
         <h3>Fix & Flip Report</h3>
         <div class="report">
@@ -202,41 +196,34 @@
         <div class="report">
             <label>Net Profit: <span id="displayNetProfit" class="green-text">$0</span></label>
         </div>
+        <div class="report">
+            <label>Loan Interest: <span id="displayLoanInterest" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Total Project Cost: <span id="displayTotalProjectCost" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>After Repair Value (ARV): <span id="displayARV" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Purchase Price: <span id="displayPurchasePrice" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Rehab Budget: <span id="displayRehabBudget" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Holding Costs: <span id="displayHoldingCosts" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Gross Profit: <span id="displayGrossProfit" class="green-text">$0</span></label>
+        </div>
+        <div class="report">
+            <label>Net ROI: <span id="displayNetROI" class="green-text">$0</span></label>
+        </div>
     </div>
+
 </div>
-
-<script>
-    function calculateLoanDetails() {
-        const loanAmount = parseFloat(document.getElementById("loanAmount").value) || 0;
-        const interestRate = parseFloat(document.getElementById("interestRate").value) / 100 || 0;
-        const loanTerm = parseInt(document.getElementById("loanTerm").value) || 0;
-        const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
-        const loanFees = loanAmount * loanPoints / 100;
-        const monthlyInterestPayment = (loanAmount * interestRate) / 12;
-        const totalLoanInterest = monthlyInterestPayment * loanTerm;
-
-        document.getElementById("loanFees").value = loanFees.toFixed(2);
-        document.getElementById("displayLoanAmount").textContent = "$" + loanAmount.toFixed(2);
-        document.getElementById("monthlyInterestPayment").textContent = "$" + monthlyInterestPayment.toFixed(2);
-        document.getElementById("totalLoanInterest").textContent = "$" + totalLoanInterest.toFixed(2);
-        document.getElementById("displayLoanFees").textContent = "$" + loanFees.toFixed(2);
-
-        const rehab = parseFloat(document.getElementById("rehabBudget").value) || 0;
-        const purchase = parseFloat(document.getElementById("purchasePrice").value) || 0;
-        const arv = parseFloat(document.getElementById("afterRepairValue").value) || 0;
-        const hold = parseFloat(document.getElementById("holdingCosts").value) || 0;
-
-        const holdingPeriod = loanTerm; // using loan term as proxy for hold period
-        const totalHolding = hold * holdingPeriod;
-        const totalRehabCost = rehab + totalHolding;
-        const estimatedProfit = arv - (purchase + totalRehabCost + loanFees + totalLoanInterest);
-        const netProfit = estimatedProfit > 0 ? estimatedProfit : 0;
-
-        document.getElementById("displayRehabCost").textContent = "$" + totalRehabCost.toFixed(2);
-        document.getElementById("displayEstimatedProfit").textContent = "$" + estimatedProfit.toFixed(2);
-        document.getElementById("displayNetProfit").textContent = "$" + netProfit.toFixed(2);
-    }
-</script>
 </body>
 </html>
+
 
