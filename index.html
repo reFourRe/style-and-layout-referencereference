@@ -12,19 +12,23 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
         }
+
         h1, h2 {
             text-align: center;
             color: white;
         }
+
         h2 {
             margin-top: 10px;
             font-size: 1.2em;
         }
+
         .section {
             background-color: #111;
             padding: 20px;
@@ -32,12 +36,14 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
+
         .section label {
             font-weight: bold;
             display: block;
             margin-bottom: 8px;
             color: white;
         }
+
         .section input, .section select {
             width: 100%;
             padding: 10px;
@@ -47,6 +53,11 @@
             background-color: #333;
             color: white;
         }
+
+        .readonly {
+            background-color: #f2f2f2;
+        }
+
         .report-section {
             background-color: #111;
             padding: 20px;
@@ -54,55 +65,88 @@
             border-radius: 8px;
             border: 1px solid #555;
         }
+
         .report-section h3 {
             margin-top: 0;
             color: white;
         }
+
         .report {
             margin-bottom: 10px;
         }
+
         .green {
             color: green;
             font-weight: bold;
         }
+
         .green-text {
             color: green;
+        }
+
+        .button-section {
+            text-align: center;
+        }
+
+        button {
+            background-color: #333;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        .export-options {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+
 <div class="container">
     <h1>reFour's Hard Money, Fix & Flip Analyzer</h1>
     <h2>Our Hard Money Fix & Flip Analyzer form ensures that both borrowers and lenders can maximize their investments.</h2>
 
-    <!-- Finance Type -->
+    <!-- Finance Type Section -->
     <div class="section">
         <label for="financeType">Finance Type</label>
-        <select id="financeType">
+        <select id="financeType" onchange="updateCalculations()">
             <option value="hardMoney">Hard Money Only</option>
         </select>
     </div>
 
-    <!-- Property Address Section -->
+    <!-- Property Address Section (Added) -->
     <div class="section">
         <label for="propertyAddress">Property Address</label>
-        <input type="text" id="propertyAddress" placeholder="Enter Property Address" />
+        <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateCalculations()" />
+
         <label for="city">City</label>
-        <input type="text" id="city" placeholder="Enter City" />
+        <input type="text" id="city" placeholder="Enter City" oninput="updateCalculations()" />
+
         <label for="state">State</label>
-        <input type="text" id="state" placeholder="Enter State" />
+        <input type="text" id="state" placeholder="Enter State" oninput="updateCalculations()" />
+
         <label for="zipCode">Zip Code</label>
-        <input type="text" id="zipCode" placeholder="Enter Zip Code" />
+        <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateCalculations()" />
     </div>
 
-    <!-- Loan Terms and Conditions -->
+    <!-- Loan Terms and Conditions Section -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
         <label for="purchasePrice">Purchase Price</label>
-        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" />
+        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
 
         <label for="interestRate">Interest Rate (%)</label>
-        <select id="interestRate">
+        <select id="interestRate" onchange="updateCalculations()">
             <option value="8">8%</option>
             <option value="9">9%</option>
             <option value="10">10%</option>
@@ -114,7 +158,7 @@
         </select>
 
         <label for="loanTerm">Loan Term (Months)</label>
-        <select id="loanTerm">
+        <select id="loanTerm" onchange="updateCalculations()">
             <option value="3">3 months</option>
             <option value="6">6 months</option>
             <option value="9">9 months</option>
@@ -122,15 +166,15 @@
         </select>
 
         <label for="loanToValue">Loan-to-Value Ratio (LTV)</label>
-        <select id="loanToValue">
+        <select id="loanToValue" onchange="updateCalculations()">
             <option value="65">65% Loan - 35% Down Payment</option>
         </select>
 
         <label for="closingCosts">Closing Costs (%)</label>
-        <input type="number" id="closingCosts" placeholder="Enter Closing Costs %" />
+        <input type="number" id="closingCosts" placeholder="Enter Closing Costs %" oninput="updateCalculations()">
 
         <label for="loanPoints">Loan Points (%)</label>
-        <select id="loanPoints">
+        <select id="loanPoints" onchange="updateCalculations()">
             <option value="1">1%</option>
             <option value="2">2%</option>
             <option value="3">3%</option>
@@ -142,20 +186,20 @@
         <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
     </div>
 
-    <!-- Hard Money / Loan Summary -->
+    <!-- Hard Money / Loan Summary Section -->
     <div class="report-section">
         <h3>Hard Money / Loan Summary</h3>
         <div class="report">
             <label>Loan Amount: <span id="displayLoanAmount" class="green-text">$0</span></label>
         </div>
         <div class="report">
-            <label>Interest Rate: <span id="displayInterestRate" class="green-text">$0</span></label>
+            <label>Interest Rate: <span id="displayInterestRate" class="green-text">0%</span></label>
         </div>
         <div class="report">
-            <label>Loan Term: <span id="displayLoanTerm" class="green-text">$0</span></label>
+            <label>Loan Term: <span id="displayLoanTerm" class="green-text">0 Months</span></label>
         </div>
         <div class="report">
-            <label>Loan Points: <span id="displayLoanPoints" class="green-text">$0</span></label>
+            <label>Loan Points: <span id="displayLoanPoints" class="green-text">0%</span></label>
         </div>
         <div class="report">
             <label>Loan Fees: <span id="displayLoanFees" class="green-text">$0</span></label>
@@ -168,63 +212,51 @@
         </div>
     </div>
 
-    <!-- Fix & Flip Key Metrics -->
+    <!-- Fix & Flip Key Metrics Section -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
-        <label for="purchasePrice">Purchase Price</label>
-        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" />
-
         <label for="afterRepairValue">After Repair Value (ARV)</label>
-        <input type="number" id="afterRepairValue" placeholder="Enter ARV" />
+        <input type="number" id="afterRepairValue" placeholder="Enter ARV" oninput="updateCalculations()">
 
         <label for="rehabBudget">Rehab Budget</label>
-        <input type="number" id="rehabBudget" placeholder="Enter Rehab Budget" />
+        <input type="number" id="rehabBudget" placeholder="Enter Rehab Budget" oninput="updateCalculations()">
 
         <label for="holdingCosts">Monthly Property Expenses</label>
-        <input type="number" id="holdingCosts" placeholder="Enter Monthly Property Expenses" />
+        <input type="number" id="holdingCosts" placeholder="Enter Monthly Property Expenses" oninput="updateCalculations()">
 
         <label for="totalProjectCost">Total Project Cost</label>
-        <input type="number" id="totalProjectCost" placeholder="Enter Total Project Cost" />
+        <input type="text" id="totalProjectCost" readonly placeholder="Auto-Calculated Total Project Cost" class="readonly">
 
         <label for="grossProfit">Gross Profit</label>
-        <input type="number" id="grossProfit" placeholder="Enter Gross Profit" />
+        <input type="text" id="grossProfit" readonly placeholder="Auto-Calculated Gross Profit" class="readonly">
 
         <label for="netProfit">Net Profit</label>
-        <input type="number" id="netProfit" placeholder="Enter Net Profit" />
+        <input type="text" id="netProfit" readonly placeholder="Auto-Calculated Net Profit" class="readonly">
 
         <label for="flipDuration">Flip Duration (Months)</label>
-        <input type="number" id="flipDuration" placeholder="Enter Flip Duration (Months)" />
+        <input type="number" id="flipDuration" placeholder="Enter Flip Duration (Months)" oninput="updateCalculations()">
 
         <label for="expectedProfitMargin">Expected Profit Margin (%)</label>
-        <input type="number" id="expectedProfitMargin" placeholder="Enter Expected Profit Margin (%)" />
+        <input type="number" id="expectedProfitMargin" placeholder="Enter Expected Profit Margin (%)" oninput="updateCalculations()">
 
         <label for="profitOnCost">Profit on Cost (%)</label>
-        <input type="number" id="profitOnCost" placeholder="Enter Profit on Cost (%)" />
+        <input type="number" id="profitOnCost" placeholder="Enter Profit on Cost (%)" oninput="updateCalculations()">
 
         <label for="profitOnARV">Profit on ARV (%)</label>
-        <input type="number" id="profitOnARV" placeholder="Enter Profit on ARV (%)" />
-
-        <label for="expectedROI">Expected ROI (%)</label>
-        <input type="number" id="expectedROI" placeholder="Enter Expected ROI (%)" />
+        <input type="number" id="profitOnARV" placeholder="Enter Profit on ARV (%)" oninput="updateCalculations()">
     </div>
 
-    <!-- Fix & Flip Report -->
+    <!-- Fix & Flip Report Section (Fixed with Missing Labels) -->
     <div class="report-section">
         <h3>Fix & Flip Report</h3>
         <div class="report">
-            <label>Estimated Profit: <span id="displayEstimatedProfit" class="green-text">$0</span></label>
+            <label>Total Project Cost: <span id="displayTotalProjectCost" class="green-text">$0</span></label>
         </div>
         <div class="report">
-            <label>Total Rehab Cost: <span id="displayRehabCost" class="green-text">$0</span></label>
+            <label>Gross Profit: <span id="displayGrossProfit" class="green-text">$0</span></label>
         </div>
         <div class="report">
             <label>Net Profit: <span id="displayNetProfit" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Loan Interest: <span id="displayLoanInterest" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Project Cost: <span id="displayTotalProjectCost" class="green-text">$0</span></label>
         </div>
         <div class="report">
             <label>After Repair Value (ARV): <span id="displayARV" class="green-text">$0</span></label>
@@ -236,7 +268,37 @@
             <label>Profit Margin: <span id="displayProfitMargin" class="green-text">$0</span></label>
         </div>
     </div>
+
+    <!-- Export Options -->
+    <div class="export-options">
+        <button onclick="exportCSV()">Export as CSV</button>
+        <button onclick="exportPDF()">Export as PDF</button>
+    </div>
+
+    <!-- Save Button -->
+    <div class="button-section">
+        <button onclick="saveData()">Save Data</button>
+    </div>
 </div>
+
+<script>
+// JavaScript functions will go here
+function updateCalculations() {
+    // Add calculations logic here
+}
+
+function exportCSV() {
+    // Add CSV export logic here
+}
+
+function exportPDF() {
+    // Add PDF export logic here
+}
+
+function saveData() {
+    // Add save data logic here
+}
+</script>
+
 </body>
 </html>
-
