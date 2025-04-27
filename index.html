@@ -108,13 +108,23 @@
             text-align: center;
             margin-top: 20px;
         }
+
+        /* Additional adjustments for layout and spacing */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        /* New gap adjustment between Property Address and its subfields */
+        .property-address-section label, .property-address-section input {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>reFour's Hard Money, Fix & Flip Analyzer</h1>
-    <h2>Our Hard Money Fix & Flip Analyzer form ensures that both borrowers and lenders can maximize their investments.</h2>
+    <h2>Maximizing investments for borrowers and lenders</h2>
 
     <!-- Finance Type Section -->
     <div class="section">
@@ -124,8 +134,8 @@
         </select>
     </div>
 
-    <!-- Property Address Section (Added) -->
-    <div class="section">
+    <!-- Property Address Section -->
+    <div class="section property-address-section">
         <label for="propertyAddress">Property Address</label>
         <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateCalculations()" />
 
@@ -221,8 +231,8 @@
         <label for="rehabBudget">Rehab Budget</label>
         <input type="number" id="rehabBudget" placeholder="Enter Rehab Budget" oninput="updateCalculations()">
 
-        <label for="holdingCosts">Monthly Property Expenses</label>
-        <input type="number" id="holdingCosts" placeholder="Enter Monthly Property Expenses" oninput="updateCalculations()">
+        <label for="carryingCost">Carrying Cost</label>
+        <input type="number" id="carryingCost" placeholder="Enter Carrying Cost" oninput="updateCalculations()">
 
         <label for="totalProjectCost">Total Project Cost</label>
         <input type="text" id="totalProjectCost" readonly placeholder="Auto-Calculated Total Project Cost" class="readonly">
@@ -233,8 +243,8 @@
         <label for="netProfit">Net Profit</label>
         <input type="text" id="netProfit" readonly placeholder="Auto-Calculated Net Profit" class="readonly">
 
-        <label for="flipDuration">Flip Duration (Months)</label>
-        <input type="number" id="flipDuration" placeholder="Enter Flip Duration (Months)" oninput="updateCalculations()">
+        <label for="estimatedProjectCompletionTime">Estimated Project Completion Time</label>
+        <input type="number" id="estimatedProjectCompletionTime" placeholder="Enter Estimated Project Completion Time (Months)" oninput="updateCalculations()">
 
         <label for="expectedProfitMargin">Expected Profit Margin (%)</label>
         <input type="number" id="expectedProfitMargin" placeholder="Enter Expected Profit Margin (%)" oninput="updateCalculations()">
@@ -246,58 +256,61 @@
         <input type="number" id="profitOnARV" placeholder="Enter Profit on ARV (%)" oninput="updateCalculations()">
     </div>
 
-    <!-- Fix & Flip Report Section (Fixed with Missing Labels) -->
-    <div class="report-section">
-        <h3>Fix & Flip Report</h3>
-        <div class="report">
-            <label>Total Project Cost: <span id="displayTotalProjectCost" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Gross Profit: <span id="displayGrossProfit" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Net Profit: <span id="displayNetProfit" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>After Repair Value (ARV): <span id="displayARV" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Profit on ARV (%): <span id="displayProfitOnARV" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Profit Margin: <span id="displayProfitMargin" class="green-text">$0</span></label>
-        </div>
+    <!-- Button Section -->
+    <div class="button-section">
+        <button type="button" onclick="resetForm()">Reset Form</button>
     </div>
 
     <!-- Export Options -->
     <div class="export-options">
-        <button onclick="exportCSV()">Export as CSV</button>
-        <button onclick="exportPDF()">Export as PDF</button>
-    </div>
-
-    <!-- Save Button -->
-    <div class="button-section">
-        <button onclick="saveData()">Save Data</button>
+        <button>Export Results</button>
     </div>
 </div>
 
 <script>
-// JavaScript functions will go here
-function updateCalculations() {
-    // Add calculations logic here
-}
+    function updateCalculations() {
+        const purchasePrice = document.getElementById('purchasePrice').value;
+        const rehabBudget = document.getElementById('rehabBudget').value;
+        const interestRate = document.getElementById('interestRate').value;
+        const loanTerm = document.getElementById('loanTerm').value;
+        const loanToValue = document.getElementById('loanToValue').value;
+        const closingCosts = document.getElementById('closingCosts').value;
+        const loanPoints = document.getElementById('loanPoints').value;
+        const loanFees = document.getElementById('loanFees');
+        const afterRepairValue = document.getElementById('afterRepairValue').value;
 
-function exportCSV() {
-    // Add CSV export logic here
-}
+        // Calculations
+        const loanAmount = purchasePrice * (loanToValue / 100);
+        const totalLoanAmount = parseFloat(loanAmount) + parseFloat(rehabBudget);
+        const totalLoanFees = (loanAmount * loanPoints / 100) + (totalLoanAmount * closingCosts / 100);
+        const totalInterest = (loanAmount * interestRate / 100) * loanTerm;
 
-function exportPDF() {
-    // Add PDF export logic here
-}
+        // Update Display
+        document.getElementById('displayLoanAmount').textContent = '$' + loanAmount.toFixed(2);
+        document.getElementById('displayInterestRate').textContent = interestRate + '%';
+        document.getElementById('displayLoanTerm').textContent = loanTerm + ' months';
+        document.getElementById('displayLoanPoints').textContent = loanPoints + '%';
+        loanFees.value = totalLoanFees.toFixed(2);
+        document.getElementById('displayLoanFees').textContent = '$' + totalLoanFees.toFixed(2);
+        document.getElementById('monthlyInterestPayment').textContent = '$' + (totalLoanAmount / loanTerm).toFixed(2);
+        document.getElementById('totalLoanInterest').textContent = '$' + totalInterest.toFixed(2);
 
-function saveData() {
-    // Add save data logic here
-}
+        // Update Fix & Flip Metrics
+        const totalProjectCost = parseFloat(purchasePrice) + parseFloat(rehabBudget) + parseFloat(totalLoanFees);
+        document.getElementById('totalProjectCost').value = '$' + totalProjectCost.toFixed(2);
+        const grossProfit = afterRepairValue - totalProjectCost;
+        document.getElementById('grossProfit').value = '$' + grossProfit.toFixed(2);
+        const netProfit = grossProfit - totalLoanFees;
+        document.getElementById('netProfit').value = '$' + netProfit.toFixed(2);
+    }
+
+    function resetForm() {
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+        updateCalculations();
+    }
 </script>
 
 </body>
