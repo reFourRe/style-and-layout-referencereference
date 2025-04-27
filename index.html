@@ -178,10 +178,26 @@
         <label for="loanToValue">Loan-to-Value Ratio (LTV)</label>
         <select id="loanToValue" onchange="updateCalculations()">
             <option value="65">65% Loan - 35% Down Payment</option>
+            <option value="70">70% Loan - 30% Down Payment</option>
+            <option value="75">75% Loan - 25% Down Payment</option>
+            <option value="80">80% Loan - 20% Down Payment</option>
+            <option value="85">85% Loan - 15% Down Payment</option>
+            <option value="90">90% Loan - 10% Down Payment</option>
         </select>
 
+        <!-- Updated Closing Costs Dropdown -->
         <label for="closingCosts">Closing Costs (%)</label>
-        <input type="number" id="closingCosts" placeholder="Enter Closing Costs %" oninput="updateCalculations()">
+        <select id="closingCosts" onchange="updateCalculations()">
+            <option value="2">2%</option>
+            <option value="3">3%</option>
+            <option value="4">4%</option>
+            <option value="5">5%</option>
+            <option value="6">6%</option>
+            <option value="7">7%</option>
+            <option value="8">8%</option>
+            <option value="9">9%</option>
+            <option value="10">10%</option>
+        </select>
 
         <label for="loanPoints">Loan Points (%)</label>
         <select id="loanPoints" onchange="updateCalculations()">
@@ -206,7 +222,7 @@
             <label>Interest Rate: <span id="displayInterestRate" class="green-text">0%</span></label>
         </div>
         <div class="report">
-            <label>Loan Term: <span id="displayLoanTerm" class="green-text">0 Months</span></label>
+            <label>Loan Term: <span id="displayLoanTerm" class="green-text">Months</span></label> <!-- Updated here -->
         </div>
         <div class="report">
             <label>Loan Points: <span id="displayLoanPoints" class="green-text">0%</span></label>
@@ -251,67 +267,78 @@
 
         <label for="profitOnCost">Profit on Cost (%)</label>
         <input type="number" id="profitOnCost" placeholder="Enter Profit on Cost (%)" oninput="updateCalculations()">
-
-        <label for="profitOnARV">Profit on ARV (%)</label>
-        <input type="number" id="profitOnARV" placeholder="Enter Profit on ARV (%)" oninput="updateCalculations()">
     </div>
 
-    <!-- Button Section -->
+    <!-- Submit & Reset Section -->
     <div class="button-section">
-        <button type="button" onclick="resetForm()">Reset Form</button>
+        <button onclick="updateCalculations()">Update Calculations</button>
     </div>
 
-    <!-- Export Options -->
     <div class="export-options">
-        <button>Export Results</button>
+        <button onclick="exportToExcel()">Export to Excel</button>
     </div>
 </div>
 
 <script>
+    // Update calculations and loan summary dynamically
     function updateCalculations() {
-        const purchasePrice = document.getElementById('purchasePrice').value;
-        const rehabBudget = document.getElementById('rehabBudget').value;
-        const interestRate = document.getElementById('interestRate').value;
-        const loanTerm = document.getElementById('loanTerm').value;
-        const loanToValue = document.getElementById('loanToValue').value;
-        const closingCosts = document.getElementById('closingCosts').value;
-        const loanPoints = document.getElementById('loanPoints').value;
-        const loanFees = document.getElementById('loanFees');
-        const afterRepairValue = document.getElementById('afterRepairValue').value;
+        // Getting the values from inputs
+        const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+        const loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
+        const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+        const loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
+        const loanFees = parseFloat(document.getElementById('loanFees').value) || 0;
+        const loanToValue = parseFloat(document.getElementById('loanToValue').value) || 0;
+        const closingCosts = parseFloat(document.getElementById('closingCosts').value) || 0;
+        const rehabBudget = parseFloat(document.getElementById('rehabBudget').value) || 0;
 
-        // Calculations
+        // Calculating the Loan Amount
         const loanAmount = purchasePrice * (loanToValue / 100);
-        const totalLoanAmount = parseFloat(loanAmount) + parseFloat(rehabBudget);
-        const totalLoanFees = (loanAmount * loanPoints / 100) + (totalLoanAmount * closingCosts / 100);
-        const totalInterest = (loanAmount * interestRate / 100) * loanTerm;
 
-        // Update Display
-        document.getElementById('displayLoanAmount').textContent = '$' + loanAmount.toFixed(2);
-        document.getElementById('displayInterestRate').textContent = interestRate + '%';
-        document.getElementById('displayLoanTerm').textContent = loanTerm + ' months';
-        document.getElementById('displayLoanPoints').textContent = loanPoints + '%';
-        loanFees.value = totalLoanFees.toFixed(2);
-        document.getElementById('displayLoanFees').textContent = '$' + totalLoanFees.toFixed(2);
-        document.getElementById('monthlyInterestPayment').textContent = '$' + (totalLoanAmount / loanTerm).toFixed(2);
-        document.getElementById('totalLoanInterest').textContent = '$' + totalInterest.toFixed(2);
+        // Calculating the Loan Fees
+        const loanPointsAmount = loanAmount * (loanPoints / 100);
+        const closingCostAmount = purchasePrice * (closingCosts / 100);
+        const totalLoanFees = loanPointsAmount + closingCostAmount;
 
-        // Update Fix & Flip Metrics
-        const totalProjectCost = parseFloat(purchasePrice) + parseFloat(rehabBudget) + parseFloat(totalLoanFees);
-        document.getElementById('totalProjectCost').value = '$' + totalProjectCost.toFixed(2);
+        // Calculating Monthly Interest Payment
+        const monthlyInterestPayment = (loanAmount * (interestRate / 100)) / 12;
+
+        // Calculating Total Loan Interest
+        const totalLoanInterest = monthlyInterestPayment * loanTerm;
+
+        // Calculating the Total Project Cost
+        const totalProjectCost = purchasePrice + rehabBudget + totalLoanFees;
+
+        // Calculating Profit and Gross Profit
+        const afterRepairValue = parseFloat(document.getElementById('afterRepairValue').value) || 0;
         const grossProfit = afterRepairValue - totalProjectCost;
-        document.getElementById('grossProfit').value = '$' + grossProfit.toFixed(2);
-        const netProfit = grossProfit - totalLoanFees;
-        document.getElementById('netProfit').value = '$' + netProfit.toFixed(2);
+        const netProfit = grossProfit - totalLoanInterest;
+
+        // Calculating Expected Profit Margin and Profit on Cost
+        const expectedProfitMargin = (grossProfit / afterRepairValue) * 100 || 0;
+        const profitOnCost = (grossProfit / totalProjectCost) * 100 || 0;
+
+        // Displaying Results
+        document.getElementById('displayLoanAmount').innerText = `$${loanAmount.toFixed(2)}`;
+        document.getElementById('displayInterestRate').innerText = `${interestRate}%`;
+        document.getElementById('displayLoanTerm').innerText = `${loanTerm} Months`;  // Updated here
+        document.getElementById('displayLoanPoints').innerText = `${loanPoints}%`;
+        document.getElementById('displayLoanFees').innerText = `$${totalLoanFees.toFixed(2)}`;
+        document.getElementById('monthlyInterestPayment').innerText = `$${monthlyInterestPayment.toFixed(2)}`;
+        document.getElementById('totalLoanInterest').innerText = `$${totalLoanInterest.toFixed(2)}`;
+        document.getElementById('totalProjectCost').value = `$${totalProjectCost.toFixed(2)}`;
+        document.getElementById('grossProfit').value = `$${grossProfit.toFixed(2)}`;
+        document.getElementById('netProfit').value = `$${netProfit.toFixed(2)}`;
+        document.getElementById('expectedProfitMargin').value = `${expectedProfitMargin.toFixed(2)}%`;
+        document.getElementById('profitOnCost').value = `${profitOnCost.toFixed(2)}%`;
     }
 
-    function resetForm() {
-        const inputs = document.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            input.value = '';
-        });
-        updateCalculations();
+    // Export to Excel function (for demonstration)
+    function exportToExcel() {
+        alert("This feature is coming soon!");
     }
 </script>
 
 </body>
 </html>
+
