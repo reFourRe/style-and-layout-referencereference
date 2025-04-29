@@ -276,25 +276,65 @@
     <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
 </div>
 
-    <!-- Fix and Flip Report Section -->
-    <div class="section">
-        <h3>Fix and Flip Report</h3>
-        <div class="report">
-            <label>Total Project Cost: <span id="totalProjectCost" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Rehab Budget: <span id="totalRehabBudget" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Carrying Costs: <span id="totalCarryingCosts" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Estimated Profit: <span id="estimatedProfit" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>ROI: <span id="roiPercentage" class="green-text">0%</span></label>
-        </div>
-    </div>
+   <div class="section">
+    <h3>Fix & Flip Report</h3>
+
+    <label for="totalInvestment">Total Investment</label>
+    <input type="number" id="totalInvestment" placeholder="Total Investment" readonly>
+    
+    <label for="totalLoanAmount">Total Loan Amount</label>
+    <input type="number" id="totalLoanAmount" placeholder="Total Loan Amount" readonly>
+
+    <label for="rehabCosts">Rehab Costs</label>
+    <input type="number" id="rehabCosts" placeholder="Rehab Costs" readonly>
+
+    <label for="carryingCostsTotal">Total Carrying Costs</label>
+    <input type="number" id="carryingCostsTotal" placeholder="Total Carrying Costs" readonly>
+
+    <label for="loanInterestPaid">Loan Interest Paid</label>
+    <input type="number" id="loanInterestPaid" placeholder="Loan Interest Paid" readonly>
+
+    <label for="closingCostsTotal">Total Closing Costs</label>
+    <input type="number" id="closingCostsTotal" placeholder="Total Closing Costs" readonly>
+
+    <label for="salesPriceEstimated">Sales Price Estimated</label>
+    <input type="number" id="salesPriceEstimated" placeholder="Sales Price Estimated" readonly>
+
+    <label for="totalProfit">Total Profit</label>
+    <input type="number" id="totalProfit" placeholder="Total Profit" readonly>
+
+    <label for="totalROI">Total ROI (%)</label>
+    <input type="number" id="totalROI" placeholder="Total ROI" readonly>
+
+    <label for="netProfit">Net Profit</label>
+    <input type="number" id="netProfit" placeholder="Net Profit" readonly>
+
+    <label for="profitMarginPercentage">Profit Margin (%)</label>
+    <input type="number" id="profitMarginPercentage" placeholder="Profit Margin" readonly>
+
+    <label for="projectDuration">Project Duration (Months)</label>
+    <input type="number" id="projectDuration" placeholder="Project Duration" readonly>
+
+    <label for="grossProfit">Gross Profit</label>
+    <input type="number" id="grossProfit" placeholder="Gross Profit" readonly>
+
+    <label for="loanFees">Loan Fees</label>
+    <input type="number" id="loanFees" placeholder="Loan Fees" readonly>
+
+    <label for="loanPoints">Loan Points</label>
+    <input type="number" id="loanPoints" placeholder="Loan Points" readonly>
+
+    <label for="totalExpenses">Total Expenses</label>
+    <input type="number" id="totalExpenses" placeholder="Total Expenses" readonly>
+
+    <label for="finalSalePrice">Final Sale Price</label>
+    <input type="number" id="finalSalePrice" placeholder="Final Sale Price" readonly>
+
+    <label for="salePriceDifference">Sale Price Difference</label>
+    <input type="number" id="salePriceDifference" placeholder="Sale Price Difference" readonly>
+
+</div>
+
 
     <!-- Button Section -->
     <div class="button-section">
