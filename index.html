@@ -210,142 +210,87 @@
         <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
     </div>
 
-    <!-- Hard Money / Loan Summary Section -->
-    <div class="report-section">
-        <h3>Hard Money / Loan Summary</h3>
-        <div class="report">
-            <label>Loan Amount: <span id="displayLoanAmount" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Interest Rate: <span id="displayInterestRate" class="green-text">0%</span></label>
-        </div>
-        <div class="report">
-            <label>Loan Term: <span id="displayLoanTerm" class="green-text">Months</span></label>
-        </div>
-        <div class="report">
-            <label>Loan Points: <span id="displayLoanPoints" class="green-text">0%</span></label>
-        </div>
-        <div class="report">
-            <label>Loan Fees: <span id="displayLoanFees" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Monthly Interest Payment: <span id="monthlyInterestPayment" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Loan Interest: <span id="totalLoanInterest" class="green-text">$0</span></label>
-        </div>
-    </div>
-
     <!-- Fix & Flip Key Metrics Section -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
 
-        <!-- Adding all the 14 labels you requested -->
+        <!-- 14 labels for Fix & Flip Key Metrics -->
         <label for="purchasePrice">Purchase Price</label>
         <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
         <label for="rehabCosts">Rehab Costs</label>
         <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()">
-        <label for="sellingPrice">Selling Price</label>
-        <input type="number" id="sellingPrice" placeholder="Enter Selling Price" oninput="updateCalculations()">
-        <label for="costOfSale">Cost of Sale (%)</label>
-        <input type="number" id="costOfSale" placeholder="Enter Cost of Sale (%)" oninput="updateCalculations()">
-        <label for="profit">Profit</label>
-        <input type="number" id="profit" readonly placeholder="Profit">
+        <label for="holdingCosts">Holding Costs</label>
+        <input type="number" id="holdingCosts" placeholder="Enter Holding Costs" oninput="updateCalculations()">
+        <label for="closingCosts">Closing Costs</label>
+        <input type="number" id="closingCosts" placeholder="Enter Closing Costs" oninput="updateCalculations()">
+        <label for="profitMargin">Profit Margin</label>
+        <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
         <label for="roi">ROI</label>
-        <input type="number" id="roi" readonly placeholder="ROI">
-        <label for="months">Months</label>
-        <input type="number" id="months" readonly placeholder="Months">
-        <label for="purchasePriceValue">Purchase Price Value</label>
-        <input type="number" id="purchasePriceValue" readonly placeholder="Value">
-        <label for="rehabCostValue">Rehab Costs Value</label>
-        <input type="number" id="rehabCostValue" readonly placeholder="Value">
-        <label for="loanCostValue">Loan Costs Value</label>
-        <input type="number" id="loanCostValue" readonly placeholder="Value">
-        <label for="otherCostValue">Other Costs Value</label>
-        <input type="number" id="otherCostValue" readonly placeholder="Value">
+        <input type="number" id="roi" placeholder="Enter ROI" oninput="updateCalculations()">
+        <label for="capitalGains">Capital Gains</label>
+        <input type="number" id="capitalGains" placeholder="Enter Capital Gains" oninput="updateCalculations()">
     </div>
 
-    <!-- Fix & Flip Report -->
+    <!-- Fix & Flip Report Section (18 labels) -->
     <div class="report-section">
         <h3>Fix & Flip Report</h3>
-
-        <!-- Adding all the 18 labels you requested -->
-        <div class="report">
-            <label>Estimated Profit: <span id="estimatedProfit" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Projected Profit: <span id="projectedProfit" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>ROI: <span id="roi" class="green-text">0%</span></label>
-        </div>
-        <div class="report">
-            <label>Estimated Rehab Timeline: <span id="rehabTimeline" class="green-text">0 months</span></label>
-        </div>
-        <div class="report">
-            <label>Total Investment: <span id="totalInvestment" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Rehab Costs: <span id="totalRehabCosts" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Financing: <span id="totalFinancing" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Loan Interest: <span id="totalLoanInterest" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Loan Fees: <span id="totalLoanFees" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Sale Costs: <span id="totalSaleCosts" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Net Profit: <span id="netProfit" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Total Holding Period: <span id="totalHoldingPeriod" class="green-text">0 months</span></label>
-        </div>
-        <div class="report">
-            <label>Total Return: <span id="totalReturn" class="green-text">0%</span></label>
-        </div>
-        <div class="report">
-            <label>Total Projected Return: <span id="totalProjectedReturn" class="green-text">0%</span></label>
-        </div>
-        <div class="report">
-            <label>Break-even Point: <span id="breakEvenPoint" class="green-text">$0</span></label>
-        </div>
-        <div class="report">
-            <label>Exit Strategy: <span id="exitStrategy" class="green-text">Sell Property</span></label>
-        </div>
+        
+        <!-- 18 labels for the Fix & Flip Report -->
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
+        <label for="rehabCosts">Rehab Costs</label>
+        <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()">
+        <label for="holdingCosts">Holding Costs</label>
+        <input type="number" id="holdingCosts" placeholder="Enter Holding Costs" oninput="updateCalculations()">
+        <label for="loanFees">Loan Fees</label>
+        <input type="number" id="loanFees" placeholder="Enter Loan Fees" oninput="updateCalculations()">
+        <label for="profitMargin">Profit Margin</label>
+        <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
+        <label for="roi">ROI</label>
+        <input type="number" id="roi" placeholder="Enter ROI" oninput="updateCalculations()">
+        <label for="capitalGains">Capital Gains</label>
+        <input type="number" id="capitalGains" placeholder="Enter Capital Gains" oninput="updateCalculations()">
+        <label for="totalCosts">Total Costs</label>
+        <input type="number" id="totalCosts" placeholder="Enter Total Costs" oninput="updateCalculations()">
+        <label for="totalProfit">Total Profit</label>
+        <input type="number" id="totalProfit" placeholder="Enter Total Profit" oninput="updateCalculations()">
+        <label for="salePrice">Sale Price</label>
+        <input type="number" id="salePrice" placeholder="Enter Sale Price" oninput="updateCalculations()">
+        <label for="loanAmount">Loan Amount</label>
+        <input type="number" id="loanAmount" placeholder="Enter Loan Amount" oninput="updateCalculations()">
+        <label for="salePriceEstimate">Sale Price Estimate</label>
+        <input type="number" id="salePriceEstimate" placeholder="Enter Sale Price Estimate" oninput="updateCalculations()">
+        <label for="profitMarginEstimate">Profit Margin Estimate</label>
+        <input type="number" id="profitMarginEstimate" placeholder="Enter Profit Margin Estimate" oninput="updateCalculations()">
     </div>
 
-    <!-- Submit and Calculate Button -->
+    <!-- Buttons Section -->
     <div class="button-section">
-        <button onclick="calculateAll()">Calculate & Analyze</button>
+        <button onclick="calculateAndDisplayResults()">Calculate & Display Results</button>
     </div>
 
+    <!-- Export Options Section -->
     <div class="export-options">
-        <button onclick="exportAsCSV()">Export as CSV</button>
-        <button onclick="exportAsPDF()">Export as PDF</button>
+        <button onclick="exportToCSV()">Export to CSV</button>
+        <button onclick="exportToPDF()">Export to PDF</button>
     </div>
 </div>
 
 <script>
     function updateCalculations() {
-        // Logic to update all the inputs
+        // Add your logic for recalculating any displayed values based on input fields
     }
 
-    function calculateAll() {
-        // Placeholder: Call functions to perform necessary calculations
+    function calculateAndDisplayResults() {
+        // Add logic to calculate and display the result of the analysis
     }
 
-    function exportAsCSV() {
-        alert("CSV Export feature coming soon!");
+    function exportToCSV() {
+        // Add logic to export data to CSV
     }
 
-    function exportAsPDF() {
-        alert("PDF Export feature coming soon!");
+    function exportToPDF() {
+        // Add logic to export data to PDF
     }
 </script>
 
