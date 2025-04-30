@@ -407,9 +407,9 @@ button:hover {
     </div>
 </div>
 
-// Function to update calculations dynamically
-function updateCalculations() {
-    // Get input values
+      
+    function updateCalculations() {
+
     const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
     const interestRate = parseFloat(document.getElementById("interestRate").value) || 0;
     const loanTerm = parseInt(document.getElementById("loanTerm").value) || 0;
@@ -417,25 +417,23 @@ function updateCalculations() {
     const closingCostsPercent = parseFloat(document.getElementById("closingCosts").value) || 0;
     const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
 
-    // Calculate loan amount
     const loanAmount = (purchasePrice * (loanToValue / 100)).toFixed(2);
     const closingCosts = (purchasePrice * (closingCostsPercent / 100)).toFixed(2);
     const loanFeeAmount = (loanAmount * (loanPoints / 100)).toFixed(2);
     const interestAmount = (loanAmount * (interestRate / 100) * loanTerm / 12).toFixed(2);
 
-    // Populate fields
     document.getElementById("loan-amount").textContent = `$${loanAmount}`;
     document.getElementById("loan-fees").value = `$${loanFeeAmount}`;
     document.getElementById("total-loan-amount").textContent = `$${(parseFloat(loanAmount) + parseFloat(closingCosts) + parseFloat(loanFeeAmount)).toFixed(2)}`;
     document.getElementById("total-loan-interest").textContent = `$${interestAmount}`;
 }
 
-    // Add event listeners to trigger calculations
+  
     document.querySelectorAll('.section input, .section select').forEach(input => {
     input.addEventListener('input', updateCalculations);
 });
 
-    // Assuming the LTV is selected from a dropdown and property price is in an input field
+  
     document.getElementById('ltv-ratio').addEventListener('change', function() {
     var ltv = parseFloat(this.value); // Get the LTV percentage (e.g., 65% = 0.65)
     var propertyPrice = parseFloat(document.getElementById('property-price').value); // Property price input field
@@ -444,12 +442,11 @@ function updateCalculations() {
         var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount
         var downPayment = propertyPrice - loanAmount; // Calculate down payment
         
-        // Update the down payment field
         document.getElementById('down-payment').value = downPayment.toFixed(2); // Display down payment rounded to 2 decimal places
     }
 });
 
-    // Function to update Loan Amount (LTV) and Down Payment fields
+  
     document.getElementById('ltv-ratio').addEventListener('change', updateValues);
     document.getElementById('property-price').addEventListener('input', updateValues);
 
@@ -461,7 +458,6 @@ function updateCalculations() {
         var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount based on LTV
         var downPayment = propertyPrice - loanAmount; // Calculate down payment
         
-        // Update the Loan Amount (LTV) and Down Payment fields
         document.getElementById('ltv-amount').value = "$" + loanAmount.toFixed(2); // Display loan amount as currency
         document.getElementById('down-payment').value = "$" + downPayment.toFixed(2); // Display down payment as currency
     }
@@ -475,17 +471,17 @@ function updateCalculations() {
         var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount based on LTV
         var downPayment = propertyPrice - loanAmount; // Calculate down payment
         
-        // Update the report with loan amount and down payment
+        
         document.getElementById('report-ltv').textContent = "$" + loanAmount.toFixed(2);
         document.getElementById('report-down-payment').textContent = "$" + downPayment.toFixed(2);
     }
 }
 
-// Call this function to update the report when the form changes
+
 updateReportValues();
 
 function updateCalculations() {
-    // Example: Update loan calculations based on form inputs
+
     var propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
     var interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
     var loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
@@ -493,20 +489,18 @@ function updateCalculations() {
 }
 
   function updateCalculations() {
-    // Retrieve values from inputs
+
     let propertyPrice = parseFloat(document.getElementById("property-price").value) || 0;
     let loanAmount = parseFloat(document.getElementById("loanAmount").value) || 0;
     let rehabCosts = parseFloat(document.getElementById("rehabCosts").value) || 0;
     let holdingCosts = parseFloat(document.getElementById("holdingCosts").value) || 0;
 
-    // Example: Calculate loan amount LTV (Loan-to-Value)
+  
     let ltv = (loanAmount / propertyPrice) * 100;
 
-    // Update LTV in the report section
+    
     document.getElementById("report-ltv").textContent = "$" + ltv.toFixed(2);
 
-    // Add more calculations as necessary...
-}
   
 </body>
 </html>
