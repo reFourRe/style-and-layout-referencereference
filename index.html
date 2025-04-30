@@ -117,77 +117,77 @@
             margin-bottom: 10px;
         }
 
-/* Button Hover Effects */
-button {
-    background-color: #333;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        /* Button Hover Effects */
+        button {
+            background-color: #333;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-button:hover {
-    background-color: #444;
-    transform: scale(1.05); /* Slight scale effect */
-}
+        button:hover {
+            background-color: #444;
+            transform: scale(1.05); /* Slight scale effect */
+        }
 
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-    width: 10px;
-}
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
-::-webkit-scrollbar-track {
-    background: #222;
-}
+        ::-webkit-scrollbar-track {
+            background: #222;
+        }
 
-::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 10px;
-}
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 10px;
+        }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #777;
-}
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
 
-/* Input Field Focus Styling */
-.section input:focus, .section select:focus {
-    border-color: #76b900; /* Green border on focus */
-    background-color: #222; /* Darker background */
-    outline: none; /* Remove the default outline */
-}
+        /* Input Field Focus Styling */
+        .section input:focus, .section select:focus {
+            border-color: #76b900; /* Green border on focus */
+            background-color: #222; /* Darker background */
+            outline: none; /* Remove the default outline */
+        }
 
-/* Form Spacing and Alignment */
-.section input, .section select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 12px; /* Add extra spacing */
-    border-radius: 6px;
-    font-size: 1em;
-}
+        /* Form Spacing and Alignment */
+        .section input, .section select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px; /* Add extra spacing */
+            border-radius: 6px;
+            font-size: 1em;
+        }
 
-.section label {
-    font-size: 1em; /* Increase label size for clarity */
-}
+        .section label {
+            font-size: 1em; /* Increase label size for clarity */
+        }
 
-.container {
-    width: 75%; /* Slightly reduce width for better margins */
-}      
+        .container {
+            width: 75%; /* Slightly reduce width for better margins */
+        }      
 
-@media (max-width: 768px) {
-    .container {
-        width: 95%; /* Adjust container width for smaller screens */
-    }
+        @media (max-width: 768px) {
+            .container {
+                width: 95%; /* Adjust container width for smaller screens */
+            }
 
-    .section input, .section select {
-        font-size: 1em; /* Reduce font size for smaller screens */
-    }
-}
-    
+            .section input, .section select {
+                font-size: 1em; /* Reduce font size for smaller screens */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -223,7 +223,7 @@ button:hover {
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
         <label for="property-price">Property Price</label>
-    <input type="number" id="property-price" name="property-price" placeholder="Enter Property Price" />
+        <input type="number" id="property-price" name="property-price" placeholder="Enter Property Price" />
         
         <label for="interestRate">Interest Rate (%)</label>
         <select id="interestRate" onchange="updateCalculations()">
@@ -261,8 +261,8 @@ button:hover {
         <label for="down-payment">Down Payment</label>
         <input type="text" id="down-payment" name="down-payment" readonly>
 
-        <label for="closingCostsInput">Closing Costs: $</label>
-        <input type="number" id="closingCostsInput" name="closingCosts" placeholder="Enter closing costs" required>
+        <label for="closingCosts">Closing Costs (%)</label>
+        <select id="closingCosts" onchange="updateCalculations()">
             <option value="2">2%</option>
             <option value="3">3%</option>
             <option value="4">4%</option>
@@ -283,100 +283,83 @@ button:hover {
             <option value="5">5%</option>
         </select>
 
-        <label for="loanFees">Loan Fees ($)</label>
-        <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
     </div>
 
-   <!-- Hard Money / Loan Summary Report Section -->
-<div class="report-section">
-    <h3>Hard Money / Loan Summary</h3>
-    <div>
-    <div class="report">
-        <label for="report-ltv">Loan Amount (LTV)</label>
-        <span id="report-ltv">$0.00</span> 
-    </div>
-    <div class="report">
-        <label for="report-down-payment">Down Payment</label>
-        <span id="report-down-payment">$0.00</span>
-    </div>
-    <div class="report">
-        <label for="interest-rate">Interest Rate</label>
-        <span class="green-text" id="interest-rate">$0</span>
-    </div>
-    <div class="report">
-        <label for="loan-term">Loan Term</label>
-        <span class="green-text" id="loan-term">$0</span>
-    </div>
-    <div class="report">
-        <label for="rehab-costs">Rehab Costs</label>
-        <span class="green-text" id="rehab-costs">$0</span>
-    </div>
-    <div class="report">
-        <label for="total-loan-amount">Total Loan Amount</label>
-        <span class="green-text" id="total-loan-amount">$0</span>
-    </div>
-    <div class="report">
-        <label for="cost-for-money">Your Cost For The Money</label>
-        <span class="green-text" id="cost-for-money">$0</span>
-    </div>
-    <div class="report">
-        <label for="monthly-interest">Monthly Interest-Only Payment</label>
-        <span class="green-text" id="monthly-interest">$0</span>
-    </div>
-    <div class="report">
-        <label for="total-loan-interest">Total Loan Interest</label>
-        <span class="green-text" id="total-loan-interest">$0</span>
-    </div>
-</div>
-
-       <!-- Fix & Flip Key Metrics Section -->
+    <!-- Fix & Flip Key Metrics Section -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
-        <label for="purchasePrice">Purchase Price</label>
-        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
-        <label for="rehabCosts">Rehab Costs</label>
-        <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()">
-        <label for="holdingCosts">Holding Costs</label>
-        <input type="number" id="holdingCosts" placeholder="Enter Holding Costs" oninput="updateCalculations()">
-        <label for="closingCostsReport">Closing Costs (Report):</label>
-        <input type="text" id="closingCostsReport" name="closingCostsReport" readonly>
-        <label for="profitMargin">Profit Margin</label>
-        <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
-        <label for="roi">ROI</label>
-        <input type="number" id="roi" placeholder="Enter ROI" oninput="updateCalculations()">
-        <label for="capitalGains">Capital Gains</label>
-        <input type="number" id="capitalGains" placeholder="Enter Capital Gains" oninput="updateCalculations()">
-        <label for="loanAmount">Loan Amount</label>
-        <input type="number" id="loanAmount" placeholder="Enter Loan Amount" oninput="updateCalculations()">
-        <label for="totalExpenses">Total Expenses</label>
-        <input type="number" id="totalExpenses" placeholder="Enter Total Expenses" oninput="updateCalculations()">
-        <label for="totalIncome">Total Income</label>
-        <input type="number" id="totalIncome" placeholder="Enter Total Income" oninput="updateCalculations()">
-        <label for="netProfit">Net Profit</label>
-        <input type="number" id="netProfit" placeholder="Enter Net Profit" oninput="updateCalculations()">
+        <label for="grossProfit">Gross Profit</label>
+        <input type="number" id="grossProfit" placeholder="Enter Gross Profit" oninput="updateCalculations()" />
+
+        <label for="totalLoanAmount">Total Loan Amount</label>
+        <input type="text" id="totalLoanAmount" readonly />
+
+        <label for="totalPropertyCost">Total Property Cost</label>
+        <input type="text" id="totalPropertyCost" readonly />
     </div>
 
-   <!-- Fix & Flip Report Section -->
-    <div class="section">
-        <h3>Fix & Flip Report</h3>
-        <label for="purchasePriceReport">Purchase Price</label>
-        <span id="purchasePriceReport">$0</span>
-        <label for="rehabCostsReport">Rehab Costs</label>
-        <span id="rehabCostsReport">$0</span>
-        <label for="holdingCostsReport">Holding Costs</label>
-        <span id="holdingCostsReport">$0</span>
-        <label for="closingCostsReport">Closing Costs</label>
-        <span id="closingCostsReport">$0</span>
-        <label for="totalExpensesReport">Total Expenses</label>
-        <span id="totalExpensesReport">$0</span>
-        <label for="totalIncomeReport">Total Income</label>
-        <span id="totalIncomeReport">$0</span>
-        <label for="netProfitReport">Net Profit</label>
-        <span id="netProfitReport">$0</span>
+    <!-- Report Section -->
+    <div class="report-section">
+        <h3>Key Financial Report</h3>
+        <div class="report">
+            <span class="green-text">Total Loan Amount:</span>
+            <span id="ltvAmountResult">Calculate</span>
+        </div>
+        <div class="report">
+            <span class="green-text">Total Property Cost:</span>
+            <span id="totalPropertyCostResult">Calculate</span>
+        </div>
+        <div class="report">
+            <span class="green-text">Gross Profit:</span>
+            <span id="grossProfitResult">Calculate</span>
+        </div>
     </div>
-</div> <!-- Close Fix & Flip Report Section -->
 
-</div> <!-- Close Container -->
+    <!-- Button to Calculate -->
+    <div class="button-section">
+        <button onclick="updateCalculations()">Calculate</button>
+    </div>
 
-</body> <!-- Close Body -->
-</html> <!-- Close HTML -->
+</div>
+
+<script>
+    function updateCalculations() {
+        let propertyPrice = parseFloat(document.getElementById('property-price').value);
+        let loanTerm = parseFloat(document.getElementById('loanTerm').value);
+        let interestRate = parseFloat(document.getElementById('interestRate').value);
+        let ltvRatio = parseFloat(document.getElementById('ltv-ratio').value);
+        let closingCosts = parseFloat(document.getElementById('closingCosts').value);
+        let loanPoints = parseFloat(document.getElementById('loanPoints').value);
+        let grossProfit = parseFloat(document.getElementById('grossProfit').value);
+
+        // Calculate Loan Amount (LTV)
+        let loanAmount = (propertyPrice * ltvRatio) / 100;
+        document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
+
+        // Calculate Down Payment
+        let downPayment = propertyPrice - loanAmount;
+        document.getElementById('down-payment').value = downPayment.toFixed(2);
+
+        // Calculate Closing Costs
+        let closingCostAmount = (propertyPrice * closingCosts) / 100;
+        let loanPointsAmount = (loanAmount * loanPoints) / 100;
+
+        // Calculate Total Loan Amount
+        let totalLoanAmount = loanAmount + closingCostAmount + loanPointsAmount;
+        document.getElementById('totalLoanAmount').value = totalLoanAmount.toFixed(2);
+
+        // Calculate Total Property Cost
+        let totalPropertyCost = propertyPrice + closingCostAmount + loanPointsAmount;
+        document.getElementById('totalPropertyCost').value = totalPropertyCost.toFixed(2);
+
+        // Calculate Gross Profit
+        let grossProfitAmount = grossProfit - totalPropertyCost;
+        document.getElementById('grossProfitResult').textContent = grossProfitAmount.toFixed(2);
+
+        document.getElementById('ltvAmountResult').textContent = loanAmount.toFixed(2);
+        document.getElementById('totalPropertyCostResult').textContent = totalPropertyCost.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
