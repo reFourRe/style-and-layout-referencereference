@@ -211,9 +211,9 @@ button:hover {
     <!-- Loan Terms and Conditions Section -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
-        <label for="purchasePrice">Purchase Price</label>
-        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
-
+        <label for="property-price">Property Price</label>
+    <input type="number" id="property-price" name="property-price" placeholder="Enter Property Price" />
+        
         <label for="interestRate">Interest Rate (%)</label>
         <select id="interestRate" onchange="updateCalculations()">
             <option value="8">8%</option>
@@ -235,7 +235,7 @@ button:hover {
         </select>
 
         <label for="loanToValue">Loan-to-Value Ratio (LTV)</label>
-        <select id="loanToValue" onchange="updateCalculations()">
+        <select id="ltv-ratio">
             <option value="65">65% Loan - 35% Down Payment</option>
             <option value="70">70% Loan - 30% Down Payment</option>
             <option value="75">75% Loan - 25% Down Payment</option>
@@ -243,6 +243,12 @@ button:hover {
             <option value="85">85% Loan - 15% Down Payment</option>
             <option value="90">90% Loan - 10% Down Payment</option>
         </select>
+
+        <label for="ltv-amount">Loan Amount (LTV)</label>
+        <input type="text" id="ltv-amount" name="ltv-amount" readonly />
+        
+        <label for="down-payment">Down Payment</label>
+        <input type="text" id="down-payment" name="down-payment" readonly>
 
         <label for="closingCosts">Closing Costs (%)</label>
         <select id="closingCosts" onchange="updateCalculations()">
@@ -273,9 +279,13 @@ button:hover {
    <!-- Hard Money / Loan Summary Report Section -->
 <div class="report-section">
     <h3>Hard Money / Loan Summary</h3>
-    <div class="report">
-        <label for="loan-amount">Loan Amount</label>
-        <span class="green-text" id="loan-amount">$0</span>
+    <div>
+    <label for="report-ltv">Loan Amount (LTV)</label>
+    <span id="report-ltv">$0.00</span> <!-- Placeholder for LTV -->
+    </div>
+    <div>
+    <label for="report-down-payment">Down Payment</label>
+    <span id="report-down-payment">$0.00</span> <!-- Placeholder for Down Payment -->
     </div>
     <div class="report">
         <label for="interest-rate">Interest Rate</label>
@@ -409,10 +419,61 @@ function updateCalculations() {
     document.getElementById("total-loan-interest").textContent = `$${interestAmount}`;
 }
 
-// Add event listeners to trigger calculations
-document.querySelectorAll('.section input, .section select').forEach(input => {
+    // Add event listeners to trigger calculations
+    document.querySelectorAll('.section input, .section select').forEach(input => {
     input.addEventListener('input', updateCalculations);
 });
-   
+
+    // Assuming the LTV is selected from a dropdown and property price is in an input field
+    document.getElementById('ltv-ratio').addEventListener('change', function() {
+    var ltv = parseFloat(this.value); // Get the LTV percentage (e.g., 65% = 0.65)
+    var propertyPrice = parseFloat(document.getElementById('property-price').value); // Property price input field
+    
+    if (!isNaN(ltv) && !isNaN(propertyPrice)) {
+        var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount
+        var downPayment = propertyPrice - loanAmount; // Calculate down payment
+        
+        // Update the down payment field
+        document.getElementById('down-payment').value = downPayment.toFixed(2); // Display down payment rounded to 2 decimal places
+    }
+});
+
+    // Function to update Loan Amount (LTV) and Down Payment fields
+    document.getElementById('ltv-ratio').addEventListener('change', updateValues);
+    document.getElementById('property-price').addEventListener('input', updateValues);
+
+    function updateValues() {
+    var ltv = parseFloat(document.getElementById('ltv-ratio').value); // Get selected LTV percentage (e.g., 65)
+    var propertyPrice = parseFloat(document.getElementById('property-price').value); // Get property price input field
+    
+    if (!isNaN(ltv) && !isNaN(propertyPrice)) {
+        var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount based on LTV
+        var downPayment = propertyPrice - loanAmount; // Calculate down payment
+        
+        // Update the Loan Amount (LTV) and Down Payment fields
+        document.getElementById('ltv-amount').value = "$" + loanAmount.toFixed(2); // Display loan amount as currency
+        document.getElementById('down-payment').value = "$" + downPayment.toFixed(2); // Display down payment as currency
+    }
+}
+
+        function updateReportValues() {
+        var ltv = parseFloat(document.getElementById('ltv-ratio').value); // Get selected LTV percentage
+        var propertyPrice = parseFloat(document.getElementById('property-price').value); // Get property price
+    
+        if (!isNaN(ltv) && !isNaN(propertyPrice)) {
+        var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount based on LTV
+        var downPayment = propertyPrice - loanAmount; // Calculate down payment
+        
+        // Update the report with loan amount and down payment
+        document.getElementById('report-ltv').textContent = "$" + loanAmount.toFixed(2);
+        document.getElementById('report-down-payment').textContent = "$" + downPayment.toFixed(2);
+    }
+}
+
+// Call this function to update the report when the form changes
+updateReportValues();
+
+
+    
 </body>
 </html>
