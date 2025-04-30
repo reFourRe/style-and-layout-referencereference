@@ -276,41 +276,122 @@
     </div>
 
    <!-- Hard Money / Loan Summary Report Section -->
-    <div class="report-section">
-        <h3>Hard Money / Loan Summary</h3>
-        <div class="report">
-            <label>Loan Amount</label>
-            <span id="loanAmount" class="green-text">$0</span>
-        </div>
-        <div class="report">
-            <label>Down Payment</label>
-            <span id="downPayment" class="green-text">$0</span>
-        </div>
-        <div class="report">
-            <label>Loan-to-Value Ratio (LTV)</label>
-            <span id="ltv" class="green-text">0%</span>
-        </div>
-        <div class="report">
-            <label>Closing Costs</label>
-            <span id="closingCostsReport" class="green-text">$0</span>
-        </div>
-        <div class="report">
-            <label>Loan Fees</label>
-            <span id="loanFeesReport" class="green-text">$0</span>
-        </div>
+<div class="report-section">
+    <h3>Hard Money / Loan Summary</h3>
+    <div>
+    <div class="report">
+        <label for="report-ltv">Loan Amount (LTV)</label>
+        <span id="report-ltv">$0.00</span> 
     </div>
-
-    <!-- Export Section -->
-    <div class="export-options">
-        <button>Export to CSV</button>
-        <button>Export to PDF</button>
+    <div class="report">
+        <label for="report-down-payment">Down Payment</label>
+        <span id="report-down-payment">$0.00</span>
     </div>
-
-    <div class="button-section">
-        <button onclick="updateCalculations()">Recalculate</button>
+    <div class="report">
+        <label for="interest-rate">Interest Rate</label>
+        <span class="green-text" id="interest-rate">$0</span>
     </div>
-
+    <div class="report">
+        <label for="loan-term">Loan Term</label>
+        <span class="green-text" id="loan-term">$0</span>
+    </div>
+    <div class="report">
+        <label for="rehab-costs">Rehab Costs</label>
+        <span class="green-text" id="rehab-costs">$0</span>
+    </div>
+    <div class="report">
+        <label for="total-loan-amount">Total Loan Amount</label>
+        <span class="green-text" id="total-loan-amount">$0</span>
+    </div>
+    <div class="report">
+        <label for="cost-for-money">Your Cost For The Money</label>
+        <span class="green-text" id="cost-for-money">$0</span>
+    </div>
+    <div class="report">
+        <label for="monthly-interest">Monthly Interest-Only Payment</label>
+        <span class="green-text" id="monthly-interest">$0</span>
+    </div>
+    <div class="report">
+        <label for="total-loan-interest">Total Loan Interest</label>
+        <span class="green-text" id="total-loan-interest">$0</span>
+    </div>
 </div>
+
+    <!-- Fix & Flip Key Metrics Section (14 labels) -->
+    <div class="section">
+        <h3>Fix & Flip Key Metrics</h3>
+        
+        <!-- 14 labels for Fix & Flip Key Metrics -->
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
+        <label for="rehabCosts">Rehab Costs</label>
+        <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()">
+        <label for="holdingCosts">Holding Costs</label>
+        <input type="number" id="holdingCosts" placeholder="Enter Holding Costs" oninput="updateCalculations()">
+        <label for="closingCosts">Closing Costs</label>
+        <input type="number" id="closingCosts" placeholder="Enter Closing Costs" readonly>
+        <label for="profitMargin">Profit Margin</label>
+        <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
+        <label for="roi">ROI</label>
+        <input type="number" id="roi" placeholder="Enter ROI" oninput="updateCalculations()">
+        <label for="capitalGains">Capital Gains</label>
+        <input type="number" id="capitalGains" placeholder="Enter Capital Gains" oninput="updateCalculations()">
+        <label for="loanAmount">Loan Amount</label>
+        <input type="number" id="loanAmount" placeholder="Enter Loan Amount" oninput="updateCalculations()">
+        <label for="totalExpenses">Total Expenses</label>
+        <input type="number" id="totalExpenses" placeholder="Enter Total Expenses" oninput="updateCalculations()">
+        <label for="totalIncome">Total Income</label>
+        <input type="number" id="totalIncome" placeholder="Enter Total Income" oninput="updateCalculations()">
+        <label for="grossProfit">Gross Profit</label>
+        <input type="number" id="grossProfit" placeholder="Enter Gross Profit" oninput="updateCalculations()">
+        <label for="netProfit">Net Profit</label>
+        <input type="number" id="netProfit" placeholder="Enter Net Profit" oninput="updateCalculations()">
+        <label for="breakEven">Break Even</label>
+        <input type="number" id="breakEven" placeholder="Enter Break Even" oninput="updateCalculations()">
+    </div>
+
+    <!-- Fix & Flip Report Section (18 labels) -->
+<div class="report-section">
+    <h3>Fix & Flip Breakdown</h3>
+    <div class="report">
+        <label for="total-rehab-budget">Total Rehab Budget</label>
+        <span class="green-text" id="total-rehab-budget">$0</span>
+    </div>
+    <div class="report">
+        <label for="expected-selling-price">Expected Selling Price</label>
+        <span class="green-text" id="expected-selling-price">$0</span>
+    </div>
+    <div class="report">
+        <label for="arv">After Repair Value (ARV)</label>
+        <span class="green-text" id="arv">$0</span>
+    </div>
+    <div class="report">
+        <label for="projected-profit">Projected Profit</label>
+        <span class="green-text" id="projected-profit">$0</span>
+    </div>
+    <div class="report">
+        <label for="property-purchase-price">Property Purchase Price</label>
+        <span class="green-text" id="property-purchase-price">$0</span>
+    </div>
+    <div class="report">
+        <label for="loan-interest">Loan Interest</label>
+        <span class="green-text" id="loan-interest">$0</span>
+    </div>
+    <div class="report">
+        <label for="monthly-property-expenses">Monthly Property Expenses</label>
+        <span class="green-text" id="monthly-property-expenses">$0</span>
+    </div>
+    <div class="report">
+        <label for="holding-costs">Holding Costs</label>
+        <span class="green-text" id="holding-costs">$0</span>
+    </div>
+    <div class="report">
+        <label for="expected-profit">Expected Profit</label>
+        <span class="green-text" id="expected-profit">$0</span>
+    </div>
+    
+</div>
+
 
 <script>
     // Placeholder for JavaScript functions to handle calculations and updates to the report
