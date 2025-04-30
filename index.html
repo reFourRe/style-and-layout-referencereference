@@ -261,8 +261,8 @@ button:hover {
         <label for="down-payment">Down Payment</label>
         <input type="text" id="down-payment" name="down-payment" readonly>
 
-        <label for="closingCosts">Closing Costs (%)</label>
-        <select id="closingCosts" onchange="updateCalculations()">
+        <label for="closingCostsInput">Closing Costs: $</label>
+        <input type="number" id="closingCostsInput" name="closingCosts" placeholder="Enter closing costs" required>
             <option value="2">2%</option>
             <option value="3">3%</option>
             <option value="4">4%</option>
@@ -291,12 +291,13 @@ button:hover {
 <div class="report-section">
     <h3>Hard Money / Loan Summary</h3>
     <div>
-    <label for="report-ltv">Loan Amount (LTV)</label>
-    <span id="report-ltv">$0.00</span> <!-- Placeholder for LTV -->
+    <div class="report">
+        <label for="report-ltv">Loan Amount (LTV)</label>
+        <span id="report-ltv">$0.00</span> 
     </div>
-    <div>
-    <label for="report-down-payment">Down Payment</label>
-    <span id="report-down-payment">$0.00</span> <!-- Placeholder for Down Payment -->
+    <div class="report">
+        <label for="report-down-payment">Down Payment</label>
+        <span id="report-down-payment">$0.00</span>
     </div>
     <div class="report">
         <label for="interest-rate">Interest Rate</label>
@@ -328,19 +329,17 @@ button:hover {
     </div>
 </div>
 
-    <!-- Fix & Flip Key Metrics Section (14 labels) -->
+       <!-- Fix & Flip Key Metrics Section -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
-        
-        <!-- 14 labels for Fix & Flip Key Metrics -->
         <label for="purchasePrice">Purchase Price</label>
         <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
         <label for="rehabCosts">Rehab Costs</label>
         <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()">
         <label for="holdingCosts">Holding Costs</label>
         <input type="number" id="holdingCosts" placeholder="Enter Holding Costs" oninput="updateCalculations()">
-        <label for="closingCosts">Closing Costs</label>
-        <input type="number" id="closingCosts" placeholder="Enter Closing Costs" readonly>
+        <label for="closingCostsReport">Closing Costs (Report):</label>
+        <input type="text" id="closingCostsReport" name="closingCostsReport" readonly>
         <label for="profitMargin">Profit Margin</label>
         <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
         <label for="roi">ROI</label>
@@ -353,154 +352,31 @@ button:hover {
         <input type="number" id="totalExpenses" placeholder="Enter Total Expenses" oninput="updateCalculations()">
         <label for="totalIncome">Total Income</label>
         <input type="number" id="totalIncome" placeholder="Enter Total Income" oninput="updateCalculations()">
-        <label for="grossProfit">Gross Profit</label>
-        <input type="number" id="grossProfit" placeholder="Enter Gross Profit" oninput="updateCalculations()">
         <label for="netProfit">Net Profit</label>
         <input type="number" id="netProfit" placeholder="Enter Net Profit" oninput="updateCalculations()">
-        <label for="breakEven">Break Even</label>
-        <input type="number" id="breakEven" placeholder="Enter Break Even" oninput="updateCalculations()">
     </div>
 
-    <!-- Fix & Flip Report Section (18 labels) -->
-<div class="report-section">
-    <h3>Fix & Flip Breakdown</h3>
-    
-    <!-- Updated labels for Fix & Flip Report -->
-    <div class="report">
-        <label for="total-rehab-budget">Total Rehab Budget</label>
-        <span class="green-text" id="total-rehab-budget">$0</span>
+   <!-- Fix & Flip Report Section -->
+    <div class="section">
+        <h3>Fix & Flip Report</h3>
+        <label for="purchasePriceReport">Purchase Price</label>
+        <span id="purchasePriceReport">$0</span>
+        <label for="rehabCostsReport">Rehab Costs</label>
+        <span id="rehabCostsReport">$0</span>
+        <label for="holdingCostsReport">Holding Costs</label>
+        <span id="holdingCostsReport">$0</span>
+        <label for="closingCostsReport">Closing Costs</label>
+        <span id="closingCostsReport">$0</span>
+        <label for="totalExpensesReport">Total Expenses</label>
+        <span id="totalExpensesReport">$0</span>
+        <label for="totalIncomeReport">Total Income</label>
+        <span id="totalIncomeReport">$0</span>
+        <label for="netProfitReport">Net Profit</label>
+        <span id="netProfitReport">$0</span>
     </div>
-    <div class="report">
-        <label for="expected-selling-price">Expected Selling Price</label>
-        <span class="green-text" id="expected-selling-price">$0</span>
-    </div>
-    <div class="report">
-        <label for="arv">After Repair Value (ARV)</label>
-        <span class="green-text" id="arv">$0</span>
-    </div>
-    <div class="report">
-        <label for="projected-profit">Projected Profit</label>
-        <span class="green-text" id="projected-profit">$0</span>
-    </div>
-    <div class="report">
-        <label for="property-purchase-price">Property Purchase Price</label>
-        <span class="green-text" id="property-purchase-price">$0</span>
-    </div>
-    <div class="report">
-        <label for="loan-interest">Loan Interest</label>
-        <span class="green-text" id="loan-interest">$0</span>
-    </div>
-    <div class="report">
-        <label for="monthly-property-expenses">Monthly Property Expenses</label>
-        <span class="green-text" id="monthly-property-expenses">$0</span>
-    </div>
-    <div class="report">
-        <label for="holding-costs">Holding Costs</label>
-        <span class="green-text" id="holding-costs">$0</span>
-    </div>
-    <div class="report">
-        <label for="expected-profit">Expected Profit</label>
-        <span class="green-text" id="expected-profit">$0</span>
-    </div>
-</div>
+</div> <!-- Close Fix & Flip Report Section -->
 
-    </div>
-</div>
+</div> <!-- Close Container -->
 
-      
-    function updateCalculations() {
-
-    const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
-    const interestRate = parseFloat(document.getElementById("interestRate").value) || 0;
-    const loanTerm = parseInt(document.getElementById("loanTerm").value) || 0;
-    const loanToValue = parseFloat(document.getElementById("loanToValue").value) || 0;
-    const closingCostsPercent = parseFloat(document.getElementById("closingCosts").value) || 0;
-    const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
-
-    const loanAmount = (purchasePrice * (loanToValue / 100)).toFixed(2);
-    const closingCosts = (purchasePrice * (closingCostsPercent / 100)).toFixed(2);
-    const loanFeeAmount = (loanAmount * (loanPoints / 100)).toFixed(2);
-    const interestAmount = (loanAmount * (interestRate / 100) * loanTerm / 12).toFixed(2);
-
-    document.getElementById("loan-amount").textContent = `$${loanAmount}`;
-    document.getElementById("loan-fees").value = `$${loanFeeAmount}`;
-    document.getElementById("total-loan-amount").textContent = `$${(parseFloat(loanAmount) + parseFloat(closingCosts) + parseFloat(loanFeeAmount)).toFixed(2)}`;
-    document.getElementById("total-loan-interest").textContent = `$${interestAmount}`;
-}
-
-  
-    document.querySelectorAll('.section input, .section select').forEach(input => {
-    input.addEventListener('input', updateCalculations);
-});
-
-  
-    document.getElementById('ltv-ratio').addEventListener('change', function() {
-    var ltv = parseFloat(this.value); // Get the LTV percentage (e.g., 65% = 0.65)
-    var propertyPrice = parseFloat(document.getElementById('property-price').value); // Property price input field
-    
-    if (!isNaN(ltv) && !isNaN(propertyPrice)) {
-        var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount
-        var downPayment = propertyPrice - loanAmount; // Calculate down payment
-        
-        document.getElementById('down-payment').value = downPayment.toFixed(2); // Display down payment rounded to 2 decimal places
-    }
-});
-
-  
-    document.getElementById('ltv-ratio').addEventListener('change', updateValues);
-    document.getElementById('property-price').addEventListener('input', updateValues);
-
-    function updateValues() {
-    var ltv = parseFloat(document.getElementById('ltv-ratio').value); // Get selected LTV percentage (e.g., 65)
-    var propertyPrice = parseFloat(document.getElementById('property-price').value); // Get property price input field
-    
-    if (!isNaN(ltv) && !isNaN(propertyPrice)) {
-        var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount based on LTV
-        var downPayment = propertyPrice - loanAmount; // Calculate down payment
-        
-        document.getElementById('ltv-amount').value = "$" + loanAmount.toFixed(2); // Display loan amount as currency
-        document.getElementById('down-payment').value = "$" + downPayment.toFixed(2); // Display down payment as currency
-    }
-}
-
-        function updateReportValues() {
-        var ltv = parseFloat(document.getElementById('ltv-ratio').value); // Get selected LTV percentage
-        var propertyPrice = parseFloat(document.getElementById('property-price').value); // Get property price
-    
-        if (!isNaN(ltv) && !isNaN(propertyPrice)) {
-        var loanAmount = propertyPrice * (ltv / 100); // Calculate loan amount based on LTV
-        var downPayment = propertyPrice - loanAmount; // Calculate down payment
-        
-        
-        document.getElementById('report-ltv').textContent = "$" + loanAmount.toFixed(2);
-        document.getElementById('report-down-payment').textContent = "$" + downPayment.toFixed(2);
-    }
-}
-
-
-updateReportValues();
-
-function updateCalculations() {
-
-    var propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
-    var interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
-    var loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
-    // Continue with calculations and update the report sections accordingly
-}
-
-  function updateCalculations() {
-
-    let propertyPrice = parseFloat(document.getElementById("property-price").value) || 0;
-    let loanAmount = parseFloat(document.getElementById("loanAmount").value) || 0;
-    let rehabCosts = parseFloat(document.getElementById("rehabCosts").value) || 0;
-    let holdingCosts = parseFloat(document.getElementById("holdingCosts").value) || 0;
-
-  
-    let ltv = (loanAmount / propertyPrice) * 100;
-
-    
-    document.getElementById("report-ltv").textContent = "$" + ltv.toFixed(2);
-
-  
-</body>
-</html>
+</body> <!-- Close Body -->
+</html> <!-- Close HTML -->
