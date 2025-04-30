@@ -176,7 +176,18 @@ button:hover {
 
 .container {
     width: 75%; /* Slightly reduce width for better margins */
-}       
+}      
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%; /* Adjust container width for smaller screens */
+    }
+
+    .section input, .section select {
+        font-size: 1em; /* Reduce font size for smaller screens */
+    }
+}
+    
     </style>
 </head>
 <body>
@@ -329,7 +340,7 @@ button:hover {
         <label for="holdingCosts">Holding Costs</label>
         <input type="number" id="holdingCosts" placeholder="Enter Holding Costs" oninput="updateCalculations()">
         <label for="closingCosts">Closing Costs</label>
-        <input type="number" id="closingCosts" placeholder="Enter Closing Costs" oninput="updateCalculations()">
+        <input type="number" id="closingCosts" placeholder="Enter Closing Costs" readonly>
         <label for="profitMargin">Profit Margin</label>
         <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
         <label for="roi">ROI</label>
@@ -481,6 +492,21 @@ function updateCalculations() {
     // Continue with calculations and update the report sections accordingly
 }
 
-    
+  function updateCalculations() {
+    // Retrieve values from inputs
+    let propertyPrice = parseFloat(document.getElementById("property-price").value) || 0;
+    let loanAmount = parseFloat(document.getElementById("loanAmount").value) || 0;
+    let rehabCosts = parseFloat(document.getElementById("rehabCosts").value) || 0;
+    let holdingCosts = parseFloat(document.getElementById("holdingCosts").value) || 0;
+
+    // Example: Calculate loan amount LTV (Loan-to-Value)
+    let ltv = (loanAmount / propertyPrice) * 100;
+
+    // Update LTV in the report section
+    document.getElementById("report-ltv").textContent = "$" + ltv.toFixed(2);
+
+    // Add more calculations as necessary...
+}
+  
 </body>
 </html>
