@@ -14,7 +14,7 @@
         }
 
         .container {
-            width: 80%;
+            width: 75%;
             margin: 0 auto;
             padding: 20px;
         }
@@ -46,12 +46,13 @@
 
         .section input, .section select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
             border: 1px solid #444;
-            border-radius: 4px;
+            border-radius: 6px;
             background-color: #333;
             color: white;
+            font-size: 1em;
         }
 
         .readonly {
@@ -162,18 +163,6 @@
         }
 
         /* Form Spacing and Alignment */
-        .section input, .section select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 12px; /* Add extra spacing */
-            border-radius: 6px;
-            font-size: 1em;
-        }
-
-        .section label {
-            font-size: 1em; /* Increase label size for clarity */
-        }
-
         .container {
             width: 75%; /* Slightly reduce width for better margins */
         }      
@@ -187,7 +176,6 @@
                 font-size: 1em; /* Reduce font size for smaller screens */
             }
         }
-
     </style>
 </head>
 <body>
@@ -283,81 +271,71 @@
             <option value="5">5%</option>
         </select>
 
+        <label for="loanFees">Loan Fees ($)</label>
+        <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
     </div>
 
-    <!-- Fix & Flip Key Metrics Section -->
-    <div class="section">
-        <h3>Fix & Flip Key Metrics</h3>
-        <label for="grossProfit">Gross Profit</label>
-        <input type="number" id="grossProfit" placeholder="Enter Gross Profit" oninput="updateCalculations()" />
-
-        <label for="totalLoanAmount">Total Loan Amount</label>
-        <input type="text" id="totalLoanAmount" readonly />
-
-        <label for="totalPropertyCost">Total Property Cost</label>
-        <input type="text" id="totalPropertyCost" readonly />
-    </div>
-
-    <!-- Report Section -->
+   <!-- Hard Money / Loan Summary Report Section -->
     <div class="report-section">
-        <h3>Key Financial Report</h3>
+        <h3>Hard Money / Loan Summary</h3>
         <div class="report">
-            <span class="green-text">Total Loan Amount:</span>
-            <span id="ltvAmountResult">Calculate</span>
+            <label>Loan Amount</label>
+            <span id="loanAmount" class="green-text">$0</span>
         </div>
         <div class="report">
-            <span class="green-text">Total Property Cost:</span>
-            <span id="totalPropertyCostResult">Calculate</span>
+            <label>Down Payment</label>
+            <span id="downPayment" class="green-text">$0</span>
         </div>
         <div class="report">
-            <span class="green-text">Gross Profit:</span>
-            <span id="grossProfitResult">Calculate</span>
+            <label>Loan-to-Value Ratio (LTV)</label>
+            <span id="ltv" class="green-text">0%</span>
+        </div>
+        <div class="report">
+            <label>Closing Costs</label>
+            <span id="closingCostsReport" class="green-text">$0</span>
+        </div>
+        <div class="report">
+            <label>Loan Fees</label>
+            <span id="loanFeesReport" class="green-text">$0</span>
         </div>
     </div>
 
-    <!-- Button to Calculate -->
+    <!-- Export Section -->
+    <div class="export-options">
+        <button>Export to CSV</button>
+        <button>Export to PDF</button>
+    </div>
+
     <div class="button-section">
-        <button onclick="updateCalculations()">Calculate</button>
+        <button onclick="updateCalculations()">Recalculate</button>
     </div>
 
 </div>
 
 <script>
+    // Placeholder for JavaScript functions to handle calculations and updates to the report
     function updateCalculations() {
-        let propertyPrice = parseFloat(document.getElementById('property-price').value);
-        let loanTerm = parseFloat(document.getElementById('loanTerm').value);
-        let interestRate = parseFloat(document.getElementById('interestRate').value);
-        let ltvRatio = parseFloat(document.getElementById('ltv-ratio').value);
-        let closingCosts = parseFloat(document.getElementById('closingCosts').value);
-        let loanPoints = parseFloat(document.getElementById('loanPoints').value);
-        let grossProfit = parseFloat(document.getElementById('grossProfit').value);
+        // Logic to calculate loan amounts, down payments, etc.
+        // Example code, needs actual formulas for calculation
+        let propertyPrice = document.getElementById('property-price').value || 0;
+        let ltvRatio = document.getElementById('ltv-ratio').value || 0;
+        let closingCosts = document.getElementById('closingCosts').value || 0;
+        let loanPoints = document.getElementById('loanPoints').value || 0;
 
-        // Calculate Loan Amount (LTV)
-        let loanAmount = (propertyPrice * ltvRatio) / 100;
-        document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
-
-        // Calculate Down Payment
+        let loanAmount = propertyPrice * (ltvRatio / 100);
         let downPayment = propertyPrice - loanAmount;
+        let loanFees = (loanPoints / 100) * loanAmount + (closingCosts / 100) * propertyPrice;
+
+        // Populate the calculated values into the report sections
+        document.getElementById('loanAmount').innerText = "$" + loanAmount.toFixed(2);
+        document.getElementById('downPayment').innerText = "$" + downPayment.toFixed(2);
+        document.getElementById('ltv').innerText = ltvRatio + "%";
+        document.getElementById('closingCostsReport').innerText = "$" + (closingCosts * propertyPrice / 100).toFixed(2);
+        document.getElementById('loanFeesReport').innerText = "$" + loanFees.toFixed(2);
+
+        document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
         document.getElementById('down-payment').value = downPayment.toFixed(2);
-
-        // Calculate Closing Costs
-        let closingCostAmount = (propertyPrice * closingCosts) / 100;
-        let loanPointsAmount = (loanAmount * loanPoints) / 100;
-
-        // Calculate Total Loan Amount
-        let totalLoanAmount = loanAmount + closingCostAmount + loanPointsAmount;
-        document.getElementById('totalLoanAmount').value = totalLoanAmount.toFixed(2);
-
-        // Calculate Total Property Cost
-        let totalPropertyCost = propertyPrice + closingCostAmount + loanPointsAmount;
-        document.getElementById('totalPropertyCost').value = totalPropertyCost.toFixed(2);
-
-        // Calculate Gross Profit
-        let grossProfitAmount = grossProfit - totalPropertyCost;
-        document.getElementById('grossProfitResult').textContent = grossProfitAmount.toFixed(2);
-
-        document.getElementById('ltvAmountResult').textContent = loanAmount.toFixed(2);
-        document.getElementById('totalPropertyCostResult').textContent = totalPropertyCost.toFixed(2);
+        document.getElementById('loanFees').value = loanFees.toFixed(2);
     }
 </script>
 
