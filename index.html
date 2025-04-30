@@ -473,6 +473,13 @@ function updateCalculations() {
 // Call this function to update the report when the form changes
 updateReportValues();
 
+function updateCalculations() {
+    // Example: Update loan calculations based on form inputs
+    var propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
+    var interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+    var loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
+    // Continue with calculations and update the report sections accordingly
+}
 
     
 </body>
