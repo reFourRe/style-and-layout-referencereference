@@ -116,6 +116,67 @@
         .property-address-section label, .property-address-section input {
             margin-bottom: 10px;
         }
+
+/* Button Hover Effects */
+button {
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #444;
+    transform: scale(1.05); /* Slight scale effect */
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #222;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+/* Input Field Focus Styling */
+.section input:focus, .section select:focus {
+    border-color: #76b900; /* Green border on focus */
+    background-color: #222; /* Darker background */
+    outline: none; /* Remove the default outline */
+}
+
+/* Form Spacing and Alignment */
+.section input, .section select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px; /* Add extra spacing */
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.section label {
+    font-size: 1em; /* Increase label size for clarity */
+}
+
+.container {
+    width: 75%; /* Slightly reduce width for better margins */
+}       
     </style>
 </head>
 <body>
@@ -324,5 +385,34 @@
 
     </div>
 </div>
+
+// Function to update calculations dynamically
+function updateCalculations() {
+    // Get input values
+    const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
+    const interestRate = parseFloat(document.getElementById("interestRate").value) || 0;
+    const loanTerm = parseInt(document.getElementById("loanTerm").value) || 0;
+    const loanToValue = parseFloat(document.getElementById("loanToValue").value) || 0;
+    const closingCostsPercent = parseFloat(document.getElementById("closingCosts").value) || 0;
+    const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
+
+    // Calculate loan amount
+    const loanAmount = (purchasePrice * (loanToValue / 100)).toFixed(2);
+    const closingCosts = (purchasePrice * (closingCostsPercent / 100)).toFixed(2);
+    const loanFeeAmount = (loanAmount * (loanPoints / 100)).toFixed(2);
+    const interestAmount = (loanAmount * (interestRate / 100) * loanTerm / 12).toFixed(2);
+
+    // Populate fields
+    document.getElementById("loan-amount").textContent = `$${loanAmount}`;
+    document.getElementById("loan-fees").value = `$${loanFeeAmount}`;
+    document.getElementById("total-loan-amount").textContent = `$${(parseFloat(loanAmount) + parseFloat(closingCosts) + parseFloat(loanFeeAmount)).toFixed(2)}`;
+    document.getElementById("total-loan-interest").textContent = `$${interestAmount}`;
+}
+
+// Add event listeners to trigger calculations
+document.querySelectorAll('.section input, .section select').forEach(input => {
+    input.addEventListener('input', updateCalculations);
+});
+   
 </body>
 </html>
