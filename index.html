@@ -85,7 +85,6 @@
             color: green;
         }
 
-        /* Custom Scrollbars */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -103,26 +102,31 @@
             background: #777;
         }
 
-        /* Input Field Focus Styling */
         .section input:focus, .section select:focus {
-            border-color: #76b900; /* Green border on focus */
-            background-color: #222; /* Darker background */
-            outline: none; /* Remove the default outline */
-        }
-
-        /* Form Spacing and Alignment */
-        .container {
-            width: 75%; /* Slightly reduce width for better margins */
+            border-color: #76b900;
+            background-color: #222;
+            outline: none;
         }
 
         @media (max-width: 768px) {
             .container {
-                width: 95%; /* Adjust container width for smaller screens */
+                width: 95%;
             }
 
             .section input, .section select {
-                font-size: 1em; /* Reduce font size for smaller screens */
+                font-size: 1em;
             }
+        }
+
+        .group-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .group-column {
+            flex: 1;
+            min-width: 280px;
         }
     </style>
 </head>
@@ -137,13 +141,31 @@
         <label for="financeType">Finance Type</label>
         <select id="financeType" onchange="updateCalculations()">
             <option value="hardMoney" placeholder="Select Finance Type">Hard Money Only</option>
+            <option value="cash">Cash</option>
+            <option value="mortgage">Mortgage</option>
+            <option value="creditPartner">Credit Partner</option>
         </select>
+    </div>
+
+    <!-- Property Address Section -->
+    <div class="section property-address-section">
+        <label for="propertyAddress">Property Address</label>
+        <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateCalculations()" />
+
+        <label for="city">City</label>
+        <input type="text" id="city" placeholder="Enter City" oninput="updateCalculations()" />
+
+        <label for="state">State</label>
+        <input type="text" id="state" placeholder="Enter State" oninput="updateCalculations()" />
+
+        <label for="zipCode">Zip Code</label>
+        <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateCalculations()" />
     </div>
 
     <!-- Loan Terms and Conditions Section -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
-        
+
         <label for="purchasePrice">Purchase Price</label>
         <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
 
@@ -154,7 +176,7 @@
         <input type="number" id="arv" name="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
 
         <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
-        <select id="ltv-ratio" onchange="updateCalculations()" placeholder="Select LTV Ratio">
+        <select id="ltv-ratio" onchange="updateCalculations()">
             <option value="65">65% Loan - 35% Down Payment</option>
             <option value="70">70% Loan - 30% Down Payment</option>
             <option value="75">75% Loan - 25% Down Payment</option>
@@ -170,7 +192,7 @@
         <input type="text" id="downPayment" name="downPayment" readonly placeholder="Down Payment auto-populate" />
 
         <label for="loanPoints">Loan Points (%)</label>
-        <select id="loanPoints" onchange="updateCalculations()" placeholder="Select Loan Points">
+        <select id="loanPoints" onchange="updateCalculations()">
             <option value="2">2%</option>
             <option value="3">3%</option>
             <option value="4">4%</option>
@@ -179,7 +201,7 @@
         </select>
 
         <label for="loanTerm">Loan Term (Months)</label>
-        <select id="loanTerm" onchange="updateCalculations()" placeholder="Select Loan Term">
+        <select id="loanTerm" onchange="updateCalculations()">
             <option value="3">3 months</option>
             <option value="6">6 months</option>
             <option value="9">9 months</option>
@@ -187,7 +209,7 @@
         </select>
 
         <label for="interestRate">Interest Rate (%)</label>
-        <select id="interestRate" onchange="updateCalculations()" placeholder="Select Interest Rate">
+        <select id="interestRate" onchange="updateCalculations()">
             <option value="8">8%</option>
             <option value="9">9%</option>
             <option value="10">10%</option>
@@ -204,8 +226,8 @@
         <label for="interestPaid">Interest Paid ($)</label>
         <input type="text" id="interestPaid" readonly placeholder="$0" />
     </div>
-    
-    <!-- Final Report Section -->
+
+    <!-- Loan Breakdown Report Section -->
     <div class="report-section">
         <h3>Loan Breakdown Report</h3>
         <p class="report">Estimated Loan Amount: <span class="green-text" id="reportLoanAmount">$0</span></p>
@@ -216,7 +238,6 @@
         <p class="report">Monthly Payment: <span class="green-text" id="reportMonthlyPayment">$0</span></p>
     </div>
 </div>
-
     <!-- Fix & Flip Key Metrics Section (14 labels) -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
