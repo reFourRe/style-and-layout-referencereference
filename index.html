@@ -165,7 +165,7 @@
         /* Form Spacing and Alignment */
         .container {
             width: 75%; /* Slightly reduce width for better margins */
-        }      
+        }
 
         @media (max-width: 768px) {
             .container {
@@ -210,8 +210,9 @@
     <!-- Loan Terms and Conditions Section -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
-        <label for="property-price">Purchase Price</label>
-        <input type="number" id="purchase-price" name="purchase-price" placeholder="Enter Purchase Price" />
+        
+        <label for="property-price">Property Price</label>
+        <input type="number" id="property-price" name="property-price" placeholder="Enter Property Price" />
         
         <label for="interestRate">Interest Rate (%)</label>
         <select id="interestRate" onchange="updateCalculations()">
@@ -273,45 +274,50 @@
 
         <label for="loanFees">Loan Fees ($)</label>
         <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
+
+        <!-- New Interest Paid Section -->
+        <label for="interestPaid">Interest Paid ($)</label>
+        <input type="text" id="interestPaid" readonly placeholder="Interest Paid auto-populate" />
+
+        <!-- New Monthly Payment Section -->
+        <label for="monthlyPayment">Monthly Payment ($)</label>
+        <input type="text" id="monthlyPayment" readonly placeholder="Monthly Payment auto-populate" />
     </div>
 
    <!-- Hard Money / Loan Summary Report Section -->
-<div class="report-section">
-    <h3>Hard Money / Loan Summary</h3>
-    <div>
-    <div class="report">
-        <label for="report-ltv">Loan Amount (LTV)</label>
-        <span id="report-ltv">$0.00</span> 
+    <div class="report-section">
+        <h3>Hard Money / Loan Summary</h3>
+        <div class="report">
+            <label>Loan Amount</label>
+            <span id="loanAmount" class="green-text">$0</span>
+        </div>
+        <div class="report">
+            <label>Down Payment</label>
+            <span id="downPayment" class="green-text">$0</span>
+        </div>
+        <div class="report">
+            <label>Loan-to-Value Ratio (LTV)</label>
+            <span id="ltv" class="green-text">0%</span>
+        </div>
+        <div class="report">
+            <label>Closing Costs</label>
+            <span id="closingCostsReport" class="green-text">$0</span>
+        </div>
+        <div class="report">
+            <label>Loan Fees</label>
+            <span id="loanFeesReport" class="green-text">$0</span>
+        </div>
+        <!-- New Report for Interest Paid -->
+        <div class="report">
+            <label>Interest Paid</label>
+            <span id="interestPaidReport" class="green-text">$0</span>
+        </div>
+        <!-- New Report for Monthly Payment -->
+        <div class="report">
+            <label>Monthly Payment</label>
+            <span id="monthlyPaymentReport" class="green-text">$0</span>
+        </div>
     </div>
-    <div class="report">
-        <label for="report-down-payment">Down Payment</label>
-        <span id="report-down-payment">$0.00</span>
-    </div>
-    <div class="report">
-        <label for="interest-rate">Interest Rate</label>
-        <span class="green-text" id="interest-rate">$0</span>
-    </div>
-    <div class="report">
-        <label for="loan-term">Loan Term</label>
-        <span class="green-text" id="loan-term">$0</span>
-    </div>
-    <div class="report">
-        <label for="rehab-costs">Rehab Costs</label>
-        <span class="green-text" id="rehab-costs">$0</span>
-    </div>
-    <div class="report">
-        <label for="total-loan-amount">Total Loan Amount</label>
-        <span class="green-text" id="total-loan-amount">$0</span>
-    </div>
-    <div class="report">
-        <label for="monthly-interest">Monthly Interest-Only Payment</label>
-        <span class="green-text" id="monthly-interest">$0</span>
-    </div>
-    <div class="report">
-        <label for="total-loan-interest">Total Loan Interest</label>
-        <span class="green-text" id="total-loan-interest">$0</span>
-    </div>
-</div>
 
     <!-- Fix & Flip Key Metrics Section (14 labels) -->
     <div class="section">
