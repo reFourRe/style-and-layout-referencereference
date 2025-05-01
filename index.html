@@ -207,23 +207,29 @@
         <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateCalculations()" />
     </div>
 
+    <!-- Purchase Price Section -->
+    <div class="section">
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
+        
+        <label for="afterRepairValue">After Repair Value (ARV)</label>
+        <input type="number" id="afterRepairValue" name="afterRepairValue" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
+    </div>
+
     <!-- Loan Terms and Conditions Section -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
         
-        <label for="property-price">Property Price:</label>
-        <input type="number" id="property-price" onchange="updateCalculations()" placeholder="Enter Property Price" />
-
-        
-        <label for="loanInterestRate">Loan Interest Rate (%):</label>
-        <select id="loanInterestRate" onchange="updateCalculations()">
-            <option value="4">4% Interest</option>
-            <option value="5">5% Interest</option>
-            <option value="6">6% Interest</option>
-            <option value="7">7% Interest</option>
-            <option value="8">8% Interest</option>
-            <option value="9">9% Interest</option>
-            <option value="10">10% Interest</option>
+        <label for="interestRate">Interest Rate (%)</label>
+        <select id="interestRate" onchange="updateCalculations()">
+            <option value="8">8%</option>
+            <option value="9">9%</option>
+            <option value="10">10%</option>
+            <option value="11">11%</option>
+            <option value="12">12%</option>
+            <option value="13">13%</option>
+            <option value="14">14%</option>
+            <option value="15">15%</option>
         </select>
 
         <label for="loanTerm">Loan Term (Months)</label>
@@ -234,38 +240,21 @@
             <option value="12">12 months</option>
         </select>
 
-         <!-- Loan to Value dropdown for selection -->
-        <label for="ltv-ratio">Loan to Value (LTV) Ratio:</label>
+        <label for="loanToValue">Loan-to-Value Ratio (LTV)</label>
         <select id="ltv-ratio" onchange="updateCalculations()">
-            <option value="65">65% - 35% Down Payment</option>
-            <option value="70">70% - 30% Down Payment</option>
-            <option value="75">75% - 25% Down Payment</option>
-            <option value="80">80% - 20% Down Payment</option>
-            <option value="85">85% - 15% Down Payment</option>
-            <option value="90">90% - 10% Down Payment</option>
-            <option value="100">100% - 0% Down Payment</option>
+            <option value="65">65% Loan - 35% Down Payment</option>
+            <option value="70">70% Loan - 30% Down Payment</option>
+            <option value="75">75% Loan - 25% Down Payment</option>
+            <option value="80">80% Loan - 20% Down Payment</option>
+            <option value="85">85% Loan - 15% Down Payment</option>
+            <option value="90">90% Loan - 10% Down Payment</option>
         </select>
-
-            
 
         <label for="ltv-amount">Loan Amount (LTV)</label>
         <input type="text" id="ltv-amount" name="ltv-amount" readonly />
         
         <label for="down-payment">Down Payment</label>
-        <input type="text" id="down-payment" name="down-payment" readonly>
-
-        <label for="closingCosts">Closing Costs (%)</label>
-        <select id="closingCosts" onchange="updateCalculations()">
-            <option value="2">2%</option>
-            <option value="3">3%</option>
-            <option value="4">4%</option>
-            <option value="5">5%</option>
-            <option value="6">6%</option>
-            <option value="7">7%</option>
-            <option value="8">8%</option>
-            <option value="9">9%</option>
-            <option value="10">10%</option>
-        </select>
+        <input type="text" id="down-payment" name="down-payment" readonly />
 
         <label for="loanPoints">Loan Points (%)</label>
         <select id="loanPoints" onchange="updateCalculations()">
@@ -286,43 +275,27 @@
         <!-- New Monthly Payment Section -->
         <label for="monthlyPayment">Monthly Payment ($)</label>
         <input type="text" id="monthlyPayment" readonly placeholder="Monthly Payment auto-populate" />
-    </div>
 
-   <!-- Hard Money / Loan Summary Report Section -->
+        <!-- Final Report Button -->
+        <div class="button-section">
+            <button type="submit">Generate Report</button>
+        </div>
+    </div>
+    
+    <!-- Final Report Section -->
     <div class="report-section">
-        <h3>Hard Money / Loan Summary</h3>
-        <div class="report">
-            <label>Loan Amount</label>
-            <span id="loanAmount" class="green-text">$0</span>
-        </div>
-        <div class="report">
-            <label>Down Payment</label>
-            <span id="downPayment" class="green-text">$0</span>
-        </div>
-        <div class="report">
-            <label>Loan-to-Value Ratio (LTV)</label>
-            <span id="ltv" class="green-text">0%</span>
-        </div>
-        <div class="report">
-            <label>Closing Costs</label>
-            <span id="closingCostsReport" class="green-text">$0</span>
-        </div>
-        <div class="report">
-            <label>Loan Fees</label>
-            <span id="loanFeesReport" class="green-text">$0</span>
-        </div>
-        <!-- New Report for Interest Paid -->
-        <div class="report">
-            <label>Interest Paid</label>
-            <span id="interestPaidReport" class="green-text">$0</span>
-        </div>
-        <!-- New Report for Monthly Payment -->
-        <div class="report">
-            <label>Monthly Payment</label>
-            <span id="monthlyPaymentReport" class="green-text">$0</span>
-        </div>
+        <h3>Loan Breakdown Report</h3>
+        <p class="report">Estimated Loan Amount: <span class="green-text">$1,000,000</span></p>
+        <p class="report">Down Payment: <span class="green-text">$200,000</span></p>
+        <p class="report">Closing Costs: <span class="green-text">$25,000</span></p>
+        <p class="report">Loan Fees: <span class="green-text">$50,000</span></p>
     </div>
 
+    <div class="export-options">
+        <button>Export to CSV</button>
+        <button>Export to PDF</button>
+    </div>
+</div>
     <!-- Fix & Flip Key Metrics Section (14 labels) -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
@@ -396,51 +369,35 @@
 
 
 <script>
-    // Function to update the calculations based on user input
+    // Function to Update Calculations
     function updateCalculations() {
-        // Getting values from the form
-        let propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
-        let loanInterestRate = parseFloat(document.getElementById('loanInterestRate').value) || 0;
-        let loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
-        let ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
-        let closingCostsPercent = parseFloat(document.getElementById('closingCosts').value) || 0;
-        let loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
+        const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+        const afterRepairValue = parseFloat(document.getElementById('afterRepairValue').value) || 0;
+        const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+        const loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
+        const ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
 
-        // Calculating Loan Amount (LTV)
-        let loanAmount = propertyPrice * (ltvRatio / 100);
-        let downPayment = propertyPrice - loanAmount;
 
-        // Calculating Closing Costs
-        let closingCosts = propertyPrice * (closingCostsPercent / 100);
+        const loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
+        const loanFees = (purchasePrice * (loanPoints / 100)).toFixed(2);
+        
+        // Calculate Loan Amount, Down Payment
+        const loanAmount = (purchasePrice * (ltvRatio / 100)).toFixed(2);
+        const downPayment = (purchasePrice - loanAmount).toFixed(2);
+        
+        // Calculate Interest Paid
+        const interestPaid = ((loanAmount * (interestRate / 100)) * loanTerm / 12).toFixed(2);
 
-        // Calculating Loan Fees
-        let loanFees = loanAmount * (loanPoints / 100);
+        // Calculate Monthly Payment (Interest-only)
+        const monthlyPayment = ((loanAmount * (interestRate / 100)) / 12).toFixed(2);
 
-        // Calculating Interest Paid
-        let interestPaid = (loanAmount * (loanInterestRate / 100) * loanTerm) / 12;
-
-        // Calculating Monthly Payment (Interest-only for simplicity)
-        let monthlyPayment = loanAmount * (loanInterestRate / 100) / 12;
-
-        // Updating the form fields
-        document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
-        document.getElementById('down-payment').value = downPayment.toFixed(2);
-        document.getElementById('loanFees').value = loanFees.toFixed(2);
-        document.getElementById('interestPaid').value = interestPaid.toFixed(2);
-        document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
-
-        // Updating the report section
-        document.getElementById('loanAmount').textContent = "$" + loanAmount.toFixed(2);
-        document.getElementById('downPayment').textContent = "$" + downPayment.toFixed(2);
-        document.getElementById('ltv').textContent = ltvRatio + "%";
-        document.getElementById('closingCostsReport').textContent = "$" + closingCosts.toFixed(2);
-        document.getElementById('loanFeesReport').textContent = "$" + loanFees.toFixed(2);
-        document.getElementById('interestPaidReport').textContent = "$" + interestPaid.toFixed(2);
-        document.getElementById('monthlyPaymentReport').textContent = "$" + monthlyPayment.toFixed(2);
+        // Update Fields
+        document.getElementById('ltv-amount').value = `$${loanAmount}`;
+        document.getElementById('down-payment').value = `$${downPayment}`;
+        document.getElementById('loanFees').value = `$${loanFees}`;
+        document.getElementById('interestPaid').value = `$${interestPaid}`;
+        document.getElementById('monthlyPayment').value = `$${monthlyPayment}`;
     }
-
-    // Call updateCalculations when the page is loaded to initialize the fields
-    window.onload = updateCalculations;
 </script>
 
 
