@@ -131,79 +131,97 @@
     </style>
 </head>
 <body>
-    <!-- Fix & Flip Key Metrics Section (14 labels) -->
-    <div class="section">
-        <h3>Fix & Flip Key Metrics</h3>
+    <div class="container">
+        <h1>Hard Money Fix and Flip Analyzer</h1>
+        <h2>Enter the following property details:</h2>
         
-        <!-- 14 labels for Fix & Flip Key Metrics -->
-        <label for="purchasePrice">Purchase Price</label>
-        <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()">
-        <label for="rehabCosts">Rehab Costs</label>
-        <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()">
-        <label for="holdingCosts">Holding Costs</label>
-        <input type="number" id="holdingCosts" placeholder="Enter Holding Costs" oninput="updateCalculations()">
-        <label for="closingCosts">Closing Costs</label>
-        <input type="number" id="closingCosts" placeholder="Enter Closing Costs" readonly>
-        <label for="profitMargin">Profit Margin</label>
-        <input type="number" id="profitMargin" placeholder="Enter Profit Margin" oninput="updateCalculations()">
-        <label for="roi">ROI</label>
-        <input type="number" id="roi" placeholder="Enter ROI" oninput="updateCalculations()">
-        <label for="capitalGains">Capital Gains</label>
-        <input type="number" id="capitalGains" placeholder="Enter Capital Gains" oninput="updateCalculations()">
-        <label for="loanAmount">Loan Amount</label>
-        <input type="number" id="loanAmount" placeholder="Enter Loan Amount" oninput="updateCalculations()">
-        <label for="totalExpenses">Total Expenses</label>
-        <input type="number" id="totalExpenses" placeholder="Enter Total Expenses" oninput="updateCalculations()">
-        <label for="totalIncome">Total Income</label>
-        <input type="number" id="totalIncome" placeholder="Enter Total Income" oninput="updateCalculations()">
-        <label for="grossProfit">Gross Profit</label>
-        <input type="number" id="grossProfit" placeholder="Enter Gross Profit" oninput="updateCalculations()">
-        <label for="netProfit">Net Profit</label>
-        <input type="number" id="netProfit" placeholder="Enter Net Profit" oninput="updateCalculations()">
-        <label for="breakEven">Break Even</label>
-        <input type="number" id="breakEven" placeholder="Enter Break Even" oninput="updateCalculations()">
+        <!-- Finance Type Section -->
+        <div class="section">
+            <label for="financeType">Finance Type</label>
+            <select id="financeType" onchange="updateCalculations()">
+                <option value="hardMoney">Hard Money</option>
+                <option value="cash">Cash</option>
+                <option value="mortgage" disabled>Mortgage</option>
+                <option value="creditPartner" disabled>Credit Partner</option>
+            </select>
+        </div>
+
+        <!-- Property Address Section -->
+        <div class="section property-address-section">
+            <label for="propertyAddress">Property Address</label>
+            <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateCalculations()" />
+
+            <label for="city">City</label>
+            <input type="text" id="city" placeholder="Enter City" oninput="updateCalculations()" />
+
+            <label for="state">State</label>
+            <input type="text" id="state" placeholder="Enter State" oninput="updateCalculations()" />
+
+            <label for="zipCode">Zip Code</label>
+            <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateCalculations()" />
+        </div>
+
+        <!-- Loan Terms and Conditions Section -->
+        <div class="section loan-terms-section">
+            <label for="purchasePrice">Purchase Price</label>
+            <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
+
+            <label for="rehabCosts">Rehab Costs</label>
+            <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
+
+            <label for="arv">After Repair Value (ARV)</label>
+            <input type="number" id="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
+
+            <label for="ltv">Loan-to-Value Ratio (LTV)</label>
+            <input type="number" id="ltv" placeholder="Enter Loan-to-Value Ratio (LTV)" oninput="updateCalculations()" />
+
+            <label for="loanAmount">Loan Amount (LTV)</label>
+            <input type="number" id="loanAmount" placeholder="Enter Loan Amount" oninput="updateCalculations()" />
+
+            <label for="downPayment">Down Payment</label>
+            <input type="number" id="downPayment" placeholder="Enter Down Payment" oninput="updateCalculations()" />
+
+            <label for="loanPoints">Loan Points (%)</label>
+            <input type="number" id="loanPoints" placeholder="Enter Loan Points" oninput="updateCalculations()" />
+
+            <label for="loanTerm">Loan Term (Months)</label>
+            <input type="number" id="loanTerm" placeholder="Enter Loan Term (Months)" oninput="updateCalculations()" />
+
+            <label for="interestRate">Interest Rate (%)</label>
+            <input type="number" id="interestRate" placeholder="Enter Interest Rate" oninput="updateCalculations()" />
+
+            <label for="monthlyPayment">Monthly Payment ($)</label>
+            <input type="number" id="monthlyPayment" placeholder="Enter Monthly Payment" oninput="updateCalculations()" />
+
+            <label for="interestPaid">Interest Paid ($)</label>
+            <input type="number" id="interestPaid" placeholder="Enter Interest Paid" oninput="updateCalculations()" />
+        </div>
+        
+        <!-- Report Section -->
+        <div class="report-section">
+            <h3>Hard Money Fix and Flip Report</h3>
+            <div class="report">
+                <p><span class="green">Property Address:</span> <span id="reportPropertyAddress"></span></p> <!-- Auto-populate Property Address here -->
+                <p><span class="green">City:</span> <span id="reportCity">N/A</span></p>
+                <p><span class="green">State:</span> <span id="reportState">N/A</span></p>
+                <p><span class="green">Zip Code:</span> <span id="reportZipCode">N/A</span></p>
+
+                <p><span class="green">Purchase Price:</span> $<span id="reportPurchasePrice">0.00</span></p>
+                <p><span class="green">Rehab Costs:</span> $<span id="reportRehabCosts">0.00</span></p>
+                <p><span class="green">After Repair Value (ARV):</span> $<span id="reportARV">0.00</span></p>
+                <p><span class="green">Loan-to-Value Ratio (LTV):</span> <span id="reportLTV">0%</span></p>
+                <p><span class="green">Loan Amount:</span> $<span id="reportLoanAmount">0.00</span></p>
+                <p><span class="green">Down Payment:</span> $<span id="reportDownPayment">0.00</span></p>
+                <p><span class="green">Loan Points (%):</span> <span id="reportLoanPoints">0%</span></p>
+                <p><span class="green">Loan Term (Months):</span> <span id="reportLoanTerm">0</span> months</p>
+                <p><span class="green">Interest Rate (%):</span> <span id="reportInterestRate">0%</span></p>
+                <p><span class="green">Monthly Payment:</span> $<span id="reportMonthlyPayment">0.00</span></p>
+                <p><span class="green">Interest Paid:</span> $<span id="reportInterestPaid">0.00</span></p>
+            </div>
+        </div>
     </div>
 
-    <!-- Fix & Flip Report Section (18 labels) -->
-<div class="report-section">
-    <h3>Fix & Flip Breakdown</h3>
-    <div class="report">
-        <label for="total-rehab-budget">Total Rehab Budget</label>
-        <span class="green-text" id="total-rehab-budget">$0</span>
-    </div>
-    <div class="report">
-        <label for="arv">After Repair Value (ARV)</label>
-        <span class="green-text" id="arv">$0</span>
-    </div>
-    <div class="report">
-        <label for="projected-profit">Projected Profit</label>
-        <span class="green-text" id="projected-profit">$0</span>
-    </div>
-    <div class="report">
-        <label for="property-purchase-price">Property Purchase Price</label>
-        <span class="green-text" id="property-purchase-price">$0</span>
-    </div>
-    <div class="report">
-        <label for="loan-interest">Loan Interest</label>
-        <span class="green-text" id="loan-interest">$0</span>
-    </div>
-    <div class="report">
-        <label for="monthly-property-expenses">Monthly Property Expenses</label>
-        <span class="green-text" id="monthly-property-expenses">$0</span>
-    </div>
-    <div class="report">
-        <label for="holding-costs">Holding Costs</label>
-        <span class="green-text" id="holding-costs">$0</span>
-    </div>
-    <div class="report">
-        <label for="expected-profit">Expected Profit</label>
-        <span class="green-text" id="expected-profit">$0</span>
-    </div>
-    
-</div>
-
-
-<script>
+    <script>
         function updateCalculations() {
             document.getElementById('reportPropertyAddress').innerText = document.getElementById('propertyAddress').value || "N/A";
             document.getElementById('reportCity').innerText = document.getElementById('city').value || "N/A";
@@ -222,9 +240,6 @@
             document.getElementById('reportInterestPaid').innerText = document.getElementById('interestPaid').value || "0.00";
         }
     </script>
-
-
-
-
 </body>
 </html>
+
