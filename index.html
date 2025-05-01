@@ -392,30 +392,27 @@
 
 
 <script>
-    // Placeholder for JavaScript functions to handle calculations and updates to the report
-    function updateCalculations() {
-        // Logic to calculate loan amounts, down payments, etc.
-        // Example code, needs actual formulas for calculation
-        let propertyPrice = document.getElementById('property-price').value || 0;
-        let ltvRatio = document.getElementById('ltv-ratio').value || 0;
-        let closingCosts = document.getElementById('closingCosts').value || 0;
-        let loanPoints = document.getElementById('loanPoints').value || 0;
-
-        let loanAmount = propertyPrice * (ltvRatio / 100);
-        let downPayment = propertyPrice - loanAmount;
-        let loanFees = (loanPoints / 100) * loanAmount + (closingCosts / 100) * propertyPrice;
-
-        // Populate the calculated values into the report sections
-        document.getElementById('loanAmount').innerText = "$" + loanAmount.toFixed(2);
-        document.getElementById('downPayment').innerText = "$" + downPayment.toFixed(2);
-        document.getElementById('ltv').innerText = ltvRatio + "%";
-        document.getElementById('closingCostsReport').innerText = "$" + (closingCosts * propertyPrice / 100).toFixed(2);
-        document.getElementById('loanFeesReport').innerText = "$" + loanFees.toFixed(2);
-
-        document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
-        document.getElementById('down-payment').value = downPayment.toFixed(2);
-        document.getElementById('loanFees').value = loanFees.toFixed(2);
-    }
+// Function to update calculations and populate loan-related fields
+function updateCalculations() {
+    let loanAmount = parseFloat(document.getElementById('property-price').value) * (parseFloat(document.getElementById('ltv-ratio').value) / 100);
+    let closingCostsAmount = parseFloat(document.getElementById('property-price').value) * (parseFloat(document.getElementById('closingCosts').value) / 100);
+    let loanPointsAmount = loanAmount * (parseFloat(document.getElementById('loanPoints').value) / 100);
+    let interestPaidAmount = loanAmount * (parseFloat(document.getElementById('interestRate').value) / 100) * parseFloat(document.getElementById('loanTerm').value) / 12;
+    let monthlyPaymentAmount = (loanAmount * (parseFloat(document.getElementById('interestRate').value) / 100)) / parseFloat(document.getElementById('loanTerm').value);
+  
+    document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
+    document.getElementById('loanFees').value = loanPointsAmount.toFixed(2);
+    document.getElementById('interestPaid').value = interestPaidAmount.toFixed(2);
+    document.getElementById('monthlyPayment').value = monthlyPaymentAmount.toFixed(2);
+    
+    document.getElementById('loanAmount').textContent = '$' + loanAmount.toFixed(2);
+    document.getElementById('downPayment').textContent = '$' + (parseFloat(document.getElementById('property-price').value) - loanAmount).toFixed(2);
+    document.getElementById('ltv').textContent = document.getElementById('ltv-ratio').value + '%';
+    document.getElementById('closingCostsReport').textContent = '$' + closingCostsAmount.toFixed(2);
+    document.getElementById('loanFeesReport').textContent = '$' + loanPointsAmount.toFixed(2);
+    document.getElementById('interestPaidReport').textContent = '$' + interestPaidAmount.toFixed(2);
+    document.getElementById('monthlyPaymentReport').textContent = '$' + monthlyPaymentAmount.toFixed(2);
+}
 </script>
 
 </body>
