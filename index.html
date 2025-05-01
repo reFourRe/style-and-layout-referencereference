@@ -392,27 +392,47 @@
 
 
 <script>
-// Function to update calculations and populate loan-related fields
-function updateCalculations() {
-    let loanAmount = parseFloat(document.getElementById('property-price').value) * (parseFloat(document.getElementById('ltv-ratio').value) / 100);
-    let closingCostsAmount = parseFloat(document.getElementById('property-price').value) * (parseFloat(document.getElementById('closingCosts').value) / 100);
-    let loanPointsAmount = loanAmount * (parseFloat(document.getElementById('loanPoints').value) / 100);
-    let interestPaidAmount = loanAmount * (parseFloat(document.getElementById('interestRate').value) / 100) * parseFloat(document.getElementById('loanTerm').value) / 12;
-    let monthlyPaymentAmount = (loanAmount * (parseFloat(document.getElementById('interestRate').value) / 100)) / parseFloat(document.getElementById('loanTerm').value);
-  
-    document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
-    document.getElementById('loanFees').value = loanPointsAmount.toFixed(2);
-    document.getElementById('interestPaid').value = interestPaidAmount.toFixed(2);
-    document.getElementById('monthlyPayment').value = monthlyPaymentAmount.toFixed(2);
-    
-    document.getElementById('loanAmount').textContent = '$' + loanAmount.toFixed(2);
-    document.getElementById('downPayment').textContent = '$' + (parseFloat(document.getElementById('property-price').value) - loanAmount).toFixed(2);
-    document.getElementById('ltv').textContent = document.getElementById('ltv-ratio').value + '%';
-    document.getElementById('closingCostsReport').textContent = '$' + closingCostsAmount.toFixed(2);
-    document.getElementById('loanFeesReport').textContent = '$' + loanPointsAmount.toFixed(2);
-    document.getElementById('interestPaidReport').textContent = '$' + interestPaidAmount.toFixed(2);
-    document.getElementById('monthlyPaymentReport').textContent = '$' + monthlyPaymentAmount.toFixed(2);
-}
+    function updateCalculations() {
+        var propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
+        var interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+        var loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
+        var ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
+        var closingCostsPercent = parseFloat(document.getElementById('closingCosts').value) || 0;
+        var loanPointsPercent = parseFloat(document.getElementById('loanPoints').value) || 0;
+
+        // Loan Amount and Down Payment Calculation
+        var loanAmount = (propertyPrice * (ltvRatio / 100)).toFixed(2);
+        var downPayment = (propertyPrice * ((100 - ltvRatio) / 100)).toFixed(2);
+
+        // Update the Loan Amount and Down Payment fields
+        document.getElementById('ltv-amount').value = loanAmount;
+        document.getElementById('down-payment').value = downPayment;
+
+        // Closing Costs Calculation
+        var closingCosts = (propertyPrice * (closingCostsPercent / 100)).toFixed(2);
+
+        // Loan Fees Calculation
+        var loanFees = (loanAmount * (loanPointsPercent / 100)).toFixed(2);
+
+        // Interest Paid Calculation (Assuming simple interest for demo purposes)
+        var interestPaid = ((loanAmount * (interestRate / 100)) * loanTerm / 12).toFixed(2);
+
+        // Monthly Payment Calculation (Interest-only loan)
+        var monthlyPayment = ((loanAmount * (interestRate / 100)) / 12).toFixed(2);
+
+        // Update all fields in the report section
+        document.getElementById('loanAmount').textContent = "$" + loanAmount;
+        document.getElementById('downPayment').textContent = "$" + downPayment;
+        document.getElementById('ltv').textContent = ltvRatio + "%";
+        document.getElementById('closingCostsReport').textContent = "$" + closingCosts;
+        document.getElementById('loanFeesReport').textContent = "$" + loanFees;
+        document.getElementById('interestPaidReport').textContent = "$" + interestPaid;
+        document.getElementById('monthlyPaymentReport').textContent = "$" + monthlyPayment;
+
+        // Update the interest paid and monthly payment fields
+        document.getElementById('interestPaid').value = interestPaid;
+        document.getElementById('monthlyPayment').value = monthlyPayment;
+    }
 </script>
 
 </body>
