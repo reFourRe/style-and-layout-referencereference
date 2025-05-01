@@ -110,14 +110,6 @@
             margin-top: 20px;
         }
 
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .property-address-section label, .property-address-section input {
-            margin-bottom: 10px;
-        }
-
         /* Button Hover Effects */
         button {
             background-color: #333;
@@ -192,34 +184,16 @@
         </select>
     </div>
 
-    <!-- Property Address Section -->
-    <div class="section property-address-section">
-        <label for="propertyAddress">Property Address</label>
-        <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateCalculations()" />
-
-        <label for="city">City</label>
-        <input type="text" id="city" placeholder="Enter City" oninput="updateCalculations()" />
-
-        <label for="state">State</label>
-        <input type="text" id="state" placeholder="Enter State" oninput="updateCalculations()" />
-
-        <label for="zipCode">Zip Code</label>
-        <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateCalculations()" />
-    </div>
-
-    <!-- Purchase Price Section -->
-    <div class="section">
-        <label for="purchasePrice">Purchase Price</label>
-        <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
-        
-        <label for="afterRepairValue">After Repair Value (ARV)</label>
-        <input type="number" id="afterRepairValue" name="afterRepairValue" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
-    </div>
-
     <!-- Loan Terms and Conditions Section -->
     <div class="section">
         <h3>Loan Terms and Conditions</h3>
         
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
+
+        <label for="arv">After Repair Value (ARV)</label>
+        <input type="number" id="arv" name="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
+
         <label for="interestRate">Interest Rate (%)</label>
         <select id="interestRate" onchange="updateCalculations()">
             <option value="8">8%</option>
@@ -240,7 +214,7 @@
             <option value="12">12 months</option>
         </select>
 
-        <label for="loanToValue">Loan-to-Value Ratio (LTV)</label>
+        <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
         <select id="ltv-ratio" onchange="updateCalculations()">
             <option value="65">65% Loan - 35% Down Payment</option>
             <option value="70">70% Loan - 30% Down Payment</option>
@@ -252,27 +226,16 @@
 
         <label for="ltv-amount">Loan Amount (LTV)</label>
         <input type="text" id="ltv-amount" name="ltv-amount" readonly />
-        
+
         <label for="down-payment">Down Payment</label>
         <input type="text" id="down-payment" name="down-payment" readonly />
 
-        <label for="loanPoints">Loan Points (%)</label>
-        <select id="loanPoints" onchange="updateCalculations()">
-            <option value="1">1%</option>
-            <option value="2">2%</option>
-            <option value="3">3%</option>
-            <option value="4">4%</option>
-            <option value="5">5%</option>
-        </select>
+        <label for="loanPoints">Loan Fees ($)</label>
+        <input type="number" id="loanPoints" name="loanPoints" placeholder="Loan Fees auto-populate" readonly />
 
-        <label for="loanFees">Loan Fees ($)</label>
-        <input type="number" id="loanFees" readonly placeholder="Loan Fees auto-populate" />
-
-        <!-- New Interest Paid Section -->
         <label for="interestPaid">Interest Paid ($)</label>
         <input type="text" id="interestPaid" readonly placeholder="Interest Paid auto-populate" />
 
-        <!-- New Monthly Payment Section -->
         <label for="monthlyPayment">Monthly Payment ($)</label>
         <input type="text" id="monthlyPayment" readonly placeholder="Monthly Payment auto-populate" />
 
@@ -296,6 +259,7 @@
         <button>Export to PDF</button>
     </div>
 </div>
+
     <!-- Fix & Flip Key Metrics Section (14 labels) -->
     <div class="section">
         <h3>Fix & Flip Key Metrics</h3>
@@ -369,37 +333,28 @@
 
 
 <script>
-    // Function to Update Calculations
     function updateCalculations() {
-        const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
-        const afterRepairValue = parseFloat(document.getElementById('afterRepairValue').value) || 0;
-        const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
-        const loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
-        const ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
+        var purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+        var arv = parseFloat(document.getElementById('arv').value) || 0;
+        var interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+        var loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
+        var ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
 
+        var loanAmount = purchasePrice * (ltvRatio / 100);
+        var downPayment = purchasePrice - loanAmount;
 
-        const loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
-        const loanFees = (purchasePrice * (loanPoints / 100)).toFixed(2);
-        
-        // Calculate Loan Amount, Down Payment
-        const loanAmount = (purchasePrice * (ltvRatio / 100)).toFixed(2);
-        const downPayment = (purchasePrice - loanAmount).toFixed(2);
-        
-        // Calculate Interest Paid
-        const interestPaid = ((loanAmount * (interestRate / 100)) * loanTerm / 12).toFixed(2);
+        var loanPoints = loanAmount * 0.02; // Assuming 2% of loan amount for loan fees
+        var interestPaid = (loanAmount * (interestRate / 100) * loanTerm) / 12;
+        var monthlyPayment = loanAmount * (interestRate / 100) / 12;
 
-        // Calculate Monthly Payment (Interest-only)
-        const monthlyPayment = ((loanAmount * (interestRate / 100)) / 12).toFixed(2);
-
-        // Update Fields
-        document.getElementById('ltv-amount').value = `$${loanAmount}`;
-        document.getElementById('down-payment').value = `$${downPayment}`;
-        document.getElementById('loanFees').value = `$${loanFees}`;
-        document.getElementById('interestPaid').value = `$${interestPaid}`;
-        document.getElementById('monthlyPayment').value = `$${monthlyPayment}`;
+        // Display values
+        document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
+        document.getElementById('down-payment').value = downPayment.toFixed(2);
+        document.getElementById('loanPoints').value = loanPoints.toFixed(2);
+        document.getElementById('interestPaid').value = interestPaid.toFixed(2);
+        document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
     }
 </script>
-
 
 
 
