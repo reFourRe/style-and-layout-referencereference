@@ -396,35 +396,53 @@
 
 
 <script>
+    // Function to update the calculations based on user input
     function updateCalculations() {
-    // Get property price input
-    const propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
+        // Getting values from the form
+        let propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
+        let loanInterestRate = parseFloat(document.getElementById('loanInterestRate').value) || 0;
+        let loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
+        let ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
+        let closingCostsPercent = parseFloat(document.getElementById('closingCosts').value) || 0;
+        let loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
 
-    // Get selected LTV ratio
-    const ltvPercent = parseFloat(document.getElementById('ltv-ratio').value) || 0;
-    const ltvDecimal = ltvPercent / 100;
+        // Calculating Loan Amount (LTV)
+        let loanAmount = propertyPrice * (ltvRatio / 100);
+        let downPayment = propertyPrice - loanAmount;
 
-    // Calculate loan amount and down payment
-    const loanAmount = propertyPrice * ltvDecimal;
-    const downPayment = propertyPrice - loanAmount;
+        // Calculating Closing Costs
+        let closingCosts = propertyPrice * (closingCostsPercent / 100);
 
-    // Update loan amount and down payment fields
-    document.getElementById('loan-amount').value = loanAmount.toFixed(2);
-    document.getElementById('down-payment').value = downPayment.toFixed(2);
+        // Calculating Loan Fees
+        let loanFees = loanAmount * (loanPoints / 100);
 
-    // Get loan interest rate and term
-    const interestRate = parseFloat(document.getElementById('loan-interest-rate').value) || 0;
-    const loanTermMonths = parseInt(document.getElementById('loan-term').value) || 0;
+        // Calculating Interest Paid
+        let interestPaid = (loanAmount * (loanInterestRate / 100) * loanTerm) / 12;
 
-    // Calculate monthly payment (interest-only for now)
-    const monthlyInterestRate = interestRate / 100 / 12;
-    const monthlyPayment = loanAmount * monthlyInterestRate;
+        // Calculating Monthly Payment (Interest-only for simplicity)
+        let monthlyPayment = loanAmount * (loanInterestRate / 100) / 12;
 
-    document.getElementById('monthly-payment').value = monthlyPayment.toFixed(2);
+        // Updating the form fields
+        document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
+        document.getElementById('down-payment').value = downPayment.toFixed(2);
+        document.getElementById('loanFees').value = loanFees.toFixed(2);
+        document.getElementById('interestPaid').value = interestPaid.toFixed(2);
+        document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
 
-    // Add any other updates as needed
-}
+        // Updating the report section
+        document.getElementById('loanAmount').textContent = "$" + loanAmount.toFixed(2);
+        document.getElementById('downPayment').textContent = "$" + downPayment.toFixed(2);
+        document.getElementById('ltv').textContent = ltvRatio + "%";
+        document.getElementById('closingCostsReport').textContent = "$" + closingCosts.toFixed(2);
+        document.getElementById('loanFeesReport').textContent = "$" + loanFees.toFixed(2);
+        document.getElementById('interestPaidReport').textContent = "$" + interestPaid.toFixed(2);
+        document.getElementById('monthlyPaymentReport').textContent = "$" + monthlyPayment.toFixed(2);
+    }
+
+    // Call updateCalculations when the page is loaded to initialize the fields
+    window.onload = updateCalculations;
 </script>
+
 
 
 
