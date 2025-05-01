@@ -85,50 +85,6 @@
             color: green;
         }
 
-        .button-section {
-            text-align: center;
-        }
-
-        button {
-            background-color: #333;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-            margin: 10px;
-        }
-
-        button:hover {
-            background-color: #444;
-        }
-
-        .export-options {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* Button Hover Effects */
-        button {
-            background-color: #333;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-            margin: 10px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        button:hover {
-            background-color: #444;
-            transform: scale(1.05); /* Slight scale effect */
-        }
-
         /* Custom Scrollbars */
         ::-webkit-scrollbar {
             width: 10px;
@@ -238,7 +194,6 @@
 
         <label for="monthlyPayment">Monthly Payment ($)</label>
         <input type="text" id="monthlyPayment" readonly placeholder="Monthly Payment auto-populate" />
-        
     </div>
     
     <!-- Final Report Section -->
@@ -346,6 +301,7 @@
         document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
     }
 </script>
+
 
 
 
