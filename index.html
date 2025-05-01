@@ -1,221 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>reFour's Hard Money, Fix & Flip Analyzer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reFour's Hard Money, Fix & Flip Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-      width: 75%;
-      margin: 0 auto;
-      padding: 20px;
-    }
+        .container {
+            width: 75%;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    h1, h2 {
-      text-align: center;
-      color: white;
-    }
+        h1, h2 {
+            text-align: center;
+            color: white;
+        }
 
-    h2 {
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
+        h2 {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
 
-    .section {
-      background-color: #111;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
+        .section {
+            background-color: #111;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
 
-    .section label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
-      color: white;
-    }
+        .section label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
 
-    .section input,
-    .section select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      border: 1px solid #444;
-      border-radius: 6px;
-      background-color: #333;
-      color: white;
-      font-size: 1em;
-    }
+        .section input, .section select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #333;
+            color: white;
+            font-size: 1em;
+        }
 
-    .readonly {
-      background-color: #f2f2f2;
-    }
+        .readonly {
+            background-color: #f2f2f2;
+        }
 
-    .report-section {
-      background-color: #111;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 8px;
-      border: 1px solid #555;
-    }
+        .report-section {
+            background-color: #111;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 1px solid #555;
+        }
 
-    .report-section h3 {
-      margin-top: 0;
-      color: white;
-    }
+        .report-section h3 {
+            margin-top: 0;
+            color: white;
+        }
 
-    .report {
-      margin-bottom: 10px;
-    }
+        .report {
+            margin-bottom: 10px;
+        }
 
-    .green {
-      color: green;
-      font-weight: bold;
-    }
+        .green {
+            color: green;
+            font-weight: bold;
+        }
 
-    .green-text {
-      color: green;
-    }
+        .green-text {
+            color: green;
+        }
 
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
-    ::-webkit-scrollbar-track {
-      background: #222;
-    }
+        ::-webkit-scrollbar-track {
+            background: #222;
+        }
 
-    ::-webkit-scrollbar-thumb {
-      background: #555;
-      border-radius: 10px;
-    }
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 10px;
+        }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: #777;
-    }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
 
-    .section input:focus,
-    .section select:focus {
-      border-color: #76b900;
-      background-color: #222;
-      outline: none;
-    }
+        /* Input Field Focus Styling */
+        .section input:focus, .section select:focus {
+            border-color: #76b900; /* Green border on focus */
+            background-color: #222; /* Darker background */
+            outline: none; /* Remove the default outline */
+        }
 
-    @media (max-width: 768px) {
-      .container {
-        width: 95%;
-      }
+        /* Form Spacing and Alignment */
+        .container {
+            width: 75%; /* Slightly reduce width for better margins */
+        }
 
-      .section input,
-      .section select {
-        font-size: 1em;
-      }
-    }
-  </style>
+        @media (max-width: 768px) {
+            .container {
+                width: 95%; /* Adjust container width for smaller screens */
+            }
+
+            .section input, .section select {
+                font-size: 1em; /* Reduce font size for smaller screens */
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+
+<div class="container">
     <h1>reFour's Hard Money, Fix & Flip Analyzer</h1>
     <h2>Maximizing investments for borrowers and lenders</h2>
 
-    <!-- Property Address Section -->
-    <div class="section">
-      <label for="propertyAddress">Property Address</label>
-      <input type="text" id="propertyAddress" placeholder="Enter Property Address" />
-
-      <label for="propertyCity">City</label>
-      <input type="text" id="propertyCity" placeholder="Enter City" />
-
-      <label for="propertyState">State</label>
-      <input type="text" id="propertyState" placeholder="Enter State" />
-
-      <label for="propertyZip">Zip Code</label>
-      <input type="text" id="propertyZip" placeholder="Enter Zip Code" />
-    </div>
-
     <!-- Finance Type Section -->
     <div class="section">
-      <label for="financeType">Finance Type</label>
-      <select id="financeType" onchange="updateCalculations()">
-        <option value="hardMoney">Hard Money Only</option>
-      </select>
+        <label for="financeType">Finance Type</label>
+        <select id="financeType" onchange="updateCalculations()">
+            <option value="hardMoney" placeholder="Select Finance Type">Hard Money Only</option>
+        </select>
     </div>
 
-    <!-- Your Cost For The Money -->
+    <!-- Loan Terms and Conditions Section -->
     <div class="section">
-      <h3>Loan Terms and Conditions</h3>
+        <h3>Loan Terms and Conditions</h3>
+        
+        <label for="purchasePrice">Purchase Price</label>
+        <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
 
-      <label for="purchasePrice">Purchase Price</label>
-      <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
+        <label for="rehabCosts">Rehab Costs</label>
+        <input type="number" id="rehabCosts" name="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
 
-      <label for="arv">After Repair Value (ARV)</label>
-      <input type="number" id="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
+        <label for="arv">After Repair Value (ARV)</label>
+        <input type="number" id="arv" name="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
 
-      <label for="interestRate">Interest Rate (%)</label>
-      <select id="interestRate" onchange="updateCalculations()">
-        <option value="8">8%</option>
-        <option value="9">9%</option>
-        <option value="10">10%</option>
-        <option value="11">11%</option>
-        <option value="12">12%</option>
-        <option value="13">13%</option>
-        <option value="14">14%</option>
-        <option value="15">15%</option>
-      </select>
+        <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
+        <select id="ltv-ratio" onchange="updateCalculations()" placeholder="Select LTV Ratio">
+            <option value="65">65% Loan - 35% Down Payment</option>
+            <option value="70">70% Loan - 30% Down Payment</option>
+            <option value="75">75% Loan - 25% Down Payment</option>
+            <option value="80">80% Loan - 20% Down Payment</option>
+            <option value="85">85% Loan - 15% Down Payment</option>
+            <option value="90">90% Loan - 10% Down Payment</option>
+        </select>
 
-      <label for="loanTerm">Loan Term (Months)</label>
-      <select id="loanTerm" onchange="updateCalculations()">
-        <option value="3">3 months</option>
-        <option value="6">6 months</option>
-        <option value="9">9 months</option>
-        <option value="12">12 months</option>
-      </select>
+        <label for="loanAmount">Loan Amount (LTV)</label>
+        <input type="text" id="loanAmount" name="loanAmount" readonly placeholder="Loan Amount auto-populate" />
 
-      <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
-      <select id="ltv-ratio" onchange="updateCalculations()">
-        <option value="65">65% Loan - 35% Down Payment</option>
-        <option value="70">70% Loan - 30% Down Payment</option>
-        <option value="75">75% Loan - 25% Down Payment</option>
-        <option value="80">80% Loan - 20% Down Payment</option>
-        <option value="85">85% Loan - 15% Down Payment</option>
-        <option value="90">90% Loan - 10% Down Payment</option>
-      </select>
+        <label for="downPayment">Down Payment</label>
+        <input type="text" id="downPayment" name="downPayment" readonly placeholder="Down Payment auto-populate" />
 
-      <label for="ltv-amount">Loan Amount (LTV)</label>
-      <input type="text" id="ltv-amount" readonly />
+        <label for="loanPoints">Loan Points (%)</label>
+        <select id="loanPoints" onchange="updateCalculations()" placeholder="Select Loan Points">
+            <option value="2">2%</option>
+            <option value="3">3%</option>
+            <option value="4">4%</option>
+            <option value="5">5%</option>
+            <option value="6">6%</option>
+        </select>
 
-      <label for="down-payment">Down Payment</label>
-      <input type="text" id="down-payment" readonly />
+        <label for="loanTerm">Loan Term (Months)</label>
+        <select id="loanTerm" onchange="updateCalculations()" placeholder="Select Loan Term">
+            <option value="3">3 months</option>
+            <option value="6">6 months</option>
+            <option value="9">9 months</option>
+            <option value="12">12 months</option>
+        </select>
 
-      <label for="loanPoints">Loan Fees ($)</label>
-      <input type="number" id="loanPoints" placeholder="Loan Fees auto-populate" readonly />
+        <label for="interestRate">Interest Rate (%)</label>
+        <select id="interestRate" onchange="updateCalculations()" placeholder="Select Interest Rate">
+            <option value="8">8%</option>
+            <option value="9">9%</option>
+            <option value="10">10%</option>
+            <option value="11">11%</option>
+            <option value="12">12%</option>
+            <option value="13">13%</option>
+            <option value="14">14%</option>
+            <option value="15">15%</option>
+        </select>
 
-      <label for="interestPaid">Interest Paid ($)</label>
-      <input type="text" id="interestPaid" readonly placeholder="Interest Paid auto-populate" />
+        <label for="monthlyPayment">Monthly Payment ($)</label>
+        <input type="text" id="monthlyPayment" readonly placeholder="$0" />
 
-      <label for="monthlyPayment">Monthly Payment ($)</label>
-      <input type="text" id="monthlyPayment" readonly placeholder="Monthly Payment auto-populate" />
+        <label for="interestPaid">Interest Paid ($)</label>
+        <input type="text" id="interestPaid" readonly placeholder="$0" />
     </div>
-
-    <!-- Hard Money Loan Breakdown Report -->
+    
+    <!-- Final Report Section -->
     <div class="report-section">
-      <h3>Hard Money Loan Breakdown Report</h3>
-      <p class="report">Estimated Loan Amount: <span class="green-text" id="report-loan-amount">$0.00</span></p>
-      <p class="report">Down Payment: <span class="green-text" id="report-down-payment">$0.00</span></p>
-      <p class="report">Loan Fees: <span class="green-text" id="report-loan-fees">$0.00</span></p>
-      <p class="report">Interest Paid: <span class="green-text" id="report-interest">$0.00</span></p>
-      <p class="report">Monthly Payment: <span class="green-text" id="report-monthly-payment">$0.00</span></p>
+        <h3>Loan Breakdown Report</h3>
+        <p class="report">Estimated Loan Amount: <span class="green-text" id="reportLoanAmount">$0</span></p>
+        <p class="report">Down Payment: <span class="green-text" id="reportDownPayment">$0</span></p>
+        <p class="report">Loan Fees: <span class="green-text" id="reportLoanFees">$0</span></p>
+        <p class="report">Closing Costs: <span class="green-text" id="reportClosingCosts">$0</span></p>
+        <p class="report">Interest Paid: <span class="green-text" id="reportInterestPaid">$0</span></p>
+        <p class="report">Monthly Payment: <span class="green-text" id="reportMonthlyPayment">$0</span></p>
     </div>
-  </div>
+</div>
 
     <!-- Fix & Flip Key Metrics Section (14 labels) -->
     <div class="section">
@@ -291,31 +291,37 @@
 
 <script>
     function updateCalculations() {
-      const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
-      const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
-      const loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
-      const ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
+        var purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+        var rehabCosts = parseFloat(document.getElementById('rehabCosts').value) || 0;
+        var arv = parseFloat(document.getElementById('arv').value) || 0;
+        var interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+        var loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
+        var ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
+        var loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
 
-      const loanAmount = purchasePrice * (ltvRatio / 100);
-      const downPayment = purchasePrice - loanAmount;
-      const loanPoints = loanAmount * 0.02;
-      const interestPaid = (loanAmount * (interestRate / 100) * loanTerm) / 12;
-      const monthlyPayment = loanAmount * (interestRate / 100) / 12;
+        var loanAmount = purchasePrice * (ltvRatio / 100);
+        var downPayment = purchasePrice - loanAmount;
 
-      document.getElementById('ltv-amount').value = loanAmount.toFixed(2);
-      document.getElementById('down-payment').value = downPayment.toFixed(2);
-      document.getElementById('loanPoints').value = loanPoints.toFixed(2);
-      document.getElementById('interestPaid').value = interestPaid.toFixed(2);
-      document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
+        var loanFees = loanAmount * (loanPoints / 100);
+        var interestPaid = (loanAmount * (interestRate / 100) * loanTerm) / 12;
+        var monthlyPayment = (loanAmount + loanFees) * (interestRate / 100) / loanTerm;
 
-      // Update report display
-      document.getElementById('report-loan-amount').textContent = `$${loanAmount.toFixed(2)}`;
-      document.getElementById('report-down-payment').textContent = `$${downPayment.toFixed(2)}`;
-      document.getElementById('report-loan-fees').textContent = `$${loanPoints.toFixed(2)}`;
-      document.getElementById('report-interest').textContent = `$${interestPaid.toFixed(2)}`;
-      document.getElementById('report-monthly-payment').textContent = `$${monthlyPayment.toFixed(2)}`;
+        // Update fields
+        document.getElementById('loanAmount').value = loanAmount.toFixed(2);
+        document.getElementById('downPayment').value = downPayment.toFixed(2);
+        document.getElementById('loanFees').value = loanFees.toFixed(2);
+        document.getElementById('interestPaid').value = interestPaid.toFixed(2);
+        document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
+
+        // Update report section with calculated values
+        document.getElementById('reportLoanAmount').textContent = loanAmount.toFixed(2);
+        document.getElementById('reportDownPayment').textContent = downPayment.toFixed(2);
+        document.getElementById('reportLoanFees').textContent = loanFees.toFixed(2);
+        document.getElementById('reportClosingCosts').textContent = "0"; // Placeholder, you can update with closing cost calculation if required
+        document.getElementById('reportInterestPaid').textContent = interestPaid.toFixed(2);
+        document.getElementById('reportMonthlyPayment').textContent = monthlyPayment.toFixed(2);
     }
-  </script>
+</script>
 
 
 
