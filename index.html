@@ -214,8 +214,8 @@
         <label for="property-price">Property Price</label>
         <input type="number" id="property-price" name="property-price" placeholder="Enter Property Price" />
         
-        <label for="interestRate">Interest Rate (%)</label>
-        <select id="interestRate" onchange="updateCalculations()">
+        <label for="loanInterestRate">Loan Interest Rate (%):</label>
+        <input type="number" id="loanInterestRate" onchange="updateCalculations()" placeholder="Enter Loan Interest Rate" />
             <option value="8">8%</option>
             <option value="9">9%</option>
             <option value="10">10%</option>
@@ -395,14 +395,16 @@
 <script>
     function updateCalculations() {
         var propertyPrice = parseFloat(document.getElementById('property-price').value) || 0;
-        var interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+        var loanInterestRate = parseFloat(document.getElementById('loanInterestRate').value) || 0; // Updated variable
         var loanTerm = parseFloat(document.getElementById('loanTerm').value) || 0;
         var ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
         var closingCostsPercent = parseFloat(document.getElementById('closingCosts').value) || 0;
         var loanPointsPercent = parseFloat(document.getElementById('loanPoints').value) || 0;
 
-        // Loan Amount and Down Payment Calculation
+        // Calculate the Loan Amount based on the LTV ratio
         var loanAmount = (propertyPrice * (ltvRatio / 100)).toFixed(2);
+
+        // Calculate the Down Payment based on the selected LTV
         var downPayment = (propertyPrice * ((100 - ltvRatio) / 100)).toFixed(2);
 
         // Update the Loan Amount and Down Payment fields
@@ -416,10 +418,10 @@
         var loanFees = (loanAmount * (loanPointsPercent / 100)).toFixed(2);
 
         // Interest Paid Calculation (Assuming simple interest for demo purposes)
-        var interestPaid = ((loanAmount * (interestRate / 100)) * loanTerm / 12).toFixed(2);
+        var interestPaid = ((loanAmount * (loanInterestRate / 100)) * loanTerm / 12).toFixed(2);
 
         // Monthly Payment Calculation (Interest-only loan)
-        var monthlyPayment = ((loanAmount * (interestRate / 100)) / 12).toFixed(2);
+        var monthlyPayment = ((loanAmount * (loanInterestRate / 100)) / 12).toFixed(2);
 
         // Update all fields in the report section
         document.getElementById('loanAmount').textContent = "$" + loanAmount;
@@ -435,6 +437,7 @@
         document.getElementById('monthlyPayment').value = monthlyPayment;
     }
 </script>
+
 
 </body>
 </html>
