@@ -290,36 +290,83 @@
 
 
 <script>
-  function calculateLoanDetails() {
-    const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
-    const interestRate = parseFloat(document.getElementById("interestRate").value) || 0;
-    const loanTerm = parseFloat(document.getElementById("loanTerm").value) || 0;
-    const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
-    const ltv = parseFloat(document.getElementById("ltv").value) || 0;
+    // Function to update all calculations when inputs are changed
+    function updateCalculations() {
+        // Get values from the inputs
+        let purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+        let rehabCosts = parseFloat(document.getElementById('rehabCosts').value) || 0;
+        let arv = parseFloat(document.getElementById('arv').value) || 0;
+        let ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
+        let loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
+        let loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
+        let interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+        let financeType = document.getElementById('financeType').value;
 
-    const loanAmount = purchasePrice * (ltv / 100);
-    document.getElementById("loanAmount").value = loanAmount.toFixed(2);
+        // Calculate loan amount and down payment based on LTV Ratio
+        let loanAmount = arv * (ltvRatio / 100);
+        let downPayment = arv - loanAmount;
 
-    const downPayment = purchasePrice - loanAmount;
-    document.getElementById("downPayment").value = downPayment.toFixed(2);
+        // Calculate loan fees and interest
+        let loanFees = loanAmount * (loanPoints / 100);
+        let interestPaid = loanAmount * (interestRate / 100) * (loanTerm / 12); // Simplified calculation for interest paid
+        let monthlyPayment = (loanAmount + loanFees + interestPaid) / loanTerm;
 
-    const r = (interestRate / 100) / 12;
-    const n = loanTerm;
-    const monthlyPayment = r === 0 ? loanAmount / n : (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    document.getElementById("monthlyPayment").value = monthlyPayment.toFixed(2);
+        // Update the fields with the calculations
+        document.getElementById('loanAmount').value = loanAmount.toFixed(2);
+        document.getElementById('downPayment').value = downPayment.toFixed(2);
+        document.getElementById('loanFees').value = loanFees.toFixed(2);
+        document.getElementById('interestPaid').value = interestPaid.toFixed(2);
+        document.getElementById('monthlyPayment').value = monthlyPayment.toFixed(2);
 
-    const interestPaid = (monthlyPayment * n) - loanAmount;
-    document.getElementById("interestPaid").value = interestPaid.toFixed(2);
+        // Update the report section dynamically
+        document.getElementById('reportLoanAmount').textContent = loanAmount.toFixed(2);
+        document.getElementById('reportDownPayment').textContent = downPayment.toFixed(2);
+        document.getElementById('reportLoanFees').textContent = loanFees.toFixed(2);
+        document.getElementById('reportInterestPaid').textContent = interestPaid.toFixed(2);
+        document.getElementById('reportMonthlyPayment').textContent = monthlyPayment.toFixed(2);
 
-    document.getElementById("ltvRatio").value = ltv.toFixed(2) + "%";
-  }
+        // Handle specific logic for finance types
+        handleFinanceType(financeType);
+    }
 
-  document.querySelectorAll("input").forEach(input => {
-    input.addEventListener("input", calculateLoanDetails);
-  });
+    // Function to handle different finance types
+    function handleFinanceType(financeType) {
+        let financeOptions = {
+            'cash': 'Cash selected. No interest or loan fees.',
+            'hardMoney': 'Hard Money selected. Interest and loan fees will apply.',
+            'creditPartner': 'Credit Partner selected. Interest and loan fees may be negotiated.',
+        };
 
-  calculateLoanDetails();
+        // Display custom messages or modify fields based on the selected finance type
+        if (financeType === 'cash') {
+            document.getElementById('loanFees').disabled = true;  // Disable loan fees for cash
+            document.getElementById('interestRate').disabled = true;  // Disable interest rate for cash
+            document.getElementById('loanTerm').disabled = true;  // Disable loan term for cash
+            alert(financeOptions['cash']);
+        } else if (financeType === 'hardMoney') {
+            document.getElementById('loanFees').disabled = false;  // Enable loan fees for hard money
+            document.getElementById('interestRate').disabled = false;  // Enable interest rate for hard money
+            document.getElementById('loanTerm').disabled = false;  // Enable loan term for hard money
+            alert(financeOptions['hardMoney']);
+        } else if (financeType === 'creditPartner') {
+            document.getElementById('loanFees').disabled = false;  // Enable loan fees for credit partner
+            document.getElementById('interestRate').disabled = false;  // Enable interest rate for credit partner
+            document.getElementById('loanTerm').disabled = false;  // Enable loan term for credit partner
+            alert(financeOptions['creditPartner']);
+        }
+    }
+
+    // Event listener to update calculations when finance type is changed
+    document.getElementById('financeType').addEventListener('change', function() {
+        updateCalculations();
+    });
+
+    // Initial calculation when the page loads (to populate default values)
+    window.onload = function() {
+        updateCalculations();
+    };
 </script>
+
 
 
 
