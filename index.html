@@ -162,84 +162,87 @@
         </div>
 
         <!-- Loan Terms and Conditions Section -->
-<div class="section">
-    <h3>Loan Terms and Conditions</h3>
+        <div class="section">
+            <h3>Loan Terms and Conditions</h3>
 
-    <!-- Purchase Price Input -->
-    <label for="purchasePrice">Purchase Price</label>
-    <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
+            <!-- Purchase Price Input -->
+            <label for="purchasePrice">Purchase Price</label>
+            <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
 
-    <!-- Rehab Costs Input -->
-    <label for="rehabCosts">Rehab Costs</label>
-    <input type="number" id="rehabCosts" name="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
+            <!-- Rehab Costs Input -->
+            <label for="rehabCosts">Rehab Costs</label>
+            <input type="number" id="rehabCosts" name="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
 
-    <!-- After Repair Value (ARV) Input -->
-    <label for="arv">After Repair Value (ARV)</label>
-    <input type="number" id="arv" name="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
+            <!-- After Repair Value (ARV) Input -->
+            <label for="arv">After Repair Value (ARV)</label>
+            <input type="number" id="arv" name="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
 
-    <!-- Loan-to-Value Ratio (LTV) Dropdown -->
-    <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
-    <select id="ltv-ratio" onchange="updateCalculations()">
-        <option value="65">65% Loan - 35% Down Payment</option>
-        <option value="70">70% Loan - 30% Down Payment</option>
-        <option value="75">75% Loan - 25% Down Payment</option>
-        <option value="80">80% Loan - 20% Down Payment</option>
-        <option value="85">85% Loan - 15% Down Payment</option>
-        <option value="90">90% Loan - 10% Down Payment</option>
-        <option value="100">100% Loan</option>
-    </select>
+            <!-- Loan-to-Value Ratio (LTV) Dropdown -->
+            <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
+            <select id="ltv-ratio" onchange="updateCalculations()">
+                <option value="" disabled selected>Select LTV Ratio</option>
+                <option value="65">65% Loan - 35% Down Payment</option>
+                <option value="70">70% Loan - 30% Down Payment</option>
+                <option value="75">75% Loan - 25% Down Payment</option>
+                <option value="80">80% Loan - 20% Down Payment</option>
+                <option value="85">85% Loan - 15% Down Payment</option>
+                <option value="90">90% Loan - 10% Down Payment</option>
+                <option value="100">100% Loan</option>
+            </select>
 
-    <!-- Loan Amount (auto-populated based on LTV) -->
-    <label for="loanAmount">Loan Amount (LTV)</label>
-    <input type="text" id="loanAmount" name="loanAmount" readonly placeholder="Loan Amount auto-populate" />
+            <!-- Loan Amount (auto-populated based on LTV) -->
+            <label for="loanAmount">Loan Amount (LTV)</label>
+            <input type="text" id="loanAmount" name="loanAmount" readonly placeholder="Loan Amount auto-populate" />
 
-    <!-- Down Payment (auto-populated based on LTV) -->
-    <label for="downPayment">Down Payment</label>
-    <input type="text" id="downPayment" name="downPayment" readonly placeholder="Down Payment auto-populate" />
+            <!-- Down Payment (auto-populated based on LTV) -->
+            <label for="downPayment">Down Payment</label>
+            <input type="text" id="downPayment" name="downPayment" readonly placeholder="Down Payment auto-populate" />
 
-    <!-- Loan Points (%) Dropdown -->
-    <label for="loanPoints">Loan Points (%)</label>
-    <select id="loanPoints" onchange="updateCalculations()">
-        <option value="2">2%</option>
-        <option value="3">3%</option>
-        <option value="4">4%</option>
-        <option value="5">5%</option>
-        <option value="6">6%</option>
-    </select>
+            <!-- Loan Points (%) Dropdown -->
+            <label for="loanPoints">Loan Points (%)</label>
+            <select id="loanPoints" onchange="updateCalculations()">
+                <option value="" disabled selected>Select Loan Points</option>
+                <option value="2">2%</option>
+                <option value="3">3%</option>
+                <option value="4">4%</option>
+                <option value="5">5%</option>
+                <option value="6">6%</option>
+            </select>
 
-    <!-- Loan Term (Months) Dropdown -->
-    <label for="loanTerm">Loan Term (Months)</label>
-    <select id="loanTerm" onchange="updateCalculations()">
-        <option value="3">3 months</option>
-        <option value="6">6 months</option>
-        <option value="9">9 months</option>
-        <option value="12">12 months</option>
-        <option value="24">24 months</option>
-    </select>
+            <!-- Loan Term (Months) Dropdown -->
+            <label for="loanTerm">Loan Term (Months)</label>
+            <select id="loanTerm" onchange="updateCalculations()">
+                <option value="" disabled selected>Select Loan Term</option>
+                <option value="3">3 months</option>
+                <option value="6">6 months</option>
+                <option value="9">9 months</option>
+                <option value="12">12 months</option>
+                <option value="24">24 months</option>
+            </select>
 
-    <!-- Interest Rate (%) Dropdown -->
-    <label for="interestRate">Interest Rate (%)</label>
-    <select id="interestRate" onchange="updateCalculations()">
-        <option value="8">8%</option>
-        <option value="9">9%</option>
-        <option value="10">10%</option>
-        <option value="11">11%</option>
-        <option value="12">12%</option>
-        <option value="13">13%</option>
-        <option value="14">14%</option>
-        <option value="15">15%</option>
-    </select>
+            <!-- Interest Rate (%) Dropdown -->
+            <label for="interestRate">Interest Rate (%)</label>
+            <select id="interestRate" onchange="updateCalculations()">
+                <option value="" disabled selected>Select Interest Rate</option>
+                <option value="8">8%</option>
+                <option value="9">9%</option>
+                <option value="10">10%</option>
+                <option value="11">11%</option>
+                <option value="12">12%</option>
+                <option value="13">13%</option>
+                <option value="14">14%</option>
+                <option value="15">15%</option>
+            </select>
 
-    <!-- Monthly Payment (auto-calculated) -->
-    <label for="monthlyPayment">Monthly Payment ($)</label>
-    <input type="text" id="monthlyPayment" readonly placeholder="$0" />
+            <!-- Monthly Payment (auto-calculated) -->
+            <label for="monthlyPayment">Monthly Payment ($)</label>
+            <input type="text" id="monthlyPayment" readonly placeholder="$0" />
 
-    <!-- Interest Paid (auto-calculated) -->
-    <label for="interestPaid">Interest Paid ($)</label>
-    <input type="text" id="interestPaid" readonly placeholder="$0" />
-</div>
+            <!-- Interest Paid (auto-calculated) -->
+            <label for="interestPaid">Interest Paid ($)</label>
+            <input type="text" id="interestPaid" readonly placeholder="$0" />
+        </div>
 
-        
         <!-- Report Section -->
         <div class="report-section">
             <h3>Hard Money Fix and Flip Report</h3>
@@ -261,6 +264,7 @@
 
     <script>
         function updateCalculations() {
+            // Perform all calculations based on input values here
             document.getElementById('reportPropertyAddress').innerText = document.getElementById('propertyAddress').value || "N/A";
             document.getElementById('reportCity').innerText = document.getElementById('city').value || "N/A";
             document.getElementById('reportState').innerText = document.getElementById('state').value || "N/A";
