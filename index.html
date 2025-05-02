@@ -65,6 +65,7 @@
             margin-top: 20px;
             border-radius: 8px;
             border: 1px solid #555;
+            display: none; /* Initially hide the report */
         }
 
         .report-section h3 {
@@ -80,7 +81,6 @@
             color: green;
             font-weight: bold;
         }
-
 
         .green-text {
             color: green;
@@ -135,10 +135,12 @@
     <div class="container">
         <h1>Hard Money Fix and Flip Analyzer</h1>
         <h2>Enter the following property details:</h2>
-
+        
+        <!-- Finance Type Section -->
         <div class="section">
             <label for="financeType">Finance Type</label>
-            <select id="financeType" onchange="updateCalculations()">
+            <select id="financeType" onchange="updateReport()">
+                <option value="none" disabled selected>Select Finance Type</option>
                 <option value="hardMoney">Hard Money</option>
                 <option value="cash">Cash</option>
                 <option value="mortgage" disabled>Mortgage</option>
@@ -146,34 +148,40 @@
             </select>
         </div>
 
+        <!-- Property Address Section -->
         <div class="section property-address-section">
             <label for="propertyAddress">Property Address</label>
-            <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateCalculations()" />
+            <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateReport()" />
 
             <label for="city">City</label>
-            <input type="text" id="city" placeholder="Enter City" oninput="updateCalculations()" />
+            <input type="text" id="city" placeholder="Enter City" oninput="updateReport()" />
 
             <label for="state">State</label>
-            <input type="text" id="state" placeholder="Enter State" oninput="updateCalculations()" />
+            <input type="text" id="state" placeholder="Enter State" oninput="updateReport()" />
 
             <label for="zipCode">Zip Code</label>
-            <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateCalculations()" />
+            <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateReport()" />
         </div>
 
+        <!-- Loan Terms and Conditions Section -->
         <div class="section">
             <h3>Loan Terms and Conditions</h3>
 
+            <!-- Purchase Price Input -->
             <label for="purchasePrice">Purchase Price</label>
-            <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
+            <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateReport()" />
 
+            <!-- Rehab Costs Input -->
             <label for="rehabCosts">Rehab Costs</label>
-            <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
+            <input type="number" id="rehabCosts" name="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateReport()" />
 
+            <!-- After Repair Value (ARV) Input -->
             <label for="arv">After Repair Value (ARV)</label>
-            <input type="number" id="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
+            <input type="number" id="arv" name="arv" placeholder="Enter After Repair Value" oninput="updateReport()" />
 
+            <!-- Loan-to-Value Ratio (LTV) Dropdown -->
             <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
-            <select id="ltv-ratio" onchange="updateCalculations()">
+            <select id="ltv-ratio" onchange="updateReport()">
                 <option value="" disabled selected>Select LTV Ratio</option>
                 <option value="65">65% Loan - 35% Down Payment</option>
                 <option value="70">70% Loan - 30% Down Payment</option>
@@ -184,14 +192,17 @@
                 <option value="100">100% Loan</option>
             </select>
 
+            <!-- Loan Amount (auto-populated based on LTV) -->
             <label for="loanAmount">Loan Amount (LTV)</label>
-            <input type="text" id="loanAmount" readonly placeholder="Loan Amount auto-populate" />
+            <input type="text" id="loanAmount" name="loanAmount" readonly placeholder="Loan Amount auto-populate" />
 
+            <!-- Down Payment (auto-populated based on LTV) -->
             <label for="downPayment">Down Payment</label>
-            <input type="text" id="downPayment" readonly placeholder="Down Payment auto-populate" />
+            <input type="text" id="downPayment" name="downPayment" readonly placeholder="Down Payment auto-populate" />
 
+            <!-- Loan Points (%) Dropdown -->
             <label for="loanPoints">Loan Points (%)</label>
-            <select id="loanPoints" onchange="updateCalculations()">
+            <select id="loanPoints" onchange="updateReport()">
                 <option value="" disabled selected>Select Loan Points</option>
                 <option value="2">2%</option>
                 <option value="3">3%</option>
@@ -200,8 +211,9 @@
                 <option value="6">6%</option>
             </select>
 
+            <!-- Loan Term (Months) Dropdown -->
             <label for="loanTerm">Loan Term (Months)</label>
-            <select id="loanTerm" onchange="updateCalculations()">
+            <select id="loanTerm" onchange="updateReport()">
                 <option value="" disabled selected>Select Loan Term</option>
                 <option value="3">3 months</option>
                 <option value="6">6 months</option>
@@ -210,8 +222,9 @@
                 <option value="24">24 months</option>
             </select>
 
+            <!-- Interest Rate (%) Dropdown -->
             <label for="interestRate">Interest Rate (%)</label>
-            <select id="interestRate" onchange="updateCalculations()">
+            <select id="interestRate" onchange="updateReport()">
                 <option value="" disabled selected>Select Interest Rate</option>
                 <option value="8">8%</option>
                 <option value="9">9%</option>
@@ -223,52 +236,69 @@
                 <option value="15">15%</option>
             </select>
 
+            <!-- Monthly Payment (auto-calculated) -->
             <label for="monthlyPayment">Monthly Payment ($)</label>
             <input type="text" id="monthlyPayment" readonly placeholder="$0" />
 
+            <!-- Interest Paid (auto-calculated) -->
             <label for="interestPaid">Interest Paid ($)</label>
             <input type="text" id="interestPaid" readonly placeholder="$0" />
         </div>
 
+        <!-- Report Section -->
         <div class="report-section">
             <h3>Hard Money Fix and Flip Report</h3>
-        <div class="report">
-            <p><span class="white-text">Loan-to-Value Ratio (LTV):</span> <span class="green-dollar" id="reportLTV">0%</span></p>
-            <p><span class="white-text">Loan Points:</span> <span class="green-dollar" id="reportLoanPoints">0%</span></p>
-            <p><span class="white-text">Loan Term (Months):</span> <span class="green-dollar" id="reportLoanTerm">0 months</span></p>
-            <p><span class="white-text">Interest Rate (%):</span> <span class="green-dollar" id="reportInterestRate">0%</span></p>
-            <p><span class="white-text">Rehab Loan Amount:</span> <span class="green-dollar" id="reportRehabLoanAmount">$0</span></p>
-            <p><span class="white-text">Total Loan Amount:</span> <span class="green-dollar" id="reportTotalLoanAmount">$0</span></p>
-            <p><span class="white-text">Monthly Loan Payment:</span> <span class="green-dollar" id="reportMonthlyLoanPayment">$0</span></p>
-            <p><span class="white-text">Total Loan Interest:</span> <span class="green-dollar" id="reportTotalLoanInterest">$0</span></p>
-            <p><span class="white-text">Total Rehab Costs:</span> <span class="green-dollar" id="reportTotalRehabCosts">$0</span></p>
-            <p><span class="white-text">Holding Costs (Monthly):</span> <span class="green-dollar" id="reportHoldingCosts">$0</span></p>
-            <p><span class="white-text">Estimated After-Repair Value (ARV):</span> <span class="green-dollar" id="reportARV">$0</span></p>
-            <p><span class="white-text">Total Project Cost:</span> <span class="green-dollar" id="reportTotalProjectCost">$0</span></p>
-            <p><span class="white-text">Estimated Profit:</span> <span class="green-dollar" id="reportEstimatedProfit">$0</span></p>
-            <p><span class="white-text">Estimated Return on Investment (ROI):</span> <span class="green-dollar" id="reportROI">0%</span></p>
+            <div class="report">
+                <p><span class="white-text">Finance Type:</span> <span id="report-finance-type" class="green-text"></span></p>
+                <p><span class="white-text">Property Address:</span> <span id="report-address" class="green-text"></span></p>
+                <p><span class="white-text">City:</span> <span id="report-city" class="green-text"></span></p>
+                <p><span class="white-text">State:</span> <span id="report-state" class="green-text"></span></p>
+                <p><span class="white-text">Zip Code:</span> <span id="report-zip-code" class="green-text"></span></p>
+                <p><span class="white-text">Loan Amount:</span> <span id="report-loan-amount" class="green-dollar"></span></p>
+                <p><span class="white-text">Down Payment:</span> <span id="report-down-payment" class="green-dollar"></span></p>
+                <p><span class="white-text">Monthly Payment:</span> <span id="report-monthly-payment" class="green-dollar"></span></p>
+                <p><span class="white-text">Interest Paid:</span> <span id="report-interest-paid" class="green-dollar"></span></p>
+            </div>
         </div>
-      </div>
     </div>
 
     <script>
-        function updateCalculations() {
-            // Perform all calculations based on input values here
-            document.getElementById('reportPropertyAddress').innerText = document.getElementById('propertyAddress').value || "N/A";
-            document.getElementById('reportCity').innerText = document.getElementById('city').value || "N/A";
-            document.getElementById('reportState').innerText = document.getElementById('state').value || "N/A";
-            document.getElementById('reportZipCode').innerText = document.getElementById('zipCode').value || "N/A";
-            document.getElementById('reportPurchasePrice').innerText = document.getElementById('purchasePrice').value || "0.00";
-            document.getElementById('reportRehabCosts').innerText = document.getElementById('rehabCosts').value || "0.00";
-            document.getElementById('reportARV').innerText = document.getElementById('arv').value || "0.00";
-            document.getElementById('reportLTV').innerText = document.getElementById('ltv').value || "0%";
-            document.getElementById('reportLoanAmount').innerText = document.getElementById('loanAmount').value || "0.00";
-            document.getElementById('reportDownPayment').innerText = document.getElementById('downPayment').value || "0.00";
-            document.getElementById('reportLoanPoints').innerText = document.getElementById('loanPoints').value || "0%";
-            document.getElementById('reportLoanTerm').innerText = document.getElementById('loanTerm').value || "0";
-            document.getElementById('reportInterestRate').innerText = document.getElementById('interestRate').value || "0%";
-            document.getElementById('reportMonthlyPayment').innerText = document.getElementById('monthlyPayment').value || "0.00";
-            document.getElementById('reportInterestPaid').innerText = document.getElementById('interestPaid').value || "0.00";
+        // Function to update the report with entered information
+        function updateReport() {
+            const financeType = document.getElementById("financeType").value;
+            const propertyAddress = document.getElementById("propertyAddress").value;
+            const city = document.getElementById("city").value;
+            const state = document.getElementById("state").value;
+            const zipCode = document.getElementById("zipCode").value;
+            const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
+            const rehabCosts = parseFloat(document.getElementById("rehabCosts").value) || 0;
+            const arv = parseFloat(document.getElementById("arv").value) || 0;
+            const ltvRatio = parseFloat(document.getElementById("ltv-ratio").value) || 0;
+            const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
+            const loanTerm = parseFloat(document.getElementById("loanTerm").value) || 0;
+            const interestRate = parseFloat(document.getElementById("interestRate").value) || 0;
+
+            // Calculate Loan Amount and Down Payment
+            let loanAmount = (ltvRatio / 100) * arv;
+            let downPayment = purchasePrice - loanAmount;
+
+            // Update report values
+            document.getElementById("report-finance-type").textContent = financeType || "";
+            document.getElementById("report-address").textContent = propertyAddress || "";
+            document.getElementById("report-city").textContent = city || "";
+            document.getElementById("report-state").textContent = state || "";
+            document.getElementById("report-zip-code").textContent = zipCode || "";
+            document.getElementById("report-loan-amount").textContent = loanAmount ? `$${loanAmount.toFixed(2)}` : "";
+            document.getElementById("report-down-payment").textContent = downPayment ? `$${downPayment.toFixed(2)}` : "";
+            document.getElementById("report-monthly-payment").textContent = loanAmount && loanTerm ? `$${(loanAmount * (interestRate / 100) / 12).toFixed(2)}` : "";
+            document.getElementById("report-interest-paid").textContent = loanAmount && loanTerm ? `$${(loanAmount * interestRate / 100 * loanTerm).toFixed(2)}` : "";
+
+            // Show or hide report based on user input
+            if (financeType && propertyAddress && city && state && zipCode) {
+                document.querySelector(".report-section").style.display = "block";
+            } else {
+                document.querySelector(".report-section").style.display = "none";
+            }
         }
     </script>
 </body>
