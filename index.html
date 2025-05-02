@@ -225,52 +225,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    function updateLoan() {
-      const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
-      const ltv = parseFloat(document.getElementById("ltv-ratio").value) || 0;
-      const interestRate = parseFloat(document.getElementById("interestRate").value) || 0;
-      const loanTerm = parseFloat(document.getElementById("loanTerm").value) || 0;
-
-      const loanAmount = purchasePrice * (ltv / 100);
-      const downPayment = purchasePrice - loanAmount;
-      const monthlyInterestRate = interestRate / 100 / 12;
-      const monthlyPayment = loanAmount * monthlyInterestRate;
-      const interestPaid = monthlyPayment * loanTerm;
-
-      document.getElementById("loanAmount").value = loanAmount.toFixed(2);
-      document.getElementById("downPayment").value = downPayment.toFixed(2);
-      document.getElementById("monthlyPayment").value = monthlyPayment.toFixed(2);
-      document.getElementById("interestPaid").value = interestPaid.toFixed(2);
-
-      updateReport();
-    }
-
-    function updateReport() {
-      document.getElementById("report-finance-type").innerText = document.getElementById("financeType").value || '';
-      document.getElementById("report-address").innerText = document.getElementById("propertyAddress").value;
-      document.getElementById("report-city").innerText = document.getElementById("city").value;
-      document.getElementById("report-state").innerText = document.getElementById("state").value;
-      document.getElementById("report-zip-code").innerText = document.getElementById("zipCode").value;
-
-      document.getElementById("report-purchase-price").innerText = "$" + document.getElementById("purchasePrice").value;
-      document.getElementById("report-rehab-costs").innerText = "$" + document.getElementById("rehabCosts").value;
-      document.getElementById("report-arv").innerText = "$" + document.getElementById("arv").value;
-
-      document.getElementById("report-loan-amount").innerText = "$" + document.getElementById("loanAmount").value;
-      document.getElementById("report-down-payment").innerText = "$" + document.getElementById("downPayment").value;
-
-      document.getElementById("report-loan-points").innerText = document.getElementById("loanPoints").value + "%";
-      document.getElementById("report-loan-term").innerText = document.getElementById("loanTerm").value + " months";
-      document.getElementById("report-interest-rate").innerText = document.getElementById("interestRate").value + "%";
-
-      document.getElementById("report-monthly-payment").innerText = "$" + document.getElementById("monthlyPayment").value;
-      document.getElementById("report-interest-paid").innerText = "$" + document.getElementById("interestPaid").value;
-
-      document.getElementById("report-section").style.display = "block";
-    }
-<!-- Correct placement of script tag -->
-<script src="path/to/your/script.js"></script>
+  
 </body>
 </html>
