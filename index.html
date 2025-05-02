@@ -254,56 +254,86 @@
                 <p><span class="white-text">City:</span> <span id="report-city" class="green-text"></span></p>
                 <p><span class="white-text">State:</span> <span id="report-state" class="green-text"></span></p>
                 <p><span class="white-text">Zip Code:</span> <span id="report-zip-code" class="green-text"></span></p>
-                <p><span class="white-text">Loan Amount:</span> <span id="report-loan-amount" class="green-dollar"></span></p>
+
+                <p><span class="white-text">Purchase Price:</span> <span id="report-purchase-price" class="green-dollar"></span></p>
+                <p><span class="white-text">Rehab Costs:</span> <span id="report-rehab-costs" class="green-dollar"></span></p>
+                <p><span class="white-text">After Repair Value (ARV):</span> <span id="report-arv" class="green-dollar"></span></p>
+
+                <p><span class="white-text">Loan Amount (LTV):</span> <span id="report-loan-amount" class="green-dollar"></span></p>
                 <p><span class="white-text">Down Payment:</span> <span id="report-down-payment" class="green-dollar"></span></p>
+
+                <p><span class="white-text">Loan Points:</span> <span id="report-loan-points" class="green-text"></span></p>
+                <p><span class="white-text">Loan Term:</span> <span id="report-loan-term" class="green-text"></span></p>
+                <p><span class="white-text">Interest Rate:</span> <span id="report-interest-rate" class="green-text"></span></p>
+
                 <p><span class="white-text">Monthly Payment:</span> <span id="report-monthly-payment" class="green-dollar"></span></p>
                 <p><span class="white-text">Interest Paid:</span> <span id="report-interest-paid" class="green-dollar"></span></p>
             </div>
         </div>
     </div>
 
-   <script>
-    function updateReport() {
-        // Retrieve input values
-        const purchasePrice = parseFloat(document.getElementById("purchasePrice").value) || 0;
-        const rehabCosts = parseFloat(document.getElementById("rehabCosts").value) || 0;
-        const arv = parseFloat(document.getElementById("arv").value) || 0;
-        const ltvRatio = parseFloat(document.getElementById("ltv-ratio").value) || 0;
-        const loanPoints = parseFloat(document.getElementById("loanPoints").value) || 0;
-        const loanTerm = parseInt(document.getElementById("loanTerm").value) || 0;
-        const interestRate = parseFloat(document.getElementById("interestRate").value) || 0;
+    <script>
+        function updateReport() {
+            const financeType = document.getElementById('financeType').value;
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value) || 0;
+            const rehabCosts = parseFloat(document.getElementById('rehabCosts').value) || 0;
+            const arv = parseFloat(document.getElementById('arv').value) || 0;
+            const ltvRatio = parseFloat(document.getElementById('ltv-ratio').value) || 0;
+            const loanPoints = parseFloat(document.getElementById('loanPoints').value) || 0;
+            const loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
 
-        // Calculate Loan Amount (based on LTV and ARV)
-        const loanAmount = (arv * (ltvRatio / 100)).toFixed(2);
-        document.getElementById("loanAmount").value = "$" + loanAmount;
+            const totalLoanAmount = purchasePrice + rehabCosts;
+            const loanAmount = totalLoanAmount * (ltvRatio / 100);
+            const downPayment = totalLoanAmount - loanAmount;
 
-        // Calculate Down Payment (based on LTV and ARV)
-        const downPayment = (arv - loanAmount).toFixed(2);
-        document.getElementById("downPayment").value = "$" + downPayment;
+            const monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, loanTerm);
+            const interestPaid = calculateTotalInterest(loanAmount, interestRate, loanTerm);
 
-        // Calculate Monthly Payment (Interest-only Loan Payment)
-        const interestPaidPerMonth = (loanAmount * (interestRate / 100) / 12).toFixed(2);
-        document.getElementById("monthlyPayment").value = "$" + interestPaidPerMonth;
+            document.getElementById('loanAmount').value = loanAmount.toFixed(2);
+            document.getElementById('downPayment').value = downPayment.toFixed(2);
 
-        // Calculate Total Interest Paid (based on loan term)
-        const totalInterestPaid = (interestPaidPerMonth * loanTerm).toFixed(2);
-        document.getElementById("interestPaid").value = "$" + totalInterestPaid;
+            document.getElementById('report-finance-type').textContent = financeType || 'Not Selected';
+            document.getElementById('report-address').textContent = document.getElementById('propertyAddress').value;
+            document.getElementById('report-city').textContent = document.getElementById('city').value;
+            document.getElementById('report-state').textContent = document.getElementById('state').value;
+            document.getElementById('report-zip-code').textContent = document.getElementById('zipCode').value;
 
-        // Update the Report Section
-        document.getElementById("report-finance-type").textContent = document.getElementById("financeType").value;
-        document.getElementById("report-address").textContent = document.getElementById("propertyAddress").value;
-        document.getElementById("report-city").textContent = document.getElementById("city").value;
-        document.getElementById("report-state").textContent = document.getElementById("state").value;
-        document.getElementById("report-zip-code").textContent = document.getElementById("zipCode").value;
-        document.getElementById("report-loan-amount").textContent = "$" + loanAmount;
-        document.getElementById("report-down-payment").textContent = "$" + downPayment;
-        document.getElementById("report-monthly-payment").textContent = "$" + interestPaidPerMonth;
-        document.getElementById("report-interest-paid").textContent = "$" + totalInterestPaid;
+            document.getElementById('report-purchase-price').textContent = `$${purchasePrice.toFixed(2)}`;
+            document.getElementById('report-rehab-costs').textContent = `$${rehabCosts.toFixed(2)}`;
+            document.getElementById('report-arv').textContent = `$${arv.toFixed(2)}`;
 
-        // Show the report section after calculation
-        document.querySelector('.report-section').style.display = 'block';
-    }
-</script>
+            document.getElementById('report-loan-amount').textContent = `$${loanAmount.toFixed(2)}`;
+            document.getElementById('report-down-payment').textContent = `$${downPayment.toFixed(2)}`;
+
+            document.getElementById('report-loan-points').textContent = `${loanPoints}%`;
+            document.getElementById('report-loan-term').textContent = `${loanTerm} months`;
+            document.getElementById('report-interest-rate').textContent = `${interestRate}%`;
+
+            document.getElementById('report-monthly-payment').textContent = `$${monthlyPayment.toFixed(2)}`;
+            document.getElementById('report-interest-paid').textContent = `$${interestPaid.toFixed(2)}`;
+
+            // Display the report section
+            document.querySelector('.report-section').style.display = 'block';
+        }
+
+        function calculateMonthlyPayment(loanAmount, interestRate, loanTerm) {
+            if (loanTerm === 0) return 0;
+
+            const monthlyInterestRate = interestRate / 100 / 12;
+            const numberOfPayments = loanTerm;
+
+            const numerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments);
+            const denominator = Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1;
+            return loanAmount * (numerator / denominator);
+        }
+
+        function calculateTotalInterest(loanAmount, interestRate, loanTerm) {
+            const monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, loanTerm);
+            return (monthlyPayment * loanTerm) - loanAmount;
+        }
+    </script>
 </body>
 </html>
+
 
