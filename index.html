@@ -76,7 +76,7 @@
             margin-bottom: 10px;
         }
 
-        .green {
+        .green-dollar {
             color: green;
             font-weight: bold;
         }
@@ -162,56 +162,99 @@
         </div>
 
         <!-- Loan Terms and Conditions Section -->
-        <div class="section loan-terms-section">
-            <label for="purchasePrice">Purchase Price</label>
-            <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
+<div class="section">
+    <h3>Loan Terms and Conditions</h3>
 
-            <label for="rehabCosts">Rehab Costs</label>
-            <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
+    <!-- Purchase Price Input -->
+    <label for="purchasePrice">Purchase Price</label>
+    <input type="number" id="purchasePrice" name="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
 
-            <label for="arv">After Repair Value (ARV)</label>
-            <input type="number" id="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
+    <!-- Rehab Costs Input -->
+    <label for="rehabCosts">Rehab Costs</label>
+    <input type="number" id="rehabCosts" name="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
 
-            <label for="ltv">Loan-to-Value Ratio (LTV)</label>
-            <input type="number" id="ltv" placeholder="Enter Loan-to-Value Ratio (LTV)" oninput="updateCalculations()" />
+    <!-- After Repair Value (ARV) Input -->
+    <label for="arv">After Repair Value (ARV)</label>
+    <input type="number" id="arv" name="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
 
-            <label for="loanAmount">Loan Amount (LTV)</label>
-            <input type="number" id="loanAmount" placeholder="Enter Loan Amount" oninput="updateCalculations()" />
+    <!-- Loan-to-Value Ratio (LTV) Dropdown -->
+    <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
+    <select id="ltv-ratio" onchange="updateCalculations()">
+        <option value="65">65% Loan - 35% Down Payment</option>
+        <option value="70">70% Loan - 30% Down Payment</option>
+        <option value="75">75% Loan - 25% Down Payment</option>
+        <option value="80">80% Loan - 20% Down Payment</option>
+        <option value="85">85% Loan - 15% Down Payment</option>
+        <option value="90">90% Loan - 10% Down Payment</option>
+        <option value="100">100% Loan</option>
+    </select>
 
-            <label for="downPayment">Down Payment</label>
-            <input type="number" id="downPayment" placeholder="Enter Down Payment" oninput="updateCalculations()" />
+    <!-- Loan Amount (auto-populated based on LTV) -->
+    <label for="loanAmount">Loan Amount (LTV)</label>
+    <input type="text" id="loanAmount" name="loanAmount" readonly placeholder="Loan Amount auto-populate" />
 
-            <label for="loanPoints">Loan Points (%)</label>
-            <input type="number" id="loanPoints" placeholder="Enter Loan Points" oninput="updateCalculations()" />
+    <!-- Down Payment (auto-populated based on LTV) -->
+    <label for="downPayment">Down Payment</label>
+    <input type="text" id="downPayment" name="downPayment" readonly placeholder="Down Payment auto-populate" />
 
-            <label for="loanTerm">Loan Term (Months)</label>
-            <input type="number" id="loanTerm" placeholder="Enter Loan Term (Months)" oninput="updateCalculations()" />
+    <!-- Loan Points (%) Dropdown -->
+    <label for="loanPoints">Loan Points (%)</label>
+    <select id="loanPoints" onchange="updateCalculations()">
+        <option value="2">2%</option>
+        <option value="3">3%</option>
+        <option value="4">4%</option>
+        <option value="5">5%</option>
+        <option value="6">6%</option>
+    </select>
 
-            <label for="interestRate">Interest Rate (%)</label>
-            <input type="number" id="interestRate" placeholder="Enter Interest Rate" oninput="updateCalculations()" />
+    <!-- Loan Term (Months) Dropdown -->
+    <label for="loanTerm">Loan Term (Months)</label>
+    <select id="loanTerm" onchange="updateCalculations()">
+        <option value="3">3 months</option>
+        <option value="6">6 months</option>
+        <option value="9">9 months</option>
+        <option value="12">12 months</option>
+        <option value="24">24 months</option>
+    </select>
 
-            <label for="monthlyPayment">Monthly Payment ($)</label>
-            <input type="number" id="monthlyPayment" placeholder="Enter Monthly Payment" oninput="updateCalculations()" />
+    <!-- Interest Rate (%) Dropdown -->
+    <label for="interestRate">Interest Rate (%)</label>
+    <select id="interestRate" onchange="updateCalculations()">
+        <option value="8">8%</option>
+        <option value="9">9%</option>
+        <option value="10">10%</option>
+        <option value="11">11%</option>
+        <option value="12">12%</option>
+        <option value="13">13%</option>
+        <option value="14">14%</option>
+        <option value="15">15%</option>
+    </select>
 
-            <label for="interestPaid">Interest Paid ($)</label>
-            <input type="number" id="interestPaid" placeholder="Enter Interest Paid" oninput="updateCalculations()" />
-        </div>
+    <!-- Monthly Payment (auto-calculated) -->
+    <label for="monthlyPayment">Monthly Payment ($)</label>
+    <input type="text" id="monthlyPayment" readonly placeholder="$0" />
+
+    <!-- Interest Paid (auto-calculated) -->
+    <label for="interestPaid">Interest Paid ($)</label>
+    <input type="text" id="interestPaid" readonly placeholder="$0" />
+</div>
+
         
         <!-- Report Section -->
         <div class="report-section">
             <h3>Hard Money Fix and Flip Report</h3>
             <div class="report">
-                <p><span class="green">Purchase Price:</span> $<span id="reportPurchasePrice">0.00</span></p>
-                <p><span class="green">Rehab Costs:</span> $<span id="reportRehabCosts">0.00</span></p>
-                <p><span class="green">After Repair Value (ARV):</span> $<span id="reportARV">0.00</span></p>
-                <p><span class="green">Loan-to-Value Ratio (LTV):</span> <span id="reportLTV">0%</span></p>
-                <p><span class="green">Loan Amount:</span> $<span id="reportLoanAmount">0.00</span></p>
-                <p><span class="green">Down Payment:</span> $<span id="reportDownPayment">0.00</span></p>
-                <p><span class="green">Loan Points (%):</span> <span id="reportLoanPoints">0%</span></p>
-                <p><span class="green">Loan Term (Months):</span> <span id="reportLoanTerm">0</span> months</p>
-                <p><span class="green">Interest Rate (%):</span> <span id="reportInterestRate">0%</span></p>
-                <p><span class="green">Monthly Payment:</span> $<span id="reportMonthlyPayment">0.00</span></p>
-                <p><span class="green">Interest Paid:</span> $<span id="reportInterestPaid">0.00</span></p>
+                <p><span class="white-text">Purchase Price:</span> <span class="green-dollar" id="reportPurchasePrice">$0.00</span></p>
+                <p><span class="white-text">Rehab Costs:</span> <span class="green-dollar" id="reportRehabCosts">$0.00</span></p>
+                <p><span class="white-text">After Repair Value (ARV):</span> <span class="green-dollar" id="reportARV">$0.00</span></p>
+                <p><span class="white-text">Loan-to-Value Ratio (LTV):</span> <span id="reportLTV">0%</span></p>
+                <p><span class="white-text">Loan Amount:</span> <span class="green-dollar" id="reportLoanAmount">$0.00</span></p>
+                <p><span class="white-text">Down Payment:</span> <span class="green-dollar" id="reportDownPayment">$0.00</span></p>
+                <p><span class="white-text">Loan Points (%):</span> <span id="reportLoanPoints">0%</span></p>
+                <p><span class="white-text">Loan Term (Months):</span> <span id="reportLoanTerm">0</span> months</p>
+                <p><span class="white-text">Interest Rate (%):</span> <span id="reportInterestRate">0%</span></p>
+                <p><span class="white-text">Monthly Payment:</span> <span class="green-dollar" id="reportMonthlyPayment">$0.00</span></p>
+                <p><span class="white-text">Interest Paid:</span> <span class="green-dollar" id="reportInterestPaid">$0.00</span></p>
             </div>
         </div>
     </div>
