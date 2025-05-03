@@ -1,230 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hard Money Fix and Flip Analyzer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hard Money Fix and Flip Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-      width: 75%;
-      margin: 0 auto;
-      padding: 20px;
-    }
+        .container {
+            width: 75%;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    h1, h2 {
-      text-align: center;
-      color: white;
-    }
+        h1, h2 {
+            text-align: center;
+            color: white;
+        }
 
-    .section {
-      background-color: #111;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
+        h2 {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
 
-    .section label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
-      color: white;
-    }
+        .section {
+            background-color: #111;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
 
-    .section input, .section select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      border: 1px solid #444;
-      border-radius: 6px;
-      background-color: #333;
-      color: white;
-      font-size: 1em;
-    }
+        .section label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
 
-    .readonly {
-      background-color: #f2f2f2;
-    }
+        .section input, .section select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #333;
+            color: white;
+            font-size: 1em;
+        }
 
-    .report-section {
-      background-color: #111;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 8px;
-      border: 1px solid #555;
-      display: none;
-    }
+        .readonly {
+            background-color: #f2f2f2;
+        }
 
-    .report-section h3 {
-      margin-top: 0;
-      color: white;
-    }
+        .report-section {
+            background-color: #111;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 1px solid #555;
+        }
 
-    .green-text {
-      color: green;
-    }
+        .report-section h3 {
+            margin-top: 0;
+            color: white;
+        }
 
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
+        .report {
+            margin-bottom: 10px;
+        }
 
-    ::-webkit-scrollbar-track {
-      background: #222;
-    }
+        .green-dollar {
+            color: green;
+            font-weight: bold;
+        }
 
-    ::-webkit-scrollbar-thumb {
-      background: #555;
-      border-radius: 10px;
-    }
+        .green-text {
+            color: green;
+        }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: #777;
-    }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
-    .section input:focus, .section select:focus {
-      border-color: #76b900;
-      background-color: #222;
-      outline: none;
-    }
+        ::-webkit-scrollbar-track {
+            background: #222;
+        }
 
-    @media (max-width: 768px) {
-      .container {
-        width: 95%;
-      }
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 10px;
+        }
 
-      .section input, .section select {
-        font-size: 1em;
-      }
-    }
-  </style>
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .section input:focus, .section select:focus {
+            border-color: #76b900;
+            background-color: #222;
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .section input, .section select {
+                font-size: 1em;
+            }
+        }
+
+        .group-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .group-column {
+            flex: 1;
+            min-width: 280px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Hard Money Fix and Flip Analyzer</h1>
-    <h2>Enter the following property details:</h2>
+    <div class="container">
+        <h1>Hard Money Fix and Flip Analyzer</h1>
+        <h2>Enter the following property details:</h2>
 
-    <!-- Finance Type -->
-    <div class="section">
-      <label for="financeType">Finance Type</label>
-      <select id="financeType" onchange="updateReport()">
-        <option value="none" disabled selected>Select Finance Type</option>
-        <option value="hardMoney">Hard Money</option>
-        <option value="cash">Cash</option>
-        <option value="mortgage" disabled>Mortgage</option>
-        <option value="creditPartner" disabled>Credit Partner</option>
-      </select>
-    </div>
+        <!-- Finance Type Section -->
+        <div class="section">
+            <label for="financeType">Finance Type</label>
+            <select id="financeType" onchange="updateCalculations()">
+                <option value="hardMoney">Hard Money</option>
+                <option value="cash">Cash</option>
+                <option value="mortgage" disabled>Mortgage</option>
+                <option value="creditPartner" disabled>Credit Partner</option>
+            </select>
+        </div>
 
-    <!-- Property Address -->
-    <div class="section">
-      <label for="propertyAddress">Property Address</label>
-      <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateReport()" />
-      <label for="city">City</label>
-      <input type="text" id="city" placeholder="Enter City" oninput="updateReport()" />
-      <label for="state">State</label>
-      <input type="text" id="state" placeholder="Enter State" oninput="updateReport()" />
-      <label for="zipCode">Zip Code</label>
-      <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateReport()" />
-    </div>
+        <!-- Property Address Section -->
+        <div class="section property-address-section">
+            <label for="propertyAddress">Property Address</label>
+            <input type="text" id="propertyAddress" placeholder="Enter Property Address" oninput="updateCalculations()" />
+            
+            <label for="city">City</label>
+            <input type="text" id="city" placeholder="Enter City" oninput="updateCalculations()" />
 
-    <!-- Loan Terms -->
-    <div class="section">
-      <h3>Loan Terms and Conditions</h3>
-      <label for="purchasePrice">Purchase Price</label>
-      <input type="number" id="purchasePrice" oninput="updateLoan()" />
+            <label for="state">State</label>
+            <input type="text" id="state" placeholder="Enter State" oninput="updateCalculations()" />
 
-      <label for="rehabCosts">Rehab Costs</label>
-      <input type="number" id="rehabCosts" oninput="updateLoan()" />
+            <label for="zipCode">Zip Code</label>
+            <input type="text" id="zipCode" placeholder="Enter Zip Code" oninput="updateCalculations()" />
+        </div>
 
-      <label for="arv">After Repair Value (ARV)</label>
-      <input type="number" id="arv" oninput="updateLoan()" />
+        <!-- Loan Terms and Conditions Section -->
+        <div class="section">
+            <h3>Loan Terms and Conditions</h3>
 
-      <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
-      <select id="ltv-ratio" onchange="updateLoan()">
-        <option value="" disabled selected>Select LTV Ratio</option>
-        <option value="65">65%</option>
-        <option value="70">70%</option>
-        <option value="75">75%</option>
-        <option value="80">80%</option>
-        <option value="85">85%</option>
-        <option value="90">90%</option>
-        <option value="100">100%</option>
-      </select>
+            <label for="purchasePrice">Purchase Price</label>
+            <input type="number" id="purchasePrice" placeholder="Enter Purchase Price" oninput="updateCalculations()" />
 
-      <label for="loanAmount">Loan Amount (LTV)</label>
-      <input type="text" id="loanAmount" readonly placeholder="Auto-calculated" />
+            <label for="rehabCosts">Rehab Costs</label>
+            <input type="number" id="rehabCosts" placeholder="Enter Rehab Costs" oninput="updateCalculations()" />
 
-      <label for="downPayment">Down Payment</label>
-      <input type="text" id="downPayment" readonly placeholder="Auto-calculated" />
+            <label for="arv">After Repair Value (ARV)</label>
+            <input type="number" id="arv" placeholder="Enter After Repair Value" oninput="updateCalculations()" />
 
-      <label for="loanPoints">Loan Points (%)</label>
-      <select id="loanPoints" onchange="updateLoan()">
-        <option value="" disabled selected>Select Loan Points</option>
-        <option value="2">2%</option>
-        <option value="3">3%</option>
-        <option value="4">4%</option>
-        <option value="5">5%</option>
-      </select>
+            <label for="ltv-ratio">Loan-to-Value Ratio (LTV)</label>
+            <select id="ltv-ratio" onchange="updateCalculations()">
+                <option value="" disabled selected>Select LTV Ratio</option>
+                <option value="65">65% Loan - 35% Down Payment</option>
+                <option value="70">70% Loan - 30% Down Payment</option>
+                <option value="75">75% Loan - 25% Down Payment</option>
+                <option value="80">80% Loan - 20% Down Payment</option>
+                <option value="85">85% Loan - 15% Down Payment</option>
+                <option value="90">90% Loan - 10% Down Payment</option>
+                <option value="100">100% Loan</option>
+            </select>
 
-      <label for="loanTerm">Loan Term (Months)</label>
-      <select id="loanTerm" onchange="updateLoan()">
-        <option value="" disabled selected>Select Loan Term</option>
-        <option value="3">3 months</option>
-        <option value="6">6 months</option>
-        <option value="9">9 months</option>
-        <option value="12">12 months</option>
-      </select>
+            <label for="loanAmount">Loan Amount (LTV)</label>
+            <input type="text" id="loanAmount" readonly placeholder="Loan Amount auto-populate" />
 
-      <label for="interestRate">Interest Rate (%)</label>
-      <select id="interestRate" onchange="updateLoan()">
-        <option value="" disabled selected>Select Interest Rate</option>
-        <option value="8">8%</option>
-        <option value="10">10%</option>
-        <option value="12">12%</option>
-        <option value="14">14%</option>
-      </select>
+            <label for="downPayment">Down Payment</label>
+            <input type="text" id="downPayment" readonly placeholder="Down Payment auto-populate" />
 
-      <label for="monthlyPayment">Monthly Payment ($)</label>
-      <input type="text" id="monthlyPayment" readonly />
+            <label for="loanPoints">Loan Points (%)</label>
+            <select id="loanPoints" onchange="updateCalculations()">
+                <option value="" disabled selected>Select Loan Points</option>
+                <option value="2">2%</option>
+                <option value="3">3%</option>
+                <option value="4">4%</option>
+                <option value="5">5%</option>
+                <option value="6">6%</option>
+            </select>
 
-      <label for="interestPaid">Interest Paid ($)</label>
-      <input type="text" id="interestPaid" readonly />
-    </div>
+            <label for="loanTerm">Loan Term (Months)</label>
+            <select id="loanTerm" onchange="updateCalculations()">
+                <option value="" disabled selected>Select Loan Term</option>
+                <option value="3">3 months</option>
+                <option value="6">6 months</option>
+                <option value="9">9 months</option>
+                <option value="12">12 months</option>
+                <option value="24">24 months</option>
+            </select>
 
-    <!-- Report Section -->
-    <div class="report-section" id="report-section">
-      <h3>Hard Money Fix and Flip Report</h3>
-      <div class="report">
-        <p><span class="white-text">Finance Type:</span> <span id="report-finance-type" class="green-text"></span></p>
-        <p><span class="white-text">Property Address:</span> <span id="report-address" class="green-text"></span></p>
-        <p><span class="white-text">City:</span> <span id="report-city" class="green-text"></span></p>
-        <p><span class="white-text">State:</span> <span id="report-state" class="green-text"></span></p>
-        <p><span class="white-text">Zip Code:</span> <span id="report-zip-code" class="green-text"></span></p>
+            <label for="interestRate">Interest Rate (%)</label>
+            <select id="interestRate" onchange="updateCalculations()">
+                <option value="" disabled selected>Select Interest Rate</option>
+                <option value="8">8%</option>
+                <option value="9">9%</option>
+                <option value="10">10%</option>
+                <option value="11">11%</option>
+                <option value="12">12%</option>
+                <option value="13">13%</option>
+                <option value="14">14%</option>
+                <option value="15">15%</option>
+            </select>
 
-        <p><span class="white-text">Purchase Price:</span> <span id="report-purchase-price" class="green-dollar"></span></p>
-        <p><span class="white-text">Rehab Costs:</span> <span id="report-rehab-costs" class="green-dollar"></span></p>
-        <p><span class="white-text">After Repair Value (ARV):</span> <span id="report-arv" class="green-dollar"></span></p>
+            <label for="monthlyPayment">Monthly Payment ($)</label>
+            <input type="text" id="monthlyPayment" readonly placeholder="$0" />
 
-        <p><span class="white-text">Loan Amount (LTV):</span> <span id="report-loan-amount" class="green-dollar"></span></p>
-        <p><span class="white-text">Down Payment:</span> <span id="report-down-payment" class="green-dollar"></span></p>
+            <label for="interestPaid">Interest Paid ($)</label>
+            <input type="text" id="interestPaid" readonly placeholder="$0" />
+        </div>
 
-        <p><span class="white-text">Loan Points:</span> <span id="report-loan-points" class="green-text"></span></p>
-        <p><span class="white-text">Loan Term:</span> <span id="report-loan-term" class="green-text"></span></p>
-        <p><span class="white-text">Interest Rate:</span> <span id="report-interest-rate" class="green-text"></span></p>
+        <!-- DOM (Selling Time) Section -->
+        <h2>DOM (Selling Time) Calculation</h2>
+        <div class="section">
+            <label for="domDays">DOM (Days on Market)</label>
+            <input type="number" id="domDays" name="domDays" value="60" min="0">
+            <small>Typical range: 30–60 days depending on the local market and property condition.</small>
 
-        <p><span class="white-text">Monthly Payment:</span> <span id="report-monthly-payment" class="green-dollar"></span></p>
-        <p><span class="white-text">Interest Paid:</span> <span id="report-interest-paid" class="green-dollar"></span></p>
+            <label for="bufferDays">Buffer Days</label>
+            <input type="number" id="bufferDays" name="bufferDays" value="30" min="0">
+            <small>Consider adding 15–30 days for closing or unexpected delays.</small>
+
+            <div>
+                <strong>Holding Months: 
+                    <span id="holdingMonths">[Auto-calculate here in JS]</span>
+                </strong>
+            </div>
+
+            <div>
+                <strong>Interest Paid: 
+                    <span id="interestPaidDisplay">[Auto-calculate based on DOM]</span>
+                </strong>
+            </div>
+
+            <div>
+                <strong>Monthly Expenses: 
+                    <span id="monthlyExpenses">[Auto-calculate based on DOM]</span>
+                </strong>
+            </div>
+        </div>
+
+        <!-- Hard Money Loan Breakdown Report Section -->
+        <h2>Fix & Flip Key Metrics Report</h2>
+        <div class="report-section">
+            <h3>Hard Money Loan Breakdown Report</h3>
+            <div class="report">
+                <label for="totalLoanAmount">Total Loan Amount</label>
+                <input type="text" id="totalLoanAmount" readonly placeholder="Total Loan Amount" />
+            </div>
+            <div class="report">
+                <label for="loanPointsAmount">Loan Points Amount</label>
+                <input type="text" id="loanPointsAmount" readonly placeholder="Loan Points Amount" />
+            </div>
+            <div class="report">
+                <label for="loanTermAmount">Loan Term Amount</label>
+                <input type="text" id="loanTermAmount" readonly placeholder="Loan Term Amount" />
+            </div>
+        </div>
+
+        <!-- Fix and Flip Key Metrics Form -->
+        <div class="section">
+          <label for="purchase-price">Purchase Price</label>
+          <input type="text" id="purchase-price" placeholder="Enter the purchase price" />
+    
+          <label for="rehab-costs">Rehab Costs</label>
+          <input type="text" id="rehab-costs" placeholder="Enter the rehab costs" />
+    
+          <label for="arv">After Repair Value (ARV)</label>
+          <input type="text" id="arv" placeholder="Enter the ARV" />
+    
+          <label for="sales-commission">Sales Commission (%)</label>
+          <select id="sales-commission">
+            <option value="" disabled selected>Select Commission %</option>
+            <option value="3">3%</option>
+            <option value="4">4%</option>
+            <option value="5">5%</option>
+            <option value="6">6%</option>
+            <option value="7">7%</option>
+            <option value="8">8%</option>
+          </select>
+    
+          <label for="total-project-costs">Total Project Costs</label>
+          <input type="text" id="total-project-costs" placeholder="Enter total project costs" readonly />
+    
+          <label for="estimated-profit">Estimated Profit</label>
+          <input type="text" id="estimated-profit" placeholder="Enter estimated profit" readonly />
+    
+          <label for="gross-profit-margin">Gross Profit Margin</label>
+          <input type="text" id="gross-profit-margin" placeholder="Enter gross profit margin" readonly />
+    
+          <label for="profit-margin">Profit Margin</label>
+          <input type="text" id="profit-margin" placeholder="Enter profit margin" readonly />
+    
+          <label for="cash-on-cash-return">Cash on Cash Return</label>
+          <input type="text" id="cash-on-cash-return" placeholder="Enter cash on cash return" readonly />
+    
+          <label for="cap-rate">Cap Rate</label>
+          <input type="text" id="cap-rate" placeholder="Enter cap rate" readonly />
+    
+          <label for="dom">DOM (Turnaround Time)</label>
+          <input type="text" id="dom" placeholder="Enter DOM (Turnaround Time)" readonly />
+        </div>
+    
+        <!-- Fix and Flip Report Section -->
+        <div class="report-section">
+          <h3>Fix and Flip Report</h3>
+          <ul>
+            <li><strong>Purchase Price:</strong> <span class="green-text">$0</span></li>
+            <li><strong>Rehab Costs:</strong> <span class="green-text">$0</span></li>
+            <li><strong>After Repair Value (ARV):</strong> <span class="green-text">$0</span></li>
+            <li><strong>Sales Commission (%):</strong> <span class="green-text">0%</span></li>
+            <li><strong>Total Project Costs:</strong> <span class="green-text">$0</span></li>
+            <li><strong>Estimated Profit:</strong> <span class="green-text">$0</span></li>
+            <li><strong>Gross Profit Margin:</strong> <span class="green-text">0%</span></li>
+            <li><strong>Profit Margin:</strong> <span class="green-text">0%</span></li>
+            <li><strong>Cash on Cash Return:</strong> <span class="green-text">0%</span></li>
+            <li><strong>Cap Rate:</strong> <span class="green-text">0%</span></li>
+            <li><strong>DOM (Turnaround Time):</strong> <span class="green-text">0 months</span></li>
+            <li><strong>Holding Months:</strong> <span class="green-text">0 months</span></li>
+            <li><strong>Interest Paid:</strong> <span class="green-text">$0</span></li>
+            <li><strong>Monthly Expenses:</strong> <span class="green-text">$0</span></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
-  
+   
 </body>
 </html>
